@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.cedriccarsitter.com/sitemap.xmlUser-agent: *
+Allow: /
+
+Sitemap: https://www.cedriccarsitter.com/sitemap.xml
