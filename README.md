@@ -1,6 +1,6 @@
 # Cedric CarSitter 🚗💼
 
-![Cedric CarSitter Logo](https://cedriccarsitter.com/logo)
+![Cedric CarSitter Logo](https://cedriccarsitter.com/logo.svg)
 
 > **Automotive Asset Management & Revenue Optimization in Barcelona.**
 > *Transforming dormant vehicles into profitable assets.*
