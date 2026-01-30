@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur CarSitter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Font if needed, using system sans for now */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .blob { animation: blob 7s infinite; }
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar -->
+    <div class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col shadow-lg z-20 overflow-y-auto">
+        <div class="p-6 border-b border-gray-100">
+            <h1 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <i data-lucide="layout" class="text-orange-500"></i>
+                CarSitter Studio
+            </h1>
+            <p class="text-xs text-gray-400 mt-1">Version HTML Simplifiée</p>
+        </div>
+
+        <div class="p-6 space-y-6">
+            <!-- Format Selection -->
+            <div>
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-3">1. Support</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="setFormat('phone')" id="btn-phone" class="format-btn active flex flex-col items-center gap-2 p-3 rounded-lg text-xs font-medium border transition-all bg-blue-50 text-blue-600 border-blue-200">
+                        <i data-lucide="smartphone" size="16"></i> Phone
+                    </button>
+                    <button onclick="setFormat('desktop')" id="btn-desktop" class="format-btn flex flex-col items-center gap-2 p-3 rounded-lg text-xs font-medium border transition-all bg-white text-gray-500 border-gray-200 hover:bg-gray-50">
+                        <i data-lucide="monitor" size="16"></i> PC
+                    </button>
+                    <button onclick="setFormat('banner')" id="btn-banner" class="format-btn flex flex-col items-center gap-2 p-3 rounded-lg text-xs font-medium border transition-all bg-white text-gray-500 border-gray-200 hover:bg-gray-50">
+                        <i data-lucide="share-2" size="16"></i> Ban.
+                    </button>
+                </div>
+            </div>
+
+            <!-- Style Selection -->
+            <div>
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-3">2. Style</label>
+                <div class="space-y-2">
+                    <button onclick="setStyle('modern')" id="btn-modern" class="style-btn active w-full flex items-center gap-3 p-3 rounded-xl border transition-all border-orange-400 bg-orange-50">
+                        <div class="p-2 rounded-full bg-orange-500 text-white"><i data-lucide="grid" size="16"></i></div>
+                        <span class="font-medium text-gray-800">Patchwork</span>
+                    </button>
+                    <button onclick="setStyle('focus')" id="btn-focus" class="style-btn w-full flex items-center gap-3 p-3 rounded-xl border transition-all border-gray-200 bg-white hover:border-gray-300">
+                        <div class="p-2 rounded-full bg-gray-100 text-gray-400"><i data-lucide="camera" size="16"></i></div>
+                        <span class="font-medium text-gray-500">Focus Terrain</span>
+                    </button>
+                    <button onclick="setStyle('clean')" id="btn-clean" class="style-btn w-full flex items-center gap-3 p-3 rounded-xl border transition-all border-gray-200 bg-white hover:border-gray-300">
+                        <div class="p-2 rounded-full bg-gray-100 text-gray-400"><i data-lucide="shield" size="16"></i></div>
+                        <span class="font-medium text-gray-500">Minimaliste</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Text Inputs -->
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-3">
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="type" size="14"></i> 3. Textes
+                </label>
+                <div>
+                    <label class="text-[10px] text-gray-500 uppercase">Sous-titre</label>
+                    <input type="text" id="input-subtitle" value="GESTION & CONCIERGERIE" oninput="updateText()" class="w-full p-2 text-sm border rounded focus:border-orange-500 outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-500 uppercase">Site Web</label>
+                    <input type="text" id="input-website" value="cedriccarsitter.com" oninput="updateText()" class="w-full p-2 text-sm border rounded focus:border-orange-500 outline-none">
+                </div>
+            </div>
+            
+            <!-- Actions -->
+             <div class="pt-4 border-t border-gray-100">
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-3">4. Mode</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="setMode('mockup')" id="btn-mode-mockup" class="mode-btn active p-2 text-xs font-bold rounded flex items-center justify-center gap-2 bg-gray-800 text-white">
+                        <i data-lucide="maximize" size="14"></i> Aperçu
+                    </button>
+                    <button onclick="setMode('flat')" id="btn-mode-flat" class="mode-btn p-2 text-xs font-bold rounded flex items-center justify-center gap-2 bg-white text-gray-600 border">
+                        <i data-lucide="eye" size="14"></i> Capture
+                    </button>
+                </div>
+                <p id="capture-hint" class="hidden text-[10px] text-center mt-2 text-orange-600 bg-orange-50 p-1 rounded">
+                    L'image est prête. Fais une capture d'écran (Screenshot) maintenant.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Area -->
+    <div class="flex-1 bg-gray-200 flex items-center justify-center p-4 relative overflow-hidden">
+        <!-- Grid Background -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+        <!-- THE DEVICE/CANVAS -->
+        <div id="device-container" class="relative bg-white shadow-2xl transition-all duration-500 overflow-hidden border-8 border-gray-800 rounded-[2.5rem]" style="width: 300px; height: 650px;">
+            
+            <!-- Notch (Phone only) -->
+            <div id="notch" class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-xl w-32 mx-auto z-50 transition-opacity"></div>
+
+            <!-- Content Container -->
+            <div id="content-area" class="w-full h-full relative bg-white overflow-hidden">
+                <!-- Content injected by JS -->
+            </div>
+
+            <!-- Glare Effect -->
+            <div id="glare" class="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-10 pointer-events-none"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const images = {
+            portrait: "cedricvis.png",
+            logo: "logo_1_transparent.png",
+            logoFull: "logo.svg"
+        };
+        
+        let state = {
+            format: 'phone',
+            style: 'modern',
+            mode: 'mockup',
+            text: {
+                subtitle: 'GESTION & CONCIERGERIE',
+                website: 'cedriccarsitter.com'
+            }
+        };
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Render Function
+        function render() {
+            const container = document.getElementById('content-area');
+            let html = '';
+
+            // --- STYLES ---
+            if (state.style === 'modern') {
+                const isLand = state.format !== 'phone';
+                const gridCols = isLand ? 'grid-cols-6' : 'grid-cols-3';
+                const logoCount = isLand ? 40 : 24;
+                
+                let logosHtml = '';
+                for(let i=0; i<logoCount; i++) {
+                    logosHtml += `<div class="flex items-center justify-center"><img src="${images.logo}" class="w-12 h-auto grayscale opacity-50"></div>`;
+                }
+
+                html = `
+                    <div class="relative h-full w-full overflow-hidden bg-white flex flex-col items-center justify-center">
+                        <div class="absolute inset-0 opacity-10 grid ${gridCols} gap-4 p-4 transform -rotate-12 scale-150 pointer-events-none">
+                            ${logosHtml}
+                        </div>
+                        <div class="z-10 w-full h-full flex ${isLand && state.format !== 'banner' ? 'flex-row px-10 items-center justify-around' : 'flex-col items-center justify-between py-16'}">
+                             <div class="${state.format === 'banner' ? 'w-1/4' : (isLand ? 'w-1/3' : 'w-4/5')}">
+                                <img src="${images.logoFull}" class="w-full h-auto drop-shadow-lg">
+                                ${isLand && state.format !== 'banner' ? `<p class="mt-4 text-[#2980b9] font-bold text-center text-sm">${state.text.website}</p>` : ''}
+                             </div>
+                             
+                             <div class="relative flex-shrink-0">
+                                <div class="absolute inset-0 bg-orange-500 rounded-full blur-xl opacity-20 transform translate-y-2"></div>
+                                <div class="${state.format === 'banner' ? 'w-24 h-24' : 'w-48 h-48'} rounded-full overflow-hidden border-4 border-white shadow-2xl relative bg-gray-100 z-10">
+                                    <img src="${images.portrait}" class="w-full h-full object-cover scale-110 translate-y-2">
+                                </div>
+                             </div>
+
+                             ${(!isLand || state.format === 'banner') ? `
+                                <div class="text-center space-y-1">
+                                    <p class="text-gray-800 font-bold ${state.format === 'banner' ? 'text-sm' : 'text-lg'} tracking-wider uppercase">${state.text.subtitle}</p>
+                                    <p class="text-[#2980b9] font-medium ${state.format === 'banner' ? 'text-xs' : 'text-sm'}">${state.text.website}</p>
+                                </div>
+                             ` : ''}
+                        </div>
+                    </div>
+                `;
+            } else if (state.style === 'focus') {
+                const isLand = state.format !== 'phone';
+                html = `
+                    <div class="relative h-full w-full bg-gray-900 flex overflow-hidden">
+                        <div class="absolute inset-0 z-0">
+                            <img src="${images.portrait}" class="w-full h-full object-cover opacity-50 mix-blend-overlay ${isLand ? 'object-right' : 'object-center'}">
+                            <div class="absolute inset-0 bg-gradient-to-${isLand ? 'r' : 't'} from-gray-900 via-gray-900/80 to-transparent"></div>
+                        </div>
+                        <div class="z-10 relative w-full h-full flex ${isLand ? 'flex-row items-center px-12 gap-8' : 'flex-col items-center justify-between py-20 px-6'}">
+                            <div class="${isLand ? 'w-1/2 text-left' : 'w-full text-center'}">
+                                <div class="bg-white/95 backdrop-blur-md p-6 rounded-lg shadow-lg border-l-4 border-[#f39c12]">
+                                    <img src="${images.logoFull}" class="w-full max-w-[200px] h-auto mx-auto md:mx-0">
+                                </div>
+                            </div>
+                            <div class="${isLand ? 'w-1/2 text-left' : 'w-full text-center'}">
+                                <h2 class="text-white text-2xl md:text-3xl font-bold mb-2 leading-tight">Votre voiture,<br>ma responsabilité.</h2>
+                                <p class="text-orange-400 font-bold mt-2 text-sm uppercase">${state.text.subtitle}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (state.style === 'clean') {
+                const isLand = state.format !== 'phone';
+                
+                if (state.format === 'desktop') {
+                     html = `
+                        <div class="relative h-full w-full bg-[#f4f6f7] flex items-center justify-center overflow-hidden">
+                            <div class="absolute top-0 right-0 w-96 h-96 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+                            <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#2980b9] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+                            <div class="absolute inset-y-0 right-0 w-1/2 flex flex-col justify-center items-center pr-20 space-y-8 z-10">
+                                <div class="relative w-48 h-48 rounded-2xl overflow-hidden shadow-2xl rotate-3 bg-white">
+                                    <img src="${images.portrait}" class="w-full h-full object-cover">
+                                </div>
+                                <img src="${images.logoFull}" class="w-64 h-auto">
+                                <div class="text-right w-full border-r-4 border-[#f39c12] pr-4">
+                                    <p class="text-gray-600 font-medium uppercase">${state.text.subtitle}</p>
+                                    <p class="text-[#2980b9] font-bold">${state.text.website}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (state.format === 'banner') {
+                    html = `
+                        <div class="relative h-full w-full bg-[#f4f6f7] flex items-center overflow-hidden px-12">
+                             <div class="absolute top-0 right-0 w-64 h-64 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                             <div class="w-1/4"></div>
+                             <div class="flex items-center gap-6 z-10">
+                                <img src="${images.logoFull}" class="h-16 w-auto">
+                                <div class="h-12 w-px bg-gray-300"></div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800 text-lg uppercase">${state.text.subtitle}</h3>
+                                    <p class="text-[#2980b9] text-sm">${state.text.website}</p>
+                                </div>
+                             </div>
+                             <img src="${images.logo}" class="absolute right-12 h-24 w-auto opacity-10">
+                        </div>
+                    `;
+                } else { // Phone
+                    html = `
+                        <div class="relative h-full w-full bg-[#f4f6f7] flex flex-col items-center justify-center overflow-hidden gap-8">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                            <div class="absolute bottom-0 left-0 w-64 h-64 bg-[#2980b9] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                            
+                            <img src="${images.logo}" class="w-24 h-auto drop-shadow-md opacity-80 z-10">
+                            <div class="relative w-64 aspect-square rounded-2xl overflow-hidden shadow-xl z-10 bg-white">
+                                <img src="${images.portrait}" class="w-full h-full object-cover">
+                            </div>
+                            <img src="${images.logoFull}" class="w-full h-auto mt-4 z-10 px-8">
+                             <div class="text-center z-10">
+                                <p class="text-gray-600 font-medium uppercase text-sm">${state.text.subtitle}</p>
+                             </div>
+                        </div>
+                    `;
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Action Functions
+        function setFormat(fmt) {
+            state.format = fmt;
+            updateUI();
+        }
+
+        function setStyle(stl) {
+            state.style = stl;
+            updateUI();
+        }
+
+        function setMode(md) {
+            state.mode = md;
+            updateUI();
+        }
+        
+        function updateText() {
+            state.text.subtitle = document.getElementById('input-subtitle').value;
+            state.text.website = document.getElementById('input-website').value;
+            render();
+        }
+
+        function updateUI() {
+            // Update Buttons
+            document.querySelectorAll('.format-btn, .style-btn, .mode-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-50', 'text-blue-600', 'border-blue-200', 'border-orange-400', 'bg-orange-50', 'bg-gray-800', 'text-white');
+                b.classList.add('bg-white', 'text-gray-500', 'border-gray-200'); // Default reset
+            });
+
+            // Re-apply Active States
+            const fBtn = document.getElementById(`btn-${state.format}`);
+            fBtn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+            fBtn.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200');
+
+            const sBtn = document.getElementById(`btn-${state.style}`);
+            sBtn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+            sBtn.classList.add('bg-orange-50', 'text-gray-800', 'border-orange-400');
+            
+            const mBtn = document.getElementById(`btn-mode-${state.mode}`);
+            mBtn.classList.remove('bg-white', 'text-gray-600');
+            mBtn.classList.add('bg-gray-800', 'text-white');
+
+            // Update Device Dimensions
+            const device = document.getElementById('device-container');
+            const notch = document.getElementById('notch');
+            const glare = document.getElementById('glare');
+            const hint = document.getElementById('capture-hint');
+
+            if (state.format === 'phone') {
+                device.style.width = '300px';
+                device.style.height = '650px';
+                device.style.borderRadius = state.mode === 'mockup' ? '2.5rem' : '0';
+                notch.style.opacity = state.mode === 'mockup' ? '1' : '0';
+            } else if (state.format === 'desktop') {
+                device.style.width = '640px';
+                device.style.height = '360px';
+                device.style.borderRadius = state.mode === 'mockup' ? '0.5rem' : '0';
+                notch.style.opacity = '0';
+            } else { // Banner
+                device.style.width = '640px';
+                device.style.height = '160px';
+                device.style.borderRadius = state.mode === 'mockup' ? '0.5rem' : '0';
+                notch.style.opacity = '0';
+            }
+
+            if (state.mode === 'flat') {
+                device.classList.remove('shadow-2xl', 'border-8', 'border-gray-800');
+                device.classList.add('shadow-none', 'border-0');
+                glare.style.opacity = '0';
+                hint.classList.remove('hidden');
+            } else {
+                device.classList.add('shadow-2xl', 'border-8', 'border-gray-800');
+                device.classList.remove('shadow-none', 'border-0');
+                glare.style.opacity = '0.1';
+                hint.classList.add('hidden');
+            }
+
+            render();
+        }
+
+        // Initial Render
+        updateUI();
+
+    </script>
+</body>
+</html>
