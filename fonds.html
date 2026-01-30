@@ -1,331 +1,289 @@
-import React, { useState } from 'react';
-import { Camera, Grid, Shield, Smartphone, Monitor, Share2, Layout, Type, Image as ImageIcon, Layers } from 'lucide-react';
-
-const WallpaperGenerator = () => {
-  const [activeStyle, setActiveStyle] = useState('geometric');
-  const [activeFormat, setActiveFormat] = useState('phone');
-  const [activeVisual, setActiveVisual] = useState('portrait'); // portrait, logoC, logoFull
-  
-  // Texte personnalisable
-  const [customText, setCustomText] = useState({
-    title: 'CEDRIC CARSITTER',
-    subtitle: 'GESTION & CONCIERGERIE',
-    website: 'cedriccarsitter.com',
-    quote: 'Votre voiture,\nma responsabilité.'
-  });
-
-  // Fichiers images (Noms basés sur tes uploads)
-  const images = {
-    portrait: "cedricvis.png",
-    logoTransparent: "logo_1_transparent.png", 
-    logoFull: "Logo.png",
-    logoBlueIcon: "iconepng.png (1).jpg",
-    logoWhiteBg: "1767831875160.jpg"
-  };
-
-  const styles = [
-    { id: 'geometric', name: 'Géométrie & Fusion', icon: <Layers size={18} /> },
-    { id: 'modern', name: 'Patchwork Graphique', icon: <Grid size={18} /> },
-    { id: 'focus', name: 'L\'Expert Terrain', icon: <Camera size={18} /> },
-    { id: 'clean', name: 'Minimaliste', icon: <Shield size={18} /> }
-  ];
-
-  const formats = [
-    { id: 'phone', name: 'Téléphone', icon: <Smartphone size={18} />, dims: 'w-[300px] h-[650px]' },
-    { id: 'desktop', name: 'Ordinateur', icon: <Monitor size={18} />, dims: 'w-[640px] h-[360px]' },
-    { id: 'banner', name: 'Bannière', icon: <Share2 size={18} />, dims: 'w-[640px] h-[160px]' }
-  ];
-
-  const visuals = [
-    { id: 'portrait', name: 'Photo Cédric', src: images.portrait },
-    { id: 'logoC', name: 'Logo "C" Orange', src: images.logoTransparent },
-    { id: 'logoBlue', name: 'Icône "C" Bleu', src: images.logoBlueIcon },
-    { id: 'logoFull', name: 'Logo Texte', src: images.logoFull }
-  ];
-
-  // --- STYLE : GÉOMÉTRIE & FUSION (NOUVEAU) ---
-  const StyleGeometric = ({ format }) => {
-    const isLandscape = format === 'desktop' || format === 'banner';
-    const isBanner = format === 'banner';
-
-    // Choix de l'image centrale selon le sélecteur
-    const mainImage = visuals.find(v => v.id === activeVisual)?.src || images.portrait;
-    const isPortrait = activeVisual === 'portrait';
-
-    return (
-      <div className="relative h-full w-full overflow-hidden bg-white flex flex-col">
-        {/* FORMES ABSTRAITES (Le "Jeu de découpe") */}
-        
-        {/* Grand Cercle Orange Coupé (Haut Droite) */}
-        <div className={`absolute -top-20 -right-20 rounded-full bg-[#f39c12] z-0 opacity-90
-          ${isLandscape ? 'w-[400px] h-[400px]' : 'w-[350px] h-[350px]'}`}></div>
-        
-        {/* Cercle Bleu Coupé (Bas Gauche) */}
-        <div className={`absolute -bottom-10 -left-10 rounded-full bg-[#2980b9] z-0
-          ${isLandscape ? 'w-[500px] h-[500px] opacity-10' : 'w-[400px] h-[400px] opacity-10'}`}></div>
-
-        {/* Ligne de force oblique */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-           <div className="absolute top-1/2 left-1/2 w-[200%] h-32 bg-[#2980b9]/5 -rotate-45 -translate-x-1/2 -translate-y-1/2 transform"></div>
-           <div className="absolute top-1/2 left-1/2 w-[200%] h-2 bg-[#f39c12] -rotate-45 -translate-x-1/2 -translate-y-1/2 transform mt-16"></div>
-        </div>
-
-        {/* Contenu Principal */}
-        <div className={`z-10 relative h-full w-full flex ${isLandscape ? 'flex-row items-center justify-center gap-12 px-10' : 'flex-col items-center justify-center gap-8 py-10'}`}>
-            
-            {/* L'Image Centrale (Dans une forme géométrique) */}
-            <div className={`relative ${isBanner ? 'w-24 h-24' : 'w-48 h-48'} flex-shrink-0 group`}>
-                {/* Cadres décalés pour effet graphique */}
-                <div className="absolute inset-0 border-4 border-[#2980b9] rounded-2xl transform rotate-6 opacity-30"></div>
-                <div className="absolute inset-0 bg-[#f39c12] rounded-2xl transform -rotate-3 opacity-20"></div>
-                
-                {/* Le visuel */}
-                <div className="relative w-full h-full bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-white">
-                  <img 
-                    src={mainImage} 
-                    alt="Visuel Principal" 
-                    className={`w-full h-full object-cover ${!isPortrait ? 'p-2' : 'scale-110 translate-y-2'}`} 
-                  />
-                </div>
-            </div>
-
-            {/* Texte Graphique */}
-            <div className={`${isLandscape ? 'text-left' : 'text-center'} max-w-xs`}>
-                <h2 className="text-3xl font-black text-gray-800 leading-none tracking-tighter">
-                  {customText.title.split(' ')[0]}
-                  <span className="text-[#f39c12] block">{customText.title.split(' ')[1]}</span>
-                </h2>
-                <div className="w-12 h-2 bg-[#2980b9] mt-2 mb-2 rounded-full inline-block"></div>
-                <p className="font-bold text-gray-500 tracking-widest text-sm uppercase">{customText.subtitle}</p>
-                <p className="text-[#2980b9] text-xs font-mono mt-1">{customText.website}</p>
-            </div>
-        </div>
-
-        {/* Logo C en filigrane géant (fond) */}
-        <img src={images.logoTransparent} className="absolute -bottom-20 -right-20 w-64 h-64 opacity-5 rotate-12 pointer-events-none" />
-      </div>
-    );
-  };
-
-  // --- STYLE : PATCHWORK GRAPHIQUE ---
-  const StyleModern = ({ format }) => {
-    const isLandscape = format === 'desktop' || format === 'banner';
-    const mainImage = visuals.find(v => v.id === activeVisual)?.src || images.portrait;
-    const isPortrait = activeVisual === 'portrait';
-
-    return (
-      <div className="relative h-full w-full overflow-hidden bg-white flex flex-col items-center justify-center">
-        <div className={`absolute inset-0 opacity-10 grid ${isLandscape ? 'grid-cols-6' : 'grid-cols-3'} gap-4 p-4 transform -rotate-12 scale-150 pointer-events-none`}>
-          {Array.from({ length: isLandscape ? 40 : 24 }).map((_, i) => (
-             <div key={i} className="flex items-center justify-center">
-               <img src={images.logoTransparent} alt="" className="w-12 h-auto grayscale" />
-             </div>
-          ))}
-        </div>
-
-        <div className={`z-10 w-full h-full flex ${isLandscape ? 'flex-row items-center justify-around px-10' : 'flex-col items-center justify-between py-16'}`}>
-          <div className={`${format === 'banner' ? 'w-1/4' : isLandscape ? 'w-1/3' : 'w-4/5'} animate-fade-in-down`}>
-            <img src={images.logoFull} alt="Cedric CarSitter" className="w-full h-auto drop-shadow-lg" />
-          </div>
-
-          <div className="relative flex-shrink-0">
-            <div className="absolute inset-0 bg-orange-500 rounded-full blur-xl opacity-20 transform translate-y-2"></div>
-            <div className={`${format === 'banner' ? 'w-24 h-24' : 'w-48 h-48'} rounded-full overflow-hidden border-4 border-white shadow-2xl relative bg-gray-100`}>
-              <img src={mainImage} alt="Main" className={`w-full h-full object-cover ${!isPortrait && 'p-4 object-contain'} ${isPortrait && 'scale-110 translate-y-2'}`} />
-            </div>
-          </div>
-
-          {(!isLandscape || format === 'banner') && (
-            <div className="text-center space-y-1">
-              <p className={`text-gray-800 font-bold ${format === 'banner' ? 'text-sm' : 'text-lg'} tracking-wider uppercase`}>{customText.subtitle}</p>
-              <p className="text-[#2980b9] font-medium text-sm">{customText.website}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  // --- STYLE : L'EXPERT TERRAIN ---
-  const StyleFocus = ({ format }) => {
-    const isLandscape = format === 'desktop' || format === 'banner';
-    // Force portrait for background in this style, but allow main image swap if needed conceptually? 
-    // Actually, Focus style works best with the human photo as background. Let's keep portrait as bg.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarSitter Studio - Générateur</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel pour compiler le JSX dans le navigateur -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    return (
-      <div className="relative h-full w-full bg-gray-900 flex overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src={images.portrait} alt="Cédric" className={`w-full h-full object-cover opacity-40 mix-blend-overlay ${isLandscape ? 'object-right' : 'object-center'}`} />
-          <div className={`absolute inset-0 bg-gradient-to-${isLandscape ? 'r' : 't'} from-[#2c3e50] via-[#2c3e50]/90 to-[#f39c12]/10`}></div>
-        </div>
+    <style>
+        /* Animations et styles spécifiques */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animate-fade-in-down { animation: fadeInDown 0.8s ease-out; }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 h-screen overflow-hidden">
+    <div id="root" class="h-full"></div>
 
-        <div className={`z-10 relative w-full h-full flex ${isLandscape ? 'flex-row items-center px-12 gap-8' : 'flex-col items-center justify-between py-20 px-6'}`}>
-          <div className={`${isLandscape ? 'w-1/2 text-left' : 'w-full text-center'}`}>
-             <div className="bg-white/95 backdrop-blur-md p-6 rounded-lg shadow-lg border-l-4 border-[#f39c12]">
-                <img src={images.logoFull} alt="Logo" className="w-full max-w-[200px] h-auto mx-auto md:mx-0" />
-             </div>
-          </div>
-          <div className={`${isLandscape ? 'w-1/2 text-left' : 'w-full text-center'}`}>
-              <h2 className="text-white text-2xl md:text-3xl font-bold mb-2 leading-tight whitespace-pre-line font-sans">
-                "{customText.quote}"
-              </h2>
-              <div className="w-20 h-1 bg-[#f39c12] mt-4 mb-2 rounded-full mx-auto md:mx-0"></div>
-              <p className="text-gray-300 text-sm tracking-widest uppercase">{customText.subtitle}</p>
-          </div>
-        </div>
-      </div>
-    );
-  };
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  const currentFormat = formats.find(f => f.id === activeFormat);
+        // --- ICONES SVG (Pour éviter les dépendances externes complexes) ---
+        const Icon = ({ path }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {path}
+            </svg>
+        );
 
-  return (
-    <div className="flex flex-col lg:flex-row h-screen bg-gray-100 font-sans text-gray-800">
-      
-      {/* SIDEBAR DE CONTRÔLE */}
-      <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-20">
-        <div className="p-5 border-b border-gray-100 bg-gray-50">
-          <h1 className="text-xl font-bold text-[#2c3e50] flex items-center gap-2">
-            <Layout className="text-[#f39c12]" />
-            CarSitter Studio
-          </h1>
-          <p className="text-xs text-gray-400">Design & Identité Visuelle</p>
-        </div>
+        const icons = {
+            Layout: <Icon path={<><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></>} />,
+            Smartphone: <Icon path={<><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></>} />,
+            Monitor: <Icon path={<><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></>} />,
+            Share2: <Icon path={<><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></>} />,
+            Layers: <Icon path={<><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>} />,
+            Grid: <Icon path={<><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></>} />,
+            Camera: <Icon path={<><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></>} />,
+            Shield: <Icon path={<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></>} />,
+            Image: <Icon path={<><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></>} />,
+            Type: <Icon path={<><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></>} />
+        };
 
-        <div className="p-5 space-y-6 overflow-y-auto flex-1 custom-scrollbar">
-          
-          {/* 1. SUPPORT */}
-          <section>
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">1. Choisir le Support</label>
-            <div className="grid grid-cols-3 gap-2">
-              {formats.map((fmt) => (
-                <button
-                  key={fmt.id}
-                  onClick={() => setActiveFormat(fmt.id)}
-                  className={`flex flex-col items-center gap-2 p-3 rounded-lg transition-all text-xs font-medium ${
-                    activeFormat === fmt.id
-                      ? 'bg-blue-50 text-[#2980b9] border-2 border-[#2980b9]'
-                      : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'
-                  }`}
-                >
-                  {fmt.icon}
-                  <span>{fmt.name}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* 2. STYLE */}
-          <section>
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">2. Choisir le Design</label>
-            <div className="space-y-2">
-              {styles.map((style) => (
-                <button
-                  key={style.id}
-                  onClick={() => setActiveStyle(style.id)}
-                  className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
-                    activeStyle === style.id
-                      ? 'border-[#f39c12] bg-orange-50 text-gray-800 shadow-sm'
-                      : 'border-gray-200 hover:border-gray-300 bg-white text-gray-500'
-                  }`}
-                >
-                  <div className={`p-2 rounded-full ${activeStyle === style.id ? 'bg-[#f39c12] text-white' : 'bg-gray-100 text-gray-400'}`}>
-                    {style.icon}
-                  </div>
-                  <span className="font-bold text-sm">{style.name}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* 3. VISUEL PRINCIPAL (NEW) */}
-          <section>
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-               <ImageIcon size={14} /> 3. Élément Visuel Central
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {visuals.map((vis) => (
-                <button
-                  key={vis.id}
-                  onClick={() => setActiveVisual(vis.id)}
-                  className={`relative p-2 rounded-lg border text-left flex items-center gap-2 transition-all ${
-                    activeVisual === vis.id
-                      ? 'border-[#2980b9] bg-blue-50 ring-1 ring-[#2980b9]'
-                      : 'border-gray-200 hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="w-8 h-8 rounded bg-gray-200 overflow-hidden flex-shrink-0">
-                    <img src={vis.src} alt="" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-xs font-medium truncate">{vis.name}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* 4. TEXTE */}
-          <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <Type size={14} /> 4. Textes
-            </label>
+        const WallpaperGenerator = () => {
+            const [activeStyle, setActiveStyle] = useState('geometric');
+            const [activeFormat, setActiveFormat] = useState('phone');
+            const [activeVisual, setActiveVisual] = useState('portrait');
             
-            <div className="space-y-3">
-               <div>
-                  <label className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Sous-titre / Métier</label>
-                  <input 
-                    type="text" 
-                    value={customText.subtitle}
-                    onChange={(e) => setCustomText({...customText, subtitle: e.target.value})}
-                    className="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#f39c12] outline-none font-medium"
-                  />
-               </div>
-               
-               {activeStyle === 'focus' && (
-                 <div>
-                    <label className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Citation (Focus)</label>
-                    <textarea 
-                      value={customText.quote}
-                      onChange={(e) => setCustomText({...customText, quote: e.target.value})}
-                      className="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#f39c12] outline-none h-16 resize-none"
-                    />
-                 </div>
-               )}
-            </div>
-          </section>
+            const [customText, setCustomText] = useState({
+                title: 'CEDRIC CARSITTER',
+                subtitle: 'GESTION & CONCIERGERIE',
+                website: 'cedriccarsitter.com',
+                quote: 'Votre voiture,\nma responsabilité.'
+            });
 
-        </div>
-      </div>
+            // Images locales (Doivent être dans le même dossier)
+            const images = {
+                portrait: "cedricvis.png",
+                logoTransparent: "logo_1_transparent.png", 
+                logoFull: "Logo.png",
+                logoBlueIcon: "iconepng.png (1).jpg",
+                logoWhiteBg: "1767831875160.jpg"
+            };
 
-      {/* ZONE DE PRÉVISUALISATION */}
-      <div className="flex-1 bg-gray-200 flex items-center justify-center p-8 overflow-hidden relative">
-        {/* Pattern de fond de l'interface */}
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-        
-        {/* L'APPAREIL */}
-        <div 
-          className={`relative bg-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 ease-in-out overflow-hidden border-8 border-gray-800 ${currentFormat.dims}`}
-          style={{ borderRadius: activeFormat === 'phone' ? '3rem' : '1rem' }}
-        >
-          {/* Encoche iPhone */}
-          {activeFormat === 'phone' && (
-             <div className="absolute top-0 inset-x-0 h-7 bg-gray-800 rounded-b-2xl w-36 mx-auto z-50"></div>
-          )}
+            const styles = [
+                { id: 'geometric', name: 'Géométrie & Fusion', icon: icons.Layers },
+                { id: 'modern', name: 'Patchwork Graphique', icon: icons.Grid },
+                { id: 'focus', name: 'L\'Expert Terrain', icon: icons.Camera },
+                { id: 'clean', name: 'Minimaliste', icon: icons.Shield }
+            ];
 
-          {/* Rendu du Design */}
-          <div className="w-full h-full bg-white">
-            {activeStyle === 'geometric' && <StyleGeometric format={activeFormat} />}
-            {activeStyle === 'modern' && <StyleModern format={activeFormat} />}
-            {activeStyle === 'focus' && <StyleFocus format={activeFormat} />}
-            {activeStyle === 'clean' && <StyleModern format={activeFormat} />} {/* Fallback clean to modern variant for now */}
-          </div>
+            const formats = [
+                { id: 'phone', name: 'Téléphone', icon: icons.Smartphone, dims: 'w-[300px] h-[650px]' },
+                { id: 'desktop', name: 'Ordinateur', icon: icons.Monitor, dims: 'w-[640px] h-[360px]' },
+                { id: 'banner', name: 'Bannière', icon: icons.Share2, dims: 'w-[640px] h-[160px]' }
+            ];
 
-          {/* Reflets écran */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-5 pointer-events-none rounded-[inherit]"></div>
-        </div>
+            const visuals = [
+                { id: 'portrait', name: 'Photo Cédric', src: images.portrait },
+                { id: 'logoC', name: 'Logo "C" Orange', src: images.logoTransparent },
+                { id: 'logoBlue', name: 'Icône "C" Bleu', src: images.logoBlueIcon },
+                { id: 'logoFull', name: 'Logo Texte', src: images.logoFull }
+            ];
 
-      </div>
-    </div>
-  );
-};
+            // --- COMPOSANTS DE STYLE ---
 
-export default WallpaperGenerator;
+            const StyleGeometric = ({ format }) => {
+                const isLandscape = format === 'desktop' || format === 'banner';
+                const isBanner = format === 'banner';
+                const mainImage = visuals.find(v => v.id === activeVisual)?.src || images.portrait;
+                const isPortrait = activeVisual === 'portrait';
+
+                return (
+                <div className="relative h-full w-full overflow-hidden bg-white flex flex-col">
+                    <div className={`absolute -top-20 -right-20 rounded-full bg-[#f39c12] z-0 opacity-90 ${isLandscape ? 'w-[400px] h-[400px]' : 'w-[350px] h-[350px]'}`}></div>
+                    <div className={`absolute -bottom-10 -left-10 rounded-full bg-[#2980b9] z-0 ${isLandscape ? 'w-[500px] h-[500px] opacity-10' : 'w-[400px] h-[400px] opacity-10'}`}></div>
+                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                        <div className="absolute top-1/2 left-1/2 w-[200%] h-32 bg-[#2980b9]/5 -rotate-45 -translate-x-1/2 -translate-y-1/2 transform"></div>
+                        <div className="absolute top-1/2 left-1/2 w-[200%] h-2 bg-[#f39c12] -rotate-45 -translate-x-1/2 -translate-y-1/2 transform mt-16"></div>
+                    </div>
+                    <div className={`z-10 relative h-full w-full flex ${isLandscape ? 'flex-row items-center justify-center gap-12 px-10' : 'flex-col items-center justify-center gap-8 py-10'}`}>
+                        <div className={`relative ${isBanner ? 'w-24 h-24' : 'w-48 h-48'} flex-shrink-0 group`}>
+                            <div className="absolute inset-0 border-4 border-[#2980b9] rounded-2xl transform rotate-6 opacity-30"></div>
+                            <div className="absolute inset-0 bg-[#f39c12] rounded-2xl transform -rotate-3 opacity-20"></div>
+                            <div className="relative w-full h-full bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-white">
+                                <img src={mainImage} alt="Visuel" className={`w-full h-full object-cover ${!isPortrait ? 'p-2' : 'scale-110 translate-y-2'}`} />
+                            </div>
+                        </div>
+                        <div className={`${isLandscape ? 'text-left' : 'text-center'} max-w-xs`}>
+                            <h2 className="text-3xl font-black text-gray-800 leading-none tracking-tighter">
+                                {customText.title.split(' ')[0]}
+                                <span className="text-[#f39c12] block">{customText.title.split(' ')[1] || ''}</span>
+                            </h2>
+                            <div className="w-12 h-2 bg-[#2980b9] mt-2 mb-2 rounded-full inline-block"></div>
+                            <p className="font-bold text-gray-500 tracking-widest text-sm uppercase">{customText.subtitle}</p>
+                            <p className="text-[#2980b9] text-xs font-mono mt-1">{customText.website}</p>
+                        </div>
+                    </div>
+                    <img src={images.logoTransparent} className="absolute -bottom-20 -right-20 w-64 h-64 opacity-5 rotate-12 pointer-events-none" />
+                </div>
+                );
+            };
+
+            const StyleModern = ({ format }) => {
+                const isLandscape = format === 'desktop' || format === 'banner';
+                const mainImage = visuals.find(v => v.id === activeVisual)?.src || images.portrait;
+                const isPortrait = activeVisual === 'portrait';
+
+                return (
+                <div className="relative h-full w-full overflow-hidden bg-white flex flex-col items-center justify-center">
+                    <div className={`absolute inset-0 opacity-10 grid ${isLandscape ? 'grid-cols-6' : 'grid-cols-3'} gap-4 p-4 transform -rotate-12 scale-150 pointer-events-none`}>
+                        {Array.from({ length: isLandscape ? 40 : 24 }).map((_, i) => (
+                            <div key={i} className="flex items-center justify-center">
+                                <img src={images.logoTransparent} className="w-12 h-auto grayscale" />
+                            </div>
+                        ))}
+                    </div>
+                    <div className={`z-10 w-full h-full flex ${isLandscape ? 'flex-row items-center justify-around px-10' : 'flex-col items-center justify-between py-16'}`}>
+                        <div className={`${format === 'banner' ? 'w-1/4' : isLandscape ? 'w-1/3' : 'w-4/5'} animate-fade-in-down`}>
+                            <img src={images.logoFull} className="w-full h-auto drop-shadow-lg" />
+                        </div>
+                        <div className="relative flex-shrink-0">
+                            <div className="absolute inset-0 bg-orange-500 rounded-full blur-xl opacity-20 transform translate-y-2"></div>
+                            <div className={`${format === 'banner' ? 'w-24 h-24' : 'w-48 h-48'} rounded-full overflow-hidden border-4 border-white shadow-2xl relative bg-gray-100`}>
+                                <img src={mainImage} className={`w-full h-full object-cover ${!isPortrait && 'p-4 object-contain'} ${isPortrait && 'scale-110 translate-y-2'}`} />
+                            </div>
+                        </div>
+                        {(!isLandscape || format === 'banner') && (
+                            <div className="text-center space-y-1">
+                                <p className={`text-gray-800 font-bold ${format === 'banner' ? 'text-sm' : 'text-lg'} tracking-wider uppercase`}>{customText.subtitle}</p>
+                                <p className="text-[#2980b9] font-medium text-sm">{customText.website}</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                );
+            };
+
+            const StyleFocus = ({ format }) => {
+                const isLandscape = format === 'desktop' || format === 'banner';
+                return (
+                <div className="relative h-full w-full bg-gray-900 flex overflow-hidden">
+                    <div className="absolute inset-0 z-0">
+                        <img src={images.portrait} className={`w-full h-full object-cover opacity-40 mix-blend-overlay ${isLandscape ? 'object-right' : 'object-center'}`} />
+                        <div className={`absolute inset-0 bg-gradient-to-${isLandscape ? 'r' : 't'} from-[#2c3e50] via-[#2c3e50]/90 to-[#f39c12]/10`}></div>
+                    </div>
+                    <div className={`z-10 relative w-full h-full flex ${isLandscape ? 'flex-row items-center px-12 gap-8' : 'flex-col items-center justify-between py-20 px-6'}`}>
+                        <div className={`${isLandscape ? 'w-1/2 text-left' : 'w-full text-center'}`}>
+                            <div className="bg-white/95 backdrop-blur-md p-6 rounded-lg shadow-lg border-l-4 border-[#f39c12]">
+                                <img src={images.logoFull} className="w-full max-w-[200px] h-auto mx-auto md:mx-0" />
+                            </div>
+                        </div>
+                        <div className={`${isLandscape ? 'w-1/2 text-left' : 'w-full text-center'}`}>
+                            <h2 className="text-white text-2xl md:text-3xl font-bold mb-2 leading-tight whitespace-pre-line font-sans">"{customText.quote}"</h2>
+                            <div className="w-20 h-1 bg-[#f39c12] mt-4 mb-2 rounded-full mx-auto md:mx-0"></div>
+                            <p className="text-gray-300 text-sm tracking-widest uppercase">{customText.subtitle}</p>
+                        </div>
+                    </div>
+                </div>
+                );
+            };
+
+            const currentFormat = formats.find(f => f.id === activeFormat);
+
+            return (
+                <div className="flex flex-col lg:flex-row h-screen bg-gray-100 font-sans text-gray-800">
+                    <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-20 h-full">
+                        <div className="p-5 border-b border-gray-100 bg-gray-50 flex-shrink-0">
+                            <h1 className="text-xl font-bold text-[#2c3e50] flex items-center gap-2">
+                                {icons.Layout} CarSitter Studio
+                            </h1>
+                            <p className="text-xs text-gray-400">Version Locale Autonome</p>
+                        </div>
+
+                        <div className="p-5 space-y-6 overflow-y-auto flex-1 custom-scrollbar">
+                            <section>
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">1. Support</label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    {formats.map((fmt) => (
+                                        <button key={fmt.id} onClick={() => setActiveFormat(fmt.id)} className={`flex flex-col items-center gap-2 p-3 rounded-lg transition-all text-xs font-medium ${activeFormat === fmt.id ? 'bg-blue-50 text-[#2980b9] border-2 border-[#2980b9]' : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'}`}>
+                                            {fmt.icon} <span>{fmt.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section>
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">2. Design</label>
+                                <div className="space-y-2">
+                                    {styles.map((style) => (
+                                        <button key={style.id} onClick={() => setActiveStyle(style.id)} className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${activeStyle === style.id ? 'border-[#f39c12] bg-orange-50 text-gray-800 shadow-sm' : 'border-gray-200 hover:border-gray-300 bg-white text-gray-500'}`}>
+                                            <div className={`p-2 rounded-full ${activeStyle === style.id ? 'bg-[#f39c12] text-white' : 'bg-gray-100 text-gray-400'}`}>{style.icon}</div>
+                                            <span className="font-bold text-sm">{style.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section>
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">{icons.Image} 3. Visuel Central</label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {visuals.map((vis) => (
+                                        <button key={vis.id} onClick={() => setActiveVisual(vis.id)} className={`relative p-2 rounded-lg border text-left flex items-center gap-2 transition-all ${activeVisual === vis.id ? 'border-[#2980b9] bg-blue-50 ring-1 ring-[#2980b9]' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                            <div className="w-8 h-8 rounded bg-gray-200 overflow-hidden flex-shrink-0 flex items-center justify-center text-[8px] text-gray-400 border">IMG</div>
+                                            <span className="text-xs font-medium truncate">{vis.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                                <p className="text-[10px] text-red-500 mt-1 italic">* Assurez-vous que les images sont dans le même dossier.</p>
+                            </section>
+
+                            <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">{icons.Type} 4. Textes</label>
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Sous-titre</label>
+                                        <input type="text" value={customText.subtitle} onChange={(e) => setCustomText({...customText, subtitle: e.target.value})} className="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#f39c12] outline-none font-medium" />
+                                    </div>
+                                    {activeStyle === 'focus' && (
+                                        <div>
+                                            <label className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Citation</label>
+                                            <textarea value={customText.quote} onChange={(e) => setCustomText({...customText, quote: e.target.value})} className="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#f39c12] outline-none h-16 resize-none" />
+                                        </div>
+                                    )}
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 bg-gray-200 flex items-center justify-center p-8 overflow-hidden relative">
+                        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+                        <div className={`relative bg-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 ease-in-out overflow-hidden border-8 border-gray-800 ${currentFormat.dims}`} style={{ borderRadius: activeFormat === 'phone' ? '3rem' : '1rem' }}>
+                            {activeFormat === 'phone' && <div className="absolute top-0 inset-x-0 h-7 bg-gray-800 rounded-b-2xl w-36 mx-auto z-50"></div>}
+                            <div className="w-full h-full bg-white">
+                                {activeStyle === 'geometric' && <StyleGeometric format={activeFormat} />}
+                                {activeStyle === 'modern' && <StyleModern format={activeFormat} />}
+                                {activeStyle === 'focus' && <StyleFocus format={activeFormat} />}
+                                {activeStyle === 'clean' && <StyleModern format={activeFormat} />}
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-5 pointer-events-none rounded-[inherit]"></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<WallpaperGenerator />);
+    </script>
+</body>
+</html>
