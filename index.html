@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cedric CarSitter | Barcelona</title>
-    
-    <meta name="description" content="Gestion locative, Logistique & Convoyage. Rentabilisez votre véhicule à Barcelone.">
+    <meta name="description" content="Gestion locative, Logistique & Convoyage. Rentabilisez votre vehículo à Barcelone.">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,10 +21,10 @@
     <style>
         html { scroll-behavior: smooth; }
         
-        /* Drapeaux Langues */
-        .lang-btn { opacity: 0.4; transition: all 0.3s ease; filter: grayscale(80%); }
-        .lang-btn.active { opacity: 1; transform: scale(1.2); filter: grayscale(0%); box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 50%; }
-        .lang-btn:hover { opacity: 1; }
+        /* Drapeaux */
+        .lang-btn { opacity: 0.5; transition: all 0.3s ease; filter: grayscale(100%); }
+        .lang-btn.active { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
+        .lang-btn:hover { opacity: 1; filter: grayscale(0%); }
 
         /* Bouton WhatsApp Flottant */
         .whatsapp-float {
@@ -63,22 +62,22 @@
                 </a>
 
                 <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3 bg-slate-50 rounded-full px-3 py-1 border border-slate-100">
                         <button onclick="changeLang('es')" class="lang-btn active">
-                            <img src="https://flagcdn.com/w40/es.png" width="24" height="24" alt="Español">
+                            <img src="https://flagcdn.com/w40/es.png" width="24" alt="ES">
                         </button>
                         <button onclick="changeLang('fr')" class="lang-btn">
-                            <img src="https://flagcdn.com/w40/fr.png" width="24" height="24" alt="Français">
+                            <img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR">
                         </button>
                         <button onclick="changeLang('en')" class="lang-btn">
-                            <img src="https://flagcdn.com/w40/gb.png" width="24" height="24" alt="English">
+                            <img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN">
                         </button>
                     </div>
 
                     <div class="hidden md:flex space-x-6 items-center">
-                        <a href="#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs" data-i18n="nav_exp">Experiencia</a>
-                        <a href="#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs" data-i18n="nav_inv">Inversión</a>
-                        <a href="#requisitos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs" data-i18n="nav_req">Requisitos</a>
+                        <a href="#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_exp">Experiencia</a>
+                        <a href="#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_inv">Inversión</a>
+                        <a href="#requisitos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_req">Requisitos</a>
                         <a href="#contacto" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide" data-i18n="nav_contact">WhatsApp</a>
                     </div>
                 </div>
