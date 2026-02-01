@@ -72,7 +72,7 @@
                     <div class="hidden md:flex space-x-6 items-center">
                         <a href="#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_exp">Experiencia</a>
                         <a href="#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_inv">Inversión</a>
-                        <a href="#requisitos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_req">Requisitos</a>
+                        <a href="#faq" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">FAQ</a>
                         <a href="#contacto" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide" data-i18n="nav_contact">WhatsApp</a>
                     </div>
                 </div>
@@ -153,35 +153,84 @@
     <section id="modelos" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4" data-i18n="mod_title">El Modelo "Ganar-Ganar"</h2>
-            <p class="text-slate-500 max-w-2xl mx-auto mb-16 text-lg font-medium" data-i18n="mod_subtitle">Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.</p>
+            <p class="text-slate-500 max-w-2xl mx-auto mb-16 text-lg font-medium" data-i18n="mod_subtitle">
+                Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.
+            </p>
             
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col">
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Phase 1 : Lancement</h3>
-                    <p class="text-3xl font-extrabold text-brand-blue mb-2">~500€<span class="text-sm text-slate-400 font-normal">/mes</span></p>
-                    <p class="text-slate-500 text-sm">Para 1-3 vehículos. Focus en reputación y primeras 5 estrellas.</p>
+                
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mx-auto mb-4 text-2xl">🔑</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="card1_title">Propietario</h3>
+                        <p class="text-slate-500 text-sm h-10" data-i18n="card1_desc">Ya tienes un coche que usas poco.</p>
+                    </div>
+                    
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100 text-left">
+                         <div class="flex justify-between text-sm text-slate-600 mb-2">
+                            <span data-i18n="c1_gross">Ingreso Bruto</span>
+                            <span class="font-bold">100%</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-red-400 mb-2">
+                            <span data-i18n="c1_costs">Gastos Operativos</span>
+                            <span>-30%</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                            <span class="font-bold text-slate-900" data-i18n="c1_net">Tu Neto</span>
+                            <span class="font-bold text-brand-blue text-xl">70%</span>
+                        </div>
+                    </div>
+
+                    <a href="#contacto" onclick="prefillMessage('Propietario')" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition mt-auto" data-i18n="btn_val">Valorar mi coche</a>
                 </div>
+
                 <div class="relative bg-white rounded-3xl p-8 border-2 border-brand-orange shadow-xl flex flex-col transform md:-translate-y-4">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Objetivo</div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Phase 2 : Escala</h3>
-                    <p class="text-3xl font-extrabold text-brand-blue mb-2">~1.500€<span class="text-sm text-slate-400 font-normal">/mes</span></p>
-                    <p class="text-slate-500 text-sm">Para 8-10 vehículos. Optimización Keyless y rotación alta.</p>
-                </div>
-                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col">
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Phase 3 : Crucero</h3>
-                    <p class="text-3xl font-extrabold text-brand-blue mb-2">~2.500€<span class="text-sm text-slate-400 font-normal">/mes</span></p>
-                    <p class="text-slate-500 text-sm">Para 15+ vehículos. Flota estabilizada y rentabilidad máxima.</p>
-                </div>
-            </div>
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Top Rentabilidad</div>
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-brand-orange mx-auto mb-4 text-2xl">📈</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="card2_title">Inversión Cash</h3>
+                        <p class="text-slate-500 text-sm h-10" data-i18n="card2_desc">Compra de vehículo de ocasión para alquilar.</p>
+                    </div>
 
-            <div class="bg-blue-50 rounded-xl p-4 max-w-2xl mx-auto border border-blue-100 text-sm text-slate-600 mb-16">
-                <strong>Base de cálculo:</strong> Precio medio 46€/día | Ocupación media 50% (15 días/mes) | Sin incluir costes variables.
-            </div>
+                    <div class="bg-orange-50 rounded-xl p-5 mb-6 border border-orange-100 text-left">
+                          <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-600" data-i18n="c2_ticket">Ticket entrada</span>
+                            <span class="font-bold text-slate-900">8k€ - 12k€</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-600" data-i18n="c2_roi">ROI Anual Neto</span>
+                            <span class="font-bold text-green-600">+15-25%</span>
+                        </div>
+                    </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <a href="#contacto" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition" data-i18n="btn_val">Valorar mi coche</a>
-                <a href="#contacto" class="w-full block text-center bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg" data-i18n="btn_opp">Ver oportunidades</a>
-                <a href="#contacto" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition" data-i18n="btn_lea">Estudio Leasing</a>
+                    <a href="#contacto" onclick="prefillMessage('Inversion')" class="w-full block text-center bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg mt-auto" data-i18n="btn_opp">Ver oportunidades</a>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mx-auto mb-4 text-2xl">🔄</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="card3_title">Leasing Nuevo</h3>
+                        <p class="text-slate-500 text-sm h-10" data-i18n="card3_desc">Autofinanciación de coche nuevo (48 meses).</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100 text-left">
+                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                            <span data-i18n="c3_inc">Ingreso Neto (tras 30%)</span>
+                            <span class="font-bold text-green-600">+500€</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-3">
+                            <span data-i18n="c3_fee">Cuota Leasing</span>
+                            <span class="font-bold text-red-400">-300€</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                            <span class="font-bold text-slate-900" data-i18n="c3_flow">Cashflow / mes</span>
+                            <span class="font-bold text-brand-blue text-xl">+200€</span>
+                        </div>
+                    </div>
+
+                    <a href="#contacto" onclick="prefillMessage('Leasing')" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition mt-auto" data-i18n="btn_lea">Estudio personalizado</a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -210,7 +259,38 @@
         </div>
     </section>
 
-    <section id="contacto" class="py-24 bg-slate-50">
+    <section id="faq" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900" data-i18n="faq_title">Preguntas Frecuentes</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="faq_q1">¿Cómo funciona el seguro?</h3>
+                    <p class="text-slate-600" data-i18n="faq_a1">
+                        Todos los alquileres están cubiertos por un seguro a Todo Riesgo. En caso de daños, la franquicia corre a cargo del conductor/cliente, nunca del propietario.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="faq_q2">¿Y si hay multas de tráfico?</h3>
+                    <p class="text-slate-600" data-i18n="faq_a2">
+                        CarSitter se encarga de la gestión. Identificamos al conductor responsable en el momento de la infracción y tramitamos la denuncia para que no te afecte.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="faq_q3">¿Cuándo recibo mis pagos?</h3>
+                    <p class="text-slate-600" data-i18n="faq_a3">
+                        Recibes un informe detallado y el pago de tus beneficios mensualmente, directamente en tu cuenta bancaria.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
                 <div class="bg-brand-blue p-10 md:w-2/5 text-white flex flex-col justify-between">
@@ -267,6 +347,7 @@
     </footer>
 
     <script>
+        // Translations Object including NEW keys for FAQ and Calculations
         const translations = {
             es: {
                 nav_exp: "Experiencia", nav_inv: "Inversión", nav_req: "Requisitos", nav_contact: "WhatsApp",
@@ -281,14 +362,30 @@
                 exp_p1_title: "Logística In-Situ", exp_p1_desc: "Gestión directa en Barcelona o en el aeropuerto. Recepción y entrega de llaves. Yo cuido tu coche.",
                 exp_p2_title: "Mantenimiento Impecable", exp_p2_desc: "Limpieza profesional, control de niveles y revisión de neumáticos antes de cada alquiler.",
                 exp_p3_title: "Transparencia Radical", exp_p3_desc: "Acceso total a los datos. Sabes cuándo se alquila tu coche y cuánto genera al momento.",
+                
+                // Old Calculation Models Keys
                 mod_title: "El Modelo \"Ganar-Ganar\"",
                 mod_subtitle: "Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.",
-                card1_title: "Propietario", card1_desc: "Tienes un coche que usas poco.",
-                card2_title: "Inversión Cash", card2_desc: "Compra de vehículo para alquilar (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Autofinanciación de coche nuevo.",
+                card1_title: "Propietario", card1_desc: "Ya tienes un coche que usas poco.",
+                c1_gross: "Ingreso Bruto", c1_costs: "Gastos Operativos", c1_net: "Tu Neto",
+                
+                card2_title: "Inversión Cash", card2_desc: "Compra de vehículo de ocasión para alquilar.",
+                c2_ticket: "Ticket entrada", c2_roi: "ROI Anual Neto",
+                
+                card3_title: "Leasing Nuevo", card3_desc: "Autofinanciación de coche nuevo (48 meses).",
+                c3_inc: "Ingreso Neto (tras 30%)", c3_fee: "Cuota Leasing", c3_flow: "Cashflow / mes",
+                
                 btn_val: "Valorar mi coche", btn_opp: "Ver oportunidades", btn_lea: "Estudio personalizado",
+
                 req_title: "Vehículos Elegibles", req_c1: "1. Obligatorio", req_list1: "Max 15 años / 150.000 km", req_list2: "Matrícula Española", req_list3: "ITV + Seguro en vigor",
                 req_c2: "2. CarSitter Standard", req_list4: "Cierre centralizado (Sin llave)", req_list5: "Etiqueta ZBE (B, C, ECO, 0)", req_list6: "Estado impecable",
+                
+                // FAQ Keys
+                faq_title: "Preguntas Frecuentes",
+                faq_q1: "¿Cómo funciona el seguro?", faq_a1: "Todos los alquileres están cubiertos por un seguro a Todo Riesgo. En caso de daños, la franquicia corre a cargo del conductor/cliente, nunca del propietario.",
+                faq_q2: "¿Y si hay multas de tráfico?", faq_a2: "CarSitter se encarga de la gestión. Identificamos al conductor responsable en el momento de la infracción y tramitamos la denuncia para que no te afecte.",
+                faq_q3: "¿Cuándo recibo mis pagos?", faq_a3: "Recibes un informe detallado y el pago de tus beneficios mensualmente, directamente en tu cuenta bancaria.",
+
                 ctc_title: "Contacto Directo", ctc_btn: "Enviar a WhatsApp"
             },
             fr: {
@@ -304,14 +401,28 @@
                 exp_p1_title: "Livraison & Logistique", exp_p1_desc: "Gestion à Barcelone ou Aéroport. Remise des clés. Je prends soin de votre voiture.",
                 exp_p2_title: "Entretien Impeccable", exp_p2_desc: "Nettoyage pro, niveaux et pression des pneus vérifiés avant chaque location.",
                 exp_p3_title: "Transparence Totale", exp_p3_desc: "Accès total aux données. Vous savez quand la voiture est louée et combien elle génère.",
+                
                 mod_title: "Le Modèle \"Gagnant-Gagnant\"",
                 mod_subtitle: "Vous touchez 70% du net. Mes honoraires (30%) couvrent la gestion intégrale.",
                 card1_title: "Propriétaire", card1_desc: "Vous avez une voiture peu utilisée.",
-                card2_title: "Investissement", card2_desc: "Achat de véhicule pour louer (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Autofinancement de voiture neuve.",
+                c1_gross: "Revenu Brut", c1_costs: "Frais de gestion", c1_net: "Votre Net",
+                
+                card2_title: "Investissement", card2_desc: "Achat de véhicule pour louer.",
+                c2_ticket: "Ticket d'entrée", c2_roi: "ROI Annuel Net",
+                
+                card3_title: "Leasing Neuf", card3_desc: "Autofinancement voiture neuve (48 mois).",
+                c3_inc: "Revenu Net (après 30%)", c3_fee: "Mensualité Leasing", c3_flow: "Cashflow / mois",
+
                 btn_val: "Estimer ma voiture", btn_opp: "Voir opportunités", btn_lea: "Étude personnalisée",
+                
                 req_title: "Véhicules Éligibles", req_c1: "1. Obligatoire", req_list1: "Max 15 ans / 150.000 km", req_list2: "Immatriculation Espagnole", req_list3: "ITV + Assurance à jour",
                 req_c2: "2. CarSitter Standard", req_list4: "Fermeture centralisée (Sans clé)", req_list5: "Vignette ZBE (B, C, ECO, 0)", req_list6: "État impeccable",
+                
+                faq_title: "Questions Fréquentes",
+                faq_q1: "Comment fonctionne l'assurance ?", faq_a1: "Toutes les locations sont couvertes tous risques. En cas de dommage, la franchise est à la charge du conducteur, jamais du propriétaire.",
+                faq_q2: "Et s'il y a des amendes ?", faq_a2: "CarSitter gère tout. Nous identifions le conducteur responsable et traitons l'amende pour qu'elle ne vous affecte pas.",
+                faq_q3: "Quand suis-je payé ?", faq_a3: "Vous recevez un rapport détaillé et le paiement de vos bénéfices mensuellement, directement sur votre compte.",
+
                 ctc_title: "Contact Direct", ctc_btn: "Envoyer sur WhatsApp"
             },
             en: {
@@ -327,14 +438,28 @@
                 exp_p1_title: "Logistics & Delivery", exp_p1_desc: "Management in Barcelona or Airport. Key handover. I take care of your car.",
                 exp_p2_title: "Impeccable Maintenance", exp_p2_desc: "Pro cleaning, fluids, and tire pressure checked before every rental.",
                 exp_p3_title: "Radical Transparency", exp_p3_desc: "Full data access. You know when your car is rented and how much it earns.",
+                
                 mod_title: "The \"Win-Win\" Model",
                 mod_subtitle: "You receive 70% of net profit. My fees (30%) cover the complete management.",
                 card1_title: "Owner", card1_desc: "You have an underused car.",
-                card2_title: "Cash Investment", card2_desc: "Buy a car to rent (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Self-financing a new car.",
+                c1_gross: "Gross Income", c1_costs: "Operating Costs", c1_net: "Your Net",
+                
+                card2_title: "Cash Investment", card2_desc: "Buy a car to rent.",
+                c2_ticket: "Entry Ticket", c2_roi: "Annual Net ROI",
+                
+                card3_title: "New Leasing", card3_desc: "Self-financing a new car (48 mo).",
+                c3_inc: "Net Income (after 30%)", c3_fee: "Leasing Fee", c3_flow: "Cashflow / mo",
+
                 btn_val: "Value my car", btn_opp: "See opportunities", btn_lea: "Personalized study",
+                
                 req_title: "Eligible Vehicles", req_c1: "1. Mandatory", req_list1: "Max 15 years / 150,000 km", req_list2: "Spanish License Plate", req_list3: "Valid ITV + Insurance",
                 req_c2: "2. CarSitter Standard", req_list4: "Central locking (Keyless)", req_list5: "ZBE Sticker (B, C, ECO, 0)", req_list6: "Impeccable condition",
+                
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "How does insurance work?", faq_a1: "All rentals are fully comprehensive insured. In case of damage, the deductible is paid by the driver, never the owner.",
+                faq_q2: "What about traffic fines?", faq_a2: "CarSitter handles it. We identify the driver responsible at the time of the infraction and process the fine so it doesn't affect you.",
+                faq_q3: "When do I get paid?", faq_a3: "You receive a detailed report and payment of your earnings monthly, directly to your bank account.",
+
                 ctc_title: "Direct Contact", ctc_btn: "Send to WhatsApp"
             }
         };
@@ -348,6 +473,12 @@
             });
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
+        }
+
+        function prefillMessage(subject) {
+            const msgField = document.getElementById('mensaje');
+            msgField.value = `Hola Cedric, me interesa el modelo: ${subject}. Me gustaría más información.`;
+            msgField.scrollIntoView({behavior: "smooth"});
         }
 
         function sendToWhatsApp(e) {
