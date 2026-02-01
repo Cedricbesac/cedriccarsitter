@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarSitter Studio - Générateur Pro</title>
+    <title>CarSitter Studio - Barcelona</title>
     <meta name="robots" content="noindex, nofollow">
     
+    <!-- FAVICON (Utilise le logo transparent s'il est au même endroit) -->
+    <link rel="icon" type="image/png" href="logo_1_transparent.png">
+
     <!-- Librairies -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -19,19 +22,22 @@
         body { font-family: 'Montserrat', sans-serif; background-color: #f0f2f5; }
         .animate-fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* Styles personnalisés pour l'interface */
         .preview-shadow { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); }
         
-        /* Input file caché mais accessible */
-        .custom-file-upload { display: inline-block; cursor: pointer; }
+        /* Ajustement responsive de la zone de preview */
+        .preview-container {
+            transform-origin: top center;
+        }
+        @media (max-width: 768px) {
+            .preview-container { transform: scale(0.6); margin-top: -50px; }
+        }
     </style>
 </head>
 <body class="text-gray-800 h-screen overflow-hidden">
     <div id="root" class="h-full"></div>
 
     <script type="text/babel">
-        const { useState, useRef } = React;
+        const { useState, useEffect } = React;
 
         // --- ICONES ---
         const Icon = ({ path }) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{path}</svg>;
@@ -42,7 +48,8 @@
             Phone: <Icon path={<><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></>} />,
             Monitor: <Icon path={<><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>} />,
             Banner: <Icon path={<><path d="M2 12h20"/><path d="M2 12l5-5"/><path d="M22 12l-5 5"/></>} />,
-            Refresh: <Icon path={<><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>} />
+            Sun: <Icon path={<><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>} />,
+            Moon: <Icon path={<><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></>} />
         };
 
         const WallpaperGenerator = () => {
@@ -50,18 +57,19 @@
             const [activeFormat, setActiveFormat] = useState('phone');
             const [isDownloading, setIsDownloading] = useState(false);
             
-            // --- GESTION DES IMAGES ---
+            // --- GESTION DES IMAGES (DEFAUTS SVG SI POSSIBLE) ---
             const [images, setImages] = useState({
-                main: "cedricvis.png",            // Photo de Cédric ou Voiture
-                logoIcon: "logo_1_transparent.png", // Le "C" Orange
-                logoText: "Logo.png"              // Le Logo complet
+                main: "cedricvis.png",            
+                logoIcon: "logo_1_transparent.png", // Le "C"
+                logoText: "Logo.png"              // Le logo principal (Remplace le texte)
             });
 
+            // --- TEXTES (EN ESPAGNOL PAR DÉFAUT) ---
             const [text, setText] = useState({
-                title: 'CEDRIC CARSITTER',
-                subtitle: 'GESTION & CONCIERGERIE',
+                subtitle: 'GESTOR DE CARSHARING',
+                location: 'Barcelona Ciudad y Aeropuerto',
                 web: 'cedriccarsitter.com',
-                quote: 'Votre voiture,\nma responsabilité.'
+                quote: 'Su coche,\nmi responsabilidad.'
             });
 
             const handleImageUpload = (key, event) => {
@@ -75,32 +83,33 @@
                 }
             };
 
-            // --- FONCTION DE TÉLÉCHARGEMENT ---
             const downloadImage = () => {
                 setIsDownloading(true);
                 const element = document.getElementById('preview-capture');
                 
-                // Options pour html2canvas pour haute qualité
-                html2canvas(element, {
-                    scale: 2, // Retina quality
-                    useCORS: true, // Autoriser les images locales/serveur
-                    backgroundColor: null,
-                    logging: false
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = `CarSitter-${activeFormat}-${Date.now()}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    setIsDownloading(false);
-                }).catch(err => {
-                    console.error("Erreur téléchargement", err);
-                    alert("Erreur lors de la génération. Vérifiez que les images sont bien chargées.");
-                    setIsDownloading(false);
-                });
+                // Petite pause pour laisser le temps au DOM de se stabiliser
+                setTimeout(() => {
+                    html2canvas(element, {
+                        scale: 3, // Haute définition
+                        useCORS: true,
+                        backgroundColor: null,
+                        logging: false
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `CarSitter-BCN-${activeFormat}-${Date.now()}.png`;
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        setIsDownloading(false);
+                    }).catch(err => {
+                        alert("Error al descargar. Inténtalo de nuevo.");
+                        setIsDownloading(false);
+                    });
+                }, 100);
             };
 
-            // --- STYLES GRAPHIQUES (MIS À JOUR POUR CONTRASTE) ---
+            // --- STYLES GRAPHIQUES ---
 
+            // STYLE 1: GEOMETRIC (MODIFIÉ: PLUS DE TEXTE TITRE, LOGO EN GRAND)
             const GeometricStyle = ({ isLandscape, isBanner }) => (
                 <div className="relative h-full w-full bg-white overflow-hidden flex flex-col items-center justify-center font-sans">
                     {/* Formes Arrière-plan */}
@@ -108,94 +117,90 @@
                     <div className={`absolute -bottom-10 -left-10 rounded-full bg-[#2980b9] opacity-10 z-0 ${isLandscape ? 'w-[500px] h-[500px]' : 'w-96 h-96'}`}></div>
                     
                     {/* Filigrane Logo Icon */}
-                    <img src={images.logoIcon} className="absolute bottom-20 right-20 w-32 opacity-5 rotate-12 pointer-events-none" />
+                    <img src={images.logoIcon} className="absolute bottom-10 right-10 w-48 opacity-[0.03] rotate-12 pointer-events-none" />
 
                     {/* Contenu */}
-                    <div className={`relative z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in`}>
-                        {/* Cadre Photo */}
-                        <div className={`relative group ${isBanner ? 'w-24 h-24' : 'w-48 h-48'} shrink-0`}>
+                    <div className={`relative z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in w-full px-6 justify-center`}>
+                        {/* Cadre Photo (Ajustement Cover) */}
+                        <div className={`relative group ${isBanner ? 'w-24 h-24' : 'w-52 h-52'} shrink-0`}>
                             <div className="absolute inset-0 border-4 border-[#2980b9] rounded-2xl rotate-6 opacity-30"></div>
                             <div className="absolute inset-0 bg-[#f39c12] rounded-2xl -rotate-3 opacity-20"></div>
                             <div className="relative w-full h-full bg-white rounded-xl shadow-xl overflow-hidden border-2 border-white">
-                                <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
+                                <img src={images.main} className="w-full h-full object-cover object-center" crossOrigin="anonymous" />
                             </div>
                         </div>
 
-                        {/* Texte - CORRECTION CONTRASTE : Texte sombre sur fond blanc */}
-                        <div className={`${isLandscape ? 'text-left' : 'text-center'}`}>
-                            <h1 className="text-3xl font-black text-gray-800 leading-none tracking-tight">
-                                {text.title.split(' ')[0]}
-                                <span className="text-[#f39c12] block">{text.title.split(' ')[1]}</span>
-                            </h1>
-                            <div className="w-12 h-2 bg-[#2980b9] my-2 rounded-full inline-block"></div>
-                            {/* Fond blanc ajouté derrière le sous-titre si besoin, ici texte gris foncé safe */}
-                            <p className="font-bold text-gray-600 tracking-widest text-sm uppercase">{text.subtitle}</p>
-                            <p className="text-[#2980b9] text-xs font-mono mt-1 font-bold">{text.web}</p>
+                        {/* Logo Principal (Remplace le titre texte) */}
+                        <div className={`${isLandscape ? 'text-left' : 'text-center'} flex flex-col ${isLandscape ? 'items-start' : 'items-center'}`}>
+                            <img src={images.logoText} className={`w-auto ${isBanner ? 'h-12' : 'h-24'} mb-4 drop-shadow-sm`} crossOrigin="anonymous" />
+                            
+                            <div className="w-12 h-1 bg-[#f39c12] my-2 rounded-full inline-block"></div>
+                            
+                            <p className="font-bold text-gray-700 tracking-widest text-sm uppercase">{text.subtitle}</p>
+                            <p className="text-gray-400 text-[10px] uppercase mt-1 tracking-wider">{text.location}</p>
+                            <p className="text-[#2980b9] text-xs font-mono mt-2 font-bold">{text.web}</p>
                         </div>
                     </div>
                 </div>
             );
 
-            const FocusStyle = ({ isLandscape }) => (
-                <div className="relative h-full w-full bg-gray-900 flex overflow-hidden font-sans">
-                    <div className="absolute inset-0 z-0">
-                        <img src={images.main} className={`w-full h-full object-cover opacity-50 mix-blend-overlay ${isLandscape ? 'object-center' : 'object-center'}`} crossOrigin="anonymous" />
-                        {/* Dégradé sombre pour garantir la lisibilité du texte blanc */}
-                        <div className={`absolute inset-0 bg-gradient-to-${isLandscape ? 'r' : 't'} from-[#1a252f] via-[#2c3e50]/90 to-[#f39c12]/10`}></div>
-                    </div>
-                    <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-8 animate-fade-in">
-                         <div className="text-center w-full max-w-lg">
-                            {/* Logo Texte en blanc ou sur fond clair */}
-                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg inline-block mb-6 border border-white/10">
-                                <img src={images.logoText} alt="Logo" className="h-8 w-auto filter drop-shadow-lg" crossOrigin="anonymous" />
-                            </div>
-                            
-                            <h2 className="text-white text-3xl font-bold leading-tight whitespace-pre-line mb-6 drop-shadow-md">
-                                "{text.quote}"
-                            </h2>
-                            
-                            {/* CORRECTION CONTRASTE : Badge Orange texte Blanc (pas orange sur orange) */}
-                            <div className="inline-block px-6 py-2 bg-[#f39c12] text-white font-black tracking-wider text-xs uppercase rounded-full shadow-lg">
-                                {text.subtitle}
-                            </div>
-                         </div>
-                         
-                         <div className="absolute bottom-8 flex flex-col items-center opacity-80">
-                             <img src={images.logoIcon} className="w-8 h-8 mb-2 filter brightness-0 invert" crossOrigin="anonymous" />
-                             <p className="text-gray-300 text-[10px] tracking-widest">{text.web}</p>
-                         </div>
-                    </div>
-                </div>
-            );
-
-            const CleanStyle = ({ isLandscape, isBanner }) => (
-                 <div className="relative h-full w-full bg-[#f8fafc] flex items-center justify-center overflow-hidden font-sans">
-                    {/* Formes douces */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#2980b9] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-                    
-                    {/* Pattern Grille Discrète */}
-                    <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
-
-                    <div className={`z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in w-full px-8 justify-center`}>
-                        {/* Logo Icon flottant */}
-                        <div className="absolute top-8 left-8">
-                             <img src={images.logoIcon} className="w-10 h-10 opacity-80" crossOrigin="anonymous" />
-                        </div>
-
-                        <div className={`relative ${isBanner ? 'w-20 h-20' : 'w-48 h-48'} rounded-full overflow-hidden border-[6px] border-white shadow-2xl`}>
-                            <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
-                        </div>
+            // STYLE 2: BARCELONA SKY (NOUVEAU - CLAIR ET LUMINEUX)
+            const BarcelonaStyle = ({ isLandscape, isBanner }) => (
+                <div className="relative h-full w-full bg-gradient-to-b from-[#e0f7fa] to-white flex items-center justify-center overflow-hidden font-sans">
+                     {/* Décoration Ciel */}
+                     <div className="absolute top-0 w-full h-1/2 bg-[#2980b9] opacity-5 rounded-b-[50%] scale-150"></div>
+                     
+                     <div className={`z-10 flex ${isLandscape ? 'flex-row-reverse gap-12' : 'flex-col gap-6'} items-center animate-fade-in w-full px-8 justify-center`}>
                         
-                        <div className={`${isLandscape ? 'text-left' : 'text-center'} bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white shadow-sm`}>
-                             <img src={images.logoText} className="h-10 w-auto mb-3 mx-auto md:mx-0" crossOrigin="anonymous" />
-                             <div className="h-px w-full bg-gray-200 my-3"></div>
-                             {/* Texte Gris Foncé sur fond blanc = Contraste OK */}
-                             <p className="text-gray-600 text-xs font-bold uppercase tracking-widest mb-1">{text.subtitle}</p>
-                             <p className="text-[#2980b9] font-bold text-sm">{text.web}</p>
+                        {/* Photo en cercle avec bordure colorée */}
+                        <div className={`relative ${isBanner ? 'w-24 h-24' : 'w-48 h-48'} rounded-full p-1 bg-gradient-to-tr from-[#2980b9] to-[#f39c12] shadow-xl`}>
+                            <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-white">
+                                <img src={images.main} className="w-full h-full object-cover object-top" crossOrigin="anonymous" />
+                            </div>
                         </div>
+
+                        <div className={`${isLandscape ? 'text-right' : 'text-center'}`}>
+                             <img src={images.logoText} className={`w-auto ${isBanner ? 'h-10' : 'h-20'} mb-2 mx-auto md:mx-0`} crossOrigin="anonymous" />
+                             <p className="text-[#2980b9] font-black text-sm uppercase tracking-widest">{text.subtitle}</p>
+                             <p className="text-gray-500 text-xs mt-1">{text.location}</p>
+                        </div>
+                     </div>
+                </div>
+            );
+
+            // STYLE 3: CORPORATE DARK (NOUVEAU - SOMBRE ET PRO)
+            const DarkProStyle = ({ isLandscape }) => (
+                <div className="relative h-full w-full bg-[#1e293b] flex overflow-hidden font-sans">
+                    {/* Fond sombre texturé */}
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                        <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-[#0f172a] to-transparent opacity-80"></div>
                     </div>
-                 </div>
+
+                    <div className={`relative z-10 w-full h-full flex ${isLandscape ? 'flex-row' : 'flex-col'} items-center justify-between p-10 animate-fade-in`}>
+                         
+                         {/* Zone Photo (Intégrée) */}
+                         <div className={`${isLandscape ? 'w-1/2 h-full' : 'w-full h-1/2'} flex items-center justify-center`}>
+                            <div className="relative w-full h-full max-h-64 max-w-xs rounded-lg overflow-hidden border border-gray-700 shadow-2xl">
+                                <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent opacity-50"></div>
+                            </div>
+                         </div>
+
+                         {/* Zone Texte */}
+                         <div className={`${isLandscape ? 'w-1/2 text-right pl-8' : 'w-full h-1/2 text-center pt-6'} flex flex-col justify-center`}>
+                            {/* Logo doit être visible sur fond sombre -> On met un fond blanc arrondi derrière si c'est le PNG noir, ou on suppose que l'utilisateur uploadera un logo blanc */}
+                            <div className="bg-white p-3 rounded-lg inline-block self-center md:self-end shadow-lg mb-4">
+                                <img src={images.logoText} className="h-8 w-auto" crossOrigin="anonymous" />
+                            </div>
+                            
+                            <h2 className="text-white text-2xl font-bold leading-tight mb-2">"{text.quote}"</h2>
+                            <p className="text-[#f39c12] font-bold tracking-widest text-xs uppercase">{text.subtitle}</p>
+                            <div className="h-px w-20 bg-gray-600 my-4 mx-auto md:ml-auto md:mr-0"></div>
+                            <p className="text-gray-400 text-[10px] tracking-wider">{text.web}</p>
+                         </div>
+                    </div>
+                </div>
             );
 
             // --- LAYOUT DIMS ---
@@ -209,58 +214,43 @@
                 <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
                     
                     {/* --- SIDEBAR DE CONTRÔLE --- */}
-                    <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-30 h-1/2 lg:h-full relative">
-                        <div className="p-4 bg-gray-50 border-b border-gray-100 shrink-0 flex justify-between items-center">
-                            <h1 className="text-lg font-black text-[#2c3e50] flex items-center gap-2 tracking-tight">
-                                {icons.Layout} STUDIO CARSITTER
+                    <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-30 h-1/2 lg:h-full relative overflow-hidden">
+                        <div className="p-4 bg-white border-b border-gray-100 shrink-0 flex justify-between items-center">
+                            <h1 className="text-lg font-black text-[#2980b9] flex items-center gap-2 tracking-tight">
+                                {icons.Layout} STUDIO BCN
                             </h1>
+                            <span className="text-[10px] bg-orange-100 text-orange-600 px-2 py-1 rounded-full font-bold">V4.0</span>
                         </div>
                         
-                        <div className="flex-1 overflow-y-auto p-5 space-y-6">
+                        <div className="flex-1 overflow-y-auto p-5 space-y-8 pb-20">
                             
                             {/* SECTION IMAGES */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3 border-b pb-1">1. Images & Logos</label>
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3 border-b pb-1">1. Imágenes (Logos & Foto)</label>
                                 
-                                <div className="space-y-3">
-                                    {/* Upload Main */}
+                                <div className="space-y-4">
+                                    {/* Upload Logo Principal (SVG/PNG) */}
+                                    <div className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-center relative group">
+                                        <p className="text-xs font-bold text-gray-700 mb-2">Logo Principal (SVG/PNG)</p>
+                                        <div className="h-12 flex items-center justify-center mb-2">
+                                            <img src={images.logoText} className="h-full object-contain" />
+                                        </div>
+                                        <label className="text-[10px] bg-[#2980b9] text-white px-3 py-1 rounded cursor-pointer hover:bg-[#1f618d]">
+                                            {icons.Upload} Cambiar Logo
+                                            <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoText', e)} className="hidden" />
+                                        </label>
+                                    </div>
+
+                                    {/* Upload Main Photo */}
                                     <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
-                                        <div className="w-10 h-10 rounded bg-gray-200 overflow-hidden shrink-0 border">
+                                        <div className="w-12 h-12 rounded bg-gray-200 overflow-hidden shrink-0 border">
                                             <img src={images.main} className="w-full h-full object-cover" />
                                         </div>
                                         <div className="flex-1 overflow-hidden">
-                                            <p className="text-xs font-bold text-gray-700">Photo Principale</p>
-                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
-                                                {icons.Upload} Changer la photo
+                                            <p className="text-xs font-bold text-gray-700">Foto Principal</p>
+                                            <label className="text-[10px] text-[#f39c12] font-bold cursor-pointer hover:underline flex items-center gap-1 mt-1">
+                                                {icons.Upload} Subir nueva foto
                                                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload('main', e)} className="hidden" />
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    {/* Upload Logo Icon */}
-                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
-                                        <div className="w-10 h-10 rounded bg-gray-100 overflow-hidden shrink-0 border p-1">
-                                            <img src={images.logoIcon} className="w-full h-full object-contain" />
-                                        </div>
-                                        <div className="flex-1 overflow-hidden">
-                                            <p className="text-xs font-bold text-gray-700">Logo "C" (Icône)</p>
-                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
-                                                {icons.Upload} Changer l'icône
-                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoIcon', e)} className="hidden" />
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    {/* Upload Logo Text */}
-                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
-                                        <div className="w-10 h-10 rounded bg-white overflow-hidden shrink-0 border p-1">
-                                            <img src={images.logoText} className="w-full h-full object-contain" />
-                                        </div>
-                                        <div className="flex-1 overflow-hidden">
-                                            <p className="text-xs font-bold text-gray-700">Logo Texte</p>
-                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
-                                                {icons.Upload} Changer le logo
-                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoText', e)} className="hidden" />
                                             </label>
                                         </div>
                                     </div>
@@ -269,12 +259,12 @@
 
                             {/* SECTION FORMAT */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">2. Format & Style</label>
-                                <div className="flex gap-2 mb-3">
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">2. Formato</label>
+                                <div className="flex gap-2 mb-4">
                                     {[
-                                        {id: 'phone', icon: icons.Phone, label: 'Tel'}, 
+                                        {id: 'phone', icon: icons.Phone, label: 'Móvil'}, 
                                         {id: 'desktop', icon: icons.Monitor, label: 'PC'},
-                                        {id: 'banner', icon: icons.Banner, label: 'Ban'}
+                                        {id: 'banner', icon: icons.Banner, label: 'Banner'}
                                     ].map(f => (
                                         <button key={f.id} onClick={() => setActiveFormat(f.id)} className={`flex-1 flex flex-col items-center p-2 rounded border transition-all ${activeFormat === f.id ? 'border-[#f39c12] bg-orange-50 text-[#f39c12]' : 'border-gray-200 hover:bg-gray-50'}`}>
                                             {f.icon} <span className="text-[10px] mt-1 font-bold">{f.label}</span>
@@ -282,27 +272,40 @@
                                     ))}
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-2">
-                                    <button onClick={() => setActiveStyle('geometric')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'geometric' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
-                                        Géométrique
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">3. Estilo de Fondo</label>
+                                <div className="flex flex-col gap-2">
+                                    <button onClick={() => setActiveStyle('geometric')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'geometric' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
+                                        <span className="text-xs font-bold">Original Geométrico</span>
+                                        <div className="w-4 h-4 bg-white border rounded-full"></div>
                                     </button>
-                                    <button onClick={() => setActiveStyle('focus')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'focus' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
-                                        Focus Pro
+                                    <button onClick={() => setActiveStyle('barcelona')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'barcelona' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
+                                        <span className="text-xs font-bold flex items-center gap-2">{icons.Sun} Barcelona Sky</span>
+                                        <div className="w-4 h-4 bg-gradient-to-tr from-blue-200 to-white rounded-full"></div>
                                     </button>
-                                    <button onClick={() => setActiveStyle('clean')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'clean' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
-                                        Épuré
+                                    <button onClick={() => setActiveStyle('dark')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'dark' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
+                                        <span className="text-xs font-bold flex items-center gap-2">{icons.Moon} Corporate Dark</span>
+                                        <div className="w-4 h-4 bg-slate-800 rounded-full"></div>
                                     </button>
                                 </div>
                             </section>
 
                             {/* SECTION TEXTE */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">3. Textes</label>
-                                <div className="space-y-2">
-                                    <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.subtitle} onChange={e => setText({...text, subtitle: e.target.value})} placeholder="Sous-titre" />
-                                    <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.web} onChange={e => setText({...text, web: e.target.value})} placeholder="Site web" />
-                                    {activeStyle === 'focus' && (
-                                        <textarea className="w-full p-2 text-xs border rounded bg-white h-16 resize-none focus:border-[#f39c12] outline-none" value={text.quote} onChange={e => setText({...text, quote: e.target.value})} placeholder="Citation..." />
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">4. Textos (Español)</label>
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="text-[9px] text-gray-500 uppercase font-bold">Actividad</label>
+                                        <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.subtitle} onChange={e => setText({...text, subtitle: e.target.value})} />
+                                    </div>
+                                    <div>
+                                        <label className="text-[9px] text-gray-500 uppercase font-bold">Ubicación</label>
+                                        <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.location} onChange={e => setText({...text, location: e.target.value})} />
+                                    </div>
+                                    {activeStyle === 'dark' && (
+                                        <div>
+                                            <label className="text-[9px] text-gray-500 uppercase font-bold">Cita</label>
+                                            <textarea className="w-full p-2 text-xs border rounded bg-white h-16 resize-none focus:border-[#f39c12] outline-none" value={text.quote} onChange={e => setText({...text, quote: e.target.value})} />
+                                        </div>
                                     )}
                                 </div>
                             </section>
@@ -310,24 +313,24 @@
                     </div>
 
                     {/* --- ZONE DE PRÉVISUALISATION --- */}
-                    <div className="flex-1 bg-gray-200 flex flex-col items-center justify-center relative overflow-hidden h-1/2 lg:h-full p-4 lg:p-8">
+                    <div className="flex-1 bg-gray-200 flex flex-col items-center justify-center relative overflow-hidden h-1/2 lg:h-full p-4">
                          {/* Pattern fond interface */}
                          <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
                          
-                         {/* WRAPPER CENTRÉ SCROLLABLE SI BESOIN */}
-                         <div className="w-full h-full flex flex-col items-center justify-center overflow-auto">
+                         {/* WRAPPER CENTRÉ SCROLLABLE */}
+                         <div className="w-full h-full flex flex-col items-center justify-center overflow-auto preview-container">
                              
                              {/* LE RENDU (CAPTURE ZONE) */}
                              <div 
                                 id="preview-capture"
                                 className={`bg-white preview-shadow transition-all duration-300 relative overflow-hidden shrink-0 ${formatDims[activeFormat]}`}
                              >
-                                {/* Encoche iPhone (uniquement visuelle, pas sur l'export si on veut) */}
+                                {/* Encoche iPhone */}
                                 {activeFormat === 'phone' && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50 pointer-events-none"></div>}
                                 
                                 {activeStyle === 'geometric' && <GeometricStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
-                                {activeStyle === 'focus' && <FocusStyle isLandscape={activeFormat !== 'phone'} />}
-                                {activeStyle === 'clean' && <CleanStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                {activeStyle === 'barcelona' && <BarcelonaStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                {activeStyle === 'dark' && <DarkProStyle isLandscape={activeFormat !== 'phone'} />}
                              </div>
 
                              {/* ACTION BAR */}
@@ -337,12 +340,12 @@
                                     disabled={isDownloading}
                                     className="bg-[#2980b9] hover:bg-[#2c3e50] text-white px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    {isDownloading ? 'Génération...' : <>{icons.Download} TÉLÉCHARGER L'IMAGE</>}
+                                    {isDownloading ? 'Generando...' : <>{icons.Download} DESCARGAR IMAGEN</>}
                                 </button>
                              </div>
                              
                              <p className="mt-4 text-[10px] text-gray-500 font-mono">
-                                Résolution HD • Généré par Cedric CarSitter Studio
+                                Cedric CarSitter Studio • Barcelona
                              </p>
                          </div>
                     </div>
