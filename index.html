@@ -36,6 +36,72 @@
     <style>
         .lang-btn.active { border-bottom: 2px solid #F7941D; font-weight: bold; color: #1C75BC; }
         html { scroll-behavior: smooth; }
+    /* Bouton WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #25d366;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+}
+
+/* Bouton Retour Haut */
+.back-to-top-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #333;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    text-decoration: none;
+}
+
+/* Footer Style */
+.footer-carsitter {
+    background-color: #ffffff;
+    padding: 40px 0 20px 0;
+    border-top: 1px solid #eee;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-left span { font-size: 0.85rem; display: block; }
+.footer-left small { color: #999; font-size: 0.75rem; }
+
+.footer-links a {
+    text-decoration: none;
+    color: #444;
+    font-size: 0.85rem;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .footer-container { flex-direction: column; text-align: center; gap: 20px; }
+    .footer-links a { margin: 0 10px; }
+}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -266,21 +332,32 @@
         </div>
     </section>
 
-    <footer class="bg-white border-t border-slate-200 py-6 text-sm text-slate-500 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex flex-wrap justify-center md:justify-start gap-2 md:gap-4 items-center">
-                <span class="font-bold text-slate-900">Cedric CarSitter</span>
-                <span class="hidden md:inline text-slate-300">|</span>
-                <span>Barcelona (Sants-Montjuïc)</span>
-                <span class="hidden md:inline text-slate-300">|</span>
-                <span>© 2026</span>
+    <a href="https://wa.me/TON_NUMERO" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30">
+</a>
+
+<a href="#top" class="back-to-top-floating" id="btnTop">
+    <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
+</a>
+
+<footer class="footer-carsitter">
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" width="140">
             </div>
-            <div class="flex gap-6">
-                <a href="aviso-legal.html" class="hover:text-brand-blue transition">Legal</a>
-                <a href="politica-privacidad.html" class="hover:text-brand-blue transition">Privacidad</a>
-            </div>
+            <span>© 2026 Cedric CarSitter. Todos los derechos reservados.</span>
+            <small>Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</small>
         </div>
-    </footer>
+        <div class="footer-right">
+            <nav class="footer-links">
+                <a href="/aviso-legal">Legal</a>
+                <a href="/privacidad">Privacidad</a>
+                <a href="/cookies">Cookies</a>
+            </nav>
+        </div>
+    </div>
+</footer>
 
     <script>
         const translations = {
