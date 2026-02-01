@@ -377,7 +377,24 @@
             const text = `Hola Cedric, soy *${nombre}*.\n${mensaje}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
-    </script>
+
+        // On récupère le bouton de retour en haut par son ID
+    const btnTop = document.getElementById("btnTop");
+
+    // On écoute l'événement "scroll" (défilement de la page)
+    window.onscroll = function() {
+        // Si on a descendu de plus de 300 pixels
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btnTop.style.display = "flex";    // On affiche le bouton
+            btnTop.style.opacity = "1";       // On le rend visible
+        } else {
+            btnTop.style.display = "none";    // On le cache
+            btnTop.style.opacity = "0";       // On le rend invisible
+        }
+    };
+</script>
+
+    
 </body>
 </html>
 
