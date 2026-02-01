@@ -1,10 +1,18 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cedric CarSitter | Barcelona</title>
-    <meta name="description" content="Gestion locative, Logistique & Convoyage. Rentabilisez votre vehículo à Barcelone.">
+    
+    <meta name="description" content="Gestion locative, Logistique & Convoyage. Rentabilisez votre véhicule à Barcelone.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cedriccarsitter.com/">
+    <meta property="og:title" content="Cedric CarSitter | Barcelona">
+    <meta property="og:description" content="Gestion intégrale 360°. Votre voiture travaille, vous encaissez.">
+    <meta property="og:image" content="https://cedriccarsitter.com/whatsapp.jpg">
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +34,7 @@
         .lang-btn.active { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
         .lang-btn:hover { opacity: 1; filter: grayscale(0%); }
 
-        /* Bouton WhatsApp Flottant */
+        /* Boutons Flottants */
         .whatsapp-float {
             position: fixed; bottom: 30px; left: 30px;
             background-color: #25d366; width: 60px; height: 60px;
@@ -36,7 +44,6 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Bouton Retour Haut */
         .back-to-top-floating {
             position: fixed; bottom: 30px; right: 30px;
             background-color: #333; width: 50px; height: 50px;
@@ -45,7 +52,6 @@
             text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
         }
 
-        /* Footer */
         .footer-carsitter { background-color: #ffffff; padding: 40px 0 20px 0; border-top: 1px solid #eee; }
         .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .footer-links a { text-decoration: none; color: #444; margin-left: 20px; font-weight: 500; font-size: 0.9rem; }
@@ -63,15 +69,9 @@
 
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-3 bg-slate-50 rounded-full px-3 py-1 border border-slate-100">
-                        <button onclick="changeLang('es')" class="lang-btn active">
-                            <img src="https://flagcdn.com/w40/es.png" width="24" alt="ES">
-                        </button>
-                        <button onclick="changeLang('fr')" class="lang-btn">
-                            <img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR">
-                        </button>
-                        <button onclick="changeLang('en')" class="lang-btn">
-                            <img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN">
-                        </button>
+                        <button onclick="changeLang('es')" class="lang-btn active"><img src="https://flagcdn.com/w40/es.png" width="24" alt="ES"></button>
+                        <button onclick="changeLang('fr')" class="lang-btn"><img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR"></button>
+                        <button onclick="changeLang('en')" class="lang-btn"><img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN"></button>
                     </div>
 
                     <div class="hidden md:flex space-x-6 items-center">
@@ -145,6 +145,10 @@
                             <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">2</div>
                             <div><h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p2_title">Mantenimiento</h4><p class="text-slate-500" data-i18n="exp_p2_desc">Limpieza profesional y revisión de neumáticos.</p></div>
                         </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">3</div>
+                            <div><h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p3_title">Transparencia Radical</h4><p class="text-slate-500" data-i18n="exp_p3_desc">Acceso total a los datos. Sabes cuándo se alquila tu coche y cuánto genera al momento.</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,11 +188,13 @@
                     <ul class="space-y-3 text-slate-600">
                         <li>📅 <span data-i18n="req_list1">Max 15 años / 150.000 km</span></li>
                         <li>📄 <span data-i18n="req_list2">Matrícula Española</span></li>
+                        <li>✅ <span data-i18n="req_list3">ITV + Seguro en vigor</span></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-bold text-slate-900 text-xl mb-4" data-i18n="req_c2">2. Standard</h3>
                     <ul class="space-y-3 text-slate-600">
+                        <li>📲 <span data-i18n="req_list4">Cierre centralizado (Sin llave)</span></li>
                         <li>🍃 <span data-i18n="req_list5">Etiqueta ZBE (B, C, ECO, 0)</span></li>
                         <li>⭐ <span data-i18n="req_list6">Estado impecable</span></li>
                     </ul>
@@ -228,7 +234,6 @@
     <a href="https://wa.me/34602313096" class="whatsapp-float" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
     </a>
-
     <a href="#top" class="back-to-top-floating" id="btnTop">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
     </a>
@@ -260,60 +265,69 @@
                 nav_exp: "Experiencia", nav_inv: "Inversión", nav_req: "Requisitos", nav_contact: "WhatsApp",
                 hero_badge: "Barcelona Ciudad y Aeropuerto",
                 hero_title1: "Tu coche trabaja,", hero_title2: "tú cobras.",
-                hero_desc: "Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable.",
+                hero_desc: "Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable. Gestión 360°, cero preocupaciones.",
                 hero_cta: "Solicitar Estudio Gratuito",
-                trust_quote: "\"Seriedad, pagos puntuales y cero preocupaciones.\"",
+                trust_quote: "\"Seriedad, pagos puntuales y cero preocupaciones. Cédric es un socio de confianza.\"",
                 trust_link: "Únete al club →",
-                exp_title: "Más que un gestor, socio estratégico.",
-                exp_intro: "Soy Cédric Ducornet. Experto con 17 años de experiencia.",
-                exp_p1_title: "Logística In-Situ", exp_p1_desc: "Gestión en Barcelona o aeropuerto.",
-                mod_title: "Modelo Ganar-Ganar", mod_subtitle: "Tú 70% / Yo 30%.",
-                card1_title: "Propietario", card1_desc: "Usas poco tu coche.",
-                card2_title: "Inversión Cash", card2_desc: "ROI +15%.",
-                card3_title: "Leasing", card3_desc: "Autofinanciación.",
-                btn_val: "Valorar mi coche", btn_opp: "Oportunidades", btn_lea: "Estudio",
-                req_title: "Vehículos Elegibles", req_c1: "1. Obligatorio", req_c2: "2. Standard",
-                req_list1: "Max 15 años", req_list2: "Matrícula ES", req_list5: "Etiqueta ZBE", req_list6: "Impecable",
+                exp_title: "Más que un gestor,\ntu socio estratégico.",
+                exp_intro: "Soy <strong>Cédric Ducornet</strong>. Experto con 17 años de experiencia. Ofrezco presencia física, control total y rentabilidad real.",
+                exp_p1_title: "Logística In-Situ", exp_p1_desc: "Gestión directa en Barcelona o en el aeropuerto. Recepción y entrega de llaves. Yo cuido tu coche.",
+                exp_p2_title: "Mantenimiento Impecable", exp_p2_desc: "Limpieza profesional, control de niveles y revisión de neumáticos antes de cada alquiler.",
+                exp_p3_title: "Transparencia Radical", exp_p3_desc: "Acceso total a los datos. Sabes cuándo se alquila tu coche y cuánto genera al momento.",
+                mod_title: "El Modelo \"Ganar-Ganar\"",
+                mod_subtitle: "Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.",
+                card1_title: "Propietario", card1_desc: "Tienes un coche que usas poco.",
+                card2_title: "Inversión Cash", card2_desc: "Compra de vehículo para alquilar (ROI +15%).",
+                card3_title: "Leasing", card3_desc: "Autofinanciación de coche nuevo.",
+                btn_val: "Valorar mi coche", btn_opp: "Ver oportunidades", btn_lea: "Estudio personalizado",
+                req_title: "Vehículos Elegibles", req_c1: "1. Obligatorio", req_list1: "Max 15 años / 150.000 km", req_list2: "Matrícula Española", req_list3: "ITV + Seguro en vigor",
+                req_c2: "2. CarSitter Standard", req_list4: "Cierre centralizado (Sin llave)", req_list5: "Etiqueta ZBE (B, C, ECO, 0)", req_list6: "Estado impecable",
                 ctc_title: "Contacto Directo", ctc_btn: "Enviar a WhatsApp"
             },
             fr: {
                 nav_exp: "Expérience", nav_inv: "Investissement", nav_req: "Prérequis", nav_contact: "WhatsApp",
                 hero_badge: "Barcelone Ville & Aéroport",
                 hero_title1: "Votre voiture travaille,", hero_title2: "vous encaissez.",
-                hero_desc: "Le service intégral à Barcelone qui transforme votre véhicule en actif rentable.",
-                hero_cta: "Étude Gratuite",
-                trust_quote: "\"Sérieux, paiements ponctuels et zéro souci.\"",
+                hero_desc: "Leader par l'Innovation. Le seul service intégral à Barcelone qui transforme votre véhicule en actif rentable. Gestion 360°, zéro souci.",
+                hero_cta: "Demander une Étude Gratuite",
+                trust_quote: "\"Sérieux, paiements ponctuels et zéro souci. Cédric est un partenaire de confiance.\"",
                 trust_link: "Rejoindre le club →",
-                exp_title: "Plus qu'un gestionnaire, partenaire.",
-                exp_intro: "Je suis Cédric Ducornet. Expert depuis 17 ans.",
-                exp_p1_title: "Livraison & Logistique", exp_p1_desc: "Gestion à Barcelone ou Aéroport.",
-                mod_title: "Modèle Gagnant-Gagnant", mod_subtitle: "Vous 70% / Moi 30%.",
-                card1_title: "Propriétaire", card1_desc: "Voiture peu utilisée.",
-                card2_title: "Investissement", card2_desc: "ROI +15%.",
-                card3_title: "Leasing", card3_desc: "Autofinancement.",
-                btn_val: "Estimer", btn_opp: "Opportunités", btn_lea: "Étude",
-                req_title: "Véhicules Éligibles", req_c1: "1. Obligatoire", req_c2: "2. Standard",
-                req_list1: "Max 15 ans", req_list2: "Plaques ES", req_list5: "Vignette ZBE", req_list6: "Impeccable",
+                exp_title: "Plus qu'un gestionnaire,\nvotre partenaire.",
+                exp_intro: "Je suis <strong>Cédric Ducornet</strong>. Expert depuis 17 ans. J'offre une présence physique, un contrôle total et une rentabilité réelle.",
+                exp_p1_title: "Livraison & Logistique", exp_p1_desc: "Gestion à Barcelone ou Aéroport. Remise des clés. Je prends soin de votre voiture.",
+                exp_p2_title: "Entretien Impeccable", exp_p2_desc: "Nettoyage pro, niveaux et pression des pneus vérifiés avant chaque location.",
+                exp_p3_title: "Transparence Totale", exp_p3_desc: "Accès total aux données. Vous savez quand la voiture est louée et combien elle génère.",
+                mod_title: "Le Modèle \"Gagnant-Gagnant\"",
+                mod_subtitle: "Vous touchez 70% du net. Mes honoraires (30%) couvrent la gestion intégrale.",
+                card1_title: "Propriétaire", card1_desc: "Vous avez une voiture peu utilisée.",
+                card2_title: "Investissement", card2_desc: "Achat de véhicule pour louer (ROI +15%).",
+                card3_title: "Leasing", card3_desc: "Autofinancement de voiture neuve.",
+                btn_val: "Estimer ma voiture", btn_opp: "Voir opportunités", btn_lea: "Étude personnalisée",
+                req_title: "Véhicules Éligibles", req_c1: "1. Obligatoire", req_list1: "Max 15 ans / 150.000 km", req_list2: "Immatriculation Espagnole", req_list3: "ITV + Assurance à jour",
+                req_c2: "2. CarSitter Standard", req_list4: "Fermeture centralisée (Sans clé)", req_list5: "Vignette ZBE (B, C, ECO, 0)", req_list6: "État impeccable",
                 ctc_title: "Contact Direct", ctc_btn: "Envoyer sur WhatsApp"
             },
             en: {
                 nav_exp: "Experience", nav_inv: "Investment", nav_req: "Requirements", nav_contact: "WhatsApp",
                 hero_badge: "Barcelona City & Airport",
                 hero_title1: "Your car works,", hero_title2: "you get paid.",
-                hero_desc: "The only 360° full-service in Barcelona transforming your vehicle into a profitable asset.",
+                hero_desc: "The only 360° full-service in Barcelona transforming your vehicle into a profitable asset. Zero worry.",
                 hero_cta: "Get Free Estimate",
                 trust_quote: "\"Reliability, punctual payments, and zero worries.\"",
                 trust_link: "Join the club →",
-                exp_title: "More than a manager, partner.",
-                exp_intro: "I am Cédric Ducornet. Expert with 17 years of experience.",
-                exp_p1_title: "Logistics & Delivery", exp_p1_desc: "Management in Barcelona or Airport.",
-                mod_title: "Win-Win Model", mod_subtitle: "You 70% / Me 30%.",
-                card1_title: "Owner", card1_desc: "Underused car.",
-                card2_title: "Investment", card2_desc: "ROI +15%.",
-                card3_title: "Leasing", card3_desc: "Self-financing.",
-                btn_val: "Value my car", btn_opp: "Opportunities", btn_lea: "Study",
-                req_title: "Eligible Vehicles", req_c1: "1. Mandatory", req_c2: "2. Standard",
-                req_list1: "Max 15 years", req_list2: "Spanish Plate", req_list5: "ZBE Sticker", req_list6: "Impeccable",
+                exp_title: "More than a manager,\nyour strategic partner.",
+                exp_intro: "I am <strong>Cédric Ducornet</strong>. Expert with 17 years of experience. I offer physical presence, total control, and real profitability.",
+                exp_p1_title: "Logistics & Delivery", exp_p1_desc: "Management in Barcelona or Airport. Key handover. I take care of your car.",
+                exp_p2_title: "Impeccable Maintenance", exp_p2_desc: "Pro cleaning, fluids, and tire pressure checked before every rental.",
+                exp_p3_title: "Radical Transparency", exp_p3_desc: "Full data access. You know when your car is rented and how much it earns.",
+                mod_title: "The \"Win-Win\" Model",
+                mod_subtitle: "You receive 70% of net profit. My fees (30%) cover the complete management.",
+                card1_title: "Owner", card1_desc: "You have an underused car.",
+                card2_title: "Cash Investment", card2_desc: "Buy a car to rent (ROI +15%).",
+                card3_title: "Leasing", card3_desc: "Self-financing a new car.",
+                btn_val: "Value my car", btn_opp: "See opportunities", btn_lea: "Personalized study",
+                req_title: "Eligible Vehicles", req_c1: "1. Mandatory", req_list1: "Max 15 years / 150,000 km", req_list2: "Spanish License Plate", req_list3: "Valid ITV + Insurance",
+                req_c2: "2. CarSitter Standard", req_list4: "Central locking (Keyless)", req_list5: "ZBE Sticker (B, C, ECO, 0)", req_list6: "Impeccable condition",
                 ctc_title: "Direct Contact", ctc_btn: "Send to WhatsApp"
             }
         };
