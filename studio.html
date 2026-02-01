@@ -6,7 +6,6 @@
     <title>CarSitter Studio - Barcelona</title>
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- FAVICON (Utilise le logo transparent s'il est au même endroit) -->
     <link rel="icon" type="image/png" href="logo_1_transparent.png">
 
     <!-- Librairies -->
@@ -14,7 +13,6 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- html2canvas pour le téléchargement -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
@@ -24,12 +22,16 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .preview-shadow { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); }
         
-        /* Ajustement responsive de la zone de preview */
-        .preview-container {
-            transform-origin: top center;
-        }
-        @media (max-width: 768px) {
-            .preview-container { transform: scale(0.6); margin-top: -50px; }
+        /* Conteneur de scène pour l'isolement de la capture */
+        .stage-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
         }
     </style>
 </head>
@@ -37,7 +39,7 @@
     <div id="root" class="h-full"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
         // --- ICONES ---
         const Icon = ({ path }) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{path}</svg>;
@@ -49,7 +51,8 @@
             Monitor: <Icon path={<><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>} />,
             Banner: <Icon path={<><path d="M2 12h20"/><path d="M2 12l5-5"/><path d="M22 12l-5 5"/></>} />,
             Sun: <Icon path={<><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>} />,
-            Moon: <Icon path={<><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></>} />
+            Moon: <Icon path={<><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></>} />,
+            ZoomIn: <Icon path={<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></>} />
         };
 
         const WallpaperGenerator = () => {
@@ -57,20 +60,26 @@
             const [activeFormat, setActiveFormat] = useState('phone');
             const [isDownloading, setIsDownloading] = useState(false);
             
-            // --- GESTION DES IMAGES (DEFAUTS SVG SI POSSIBLE) ---
+            // ZOOM ET SCALE
+            const [previewScale, setPreviewScale] = useState(0.8); // Zoom de l'interface (confort)
+            const [photoZoom, setPhotoZoom] = useState(1.0);       // Zoom de la photo INTÉRIEUR du design
+            
+            // --- GESTION DES IMAGES ---
             const [images, setImages] = useState({
                 main: "cedricvis.png",            
-                logoIcon: "logo_1_transparent.png", // Le "C"
-                logoText: "Logo.png"              // Le logo principal (Remplace le texte)
+                logoIcon: "logo_1_transparent.png",
+                logoText: "Logo.png"
             });
 
-            // --- TEXTES (EN ESPAGNOL PAR DÉFAUT) ---
+            // --- TEXTES ---
             const [text, setText] = useState({
                 subtitle: 'GESTOR DE CARSHARING',
                 location: 'Barcelona Ciudad y Aeropuerto',
                 web: 'cedriccarsitter.com',
                 quote: 'Su coche,\nmi responsabilidad.'
             });
+
+            const captureRef = useRef(null);
 
             const handleImageUpload = (key, event) => {
                 const file = event.target.files[0];
@@ -85,57 +94,55 @@
 
             const downloadImage = () => {
                 setIsDownloading(true);
-                const element = document.getElementById('preview-capture');
-                
-                // Petite pause pour laisser le temps au DOM de se stabiliser
-                setTimeout(() => {
-                    html2canvas(element, {
-                        scale: 3, // Haute définition
-                        useCORS: true,
-                        backgroundColor: null,
-                        logging: false
-                    }).then(canvas => {
-                        const link = document.createElement('a');
-                        link.download = `CarSitter-BCN-${activeFormat}-${Date.now()}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                        setIsDownloading(false);
-                    }).catch(err => {
-                        alert("Error al descargar. Inténtalo de nuevo.");
-                        setIsDownloading(false);
-                    });
-                }, 100);
+                const element = captureRef.current;
+                if (!element) return;
+
+                html2canvas(element, {
+                    scale: 3,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                    logging: false,
+                    width: element.offsetWidth,
+                    height: element.offsetHeight
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `CarSitter-BCN-${activeFormat}-${Date.now()}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    setIsDownloading(false);
+                }).catch(err => {
+                    alert("Error. Inténtalo de nuevo.");
+                    setIsDownloading(false);
+                });
             };
 
             // --- STYLES GRAPHIQUES ---
 
-            // STYLE 1: GEOMETRIC (MODIFIÉ: PLUS DE TEXTE TITRE, LOGO EN GRAND)
             const GeometricStyle = ({ isLandscape, isBanner }) => (
                 <div className="relative h-full w-full bg-white overflow-hidden flex flex-col items-center justify-center font-sans">
-                    {/* Formes Arrière-plan */}
                     <div className={`absolute -top-20 -right-20 rounded-full bg-[#f39c12] opacity-90 z-0 ${isLandscape ? 'w-96 h-96' : 'w-80 h-80'}`}></div>
                     <div className={`absolute -bottom-10 -left-10 rounded-full bg-[#2980b9] opacity-10 z-0 ${isLandscape ? 'w-[500px] h-[500px]' : 'w-96 h-96'}`}></div>
-                    
-                    {/* Filigrane Logo Icon */}
                     <img src={images.logoIcon} className="absolute bottom-10 right-10 w-48 opacity-[0.03] rotate-12 pointer-events-none" />
 
-                    {/* Contenu */}
                     <div className={`relative z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in w-full px-6 justify-center`}>
-                        {/* Cadre Photo (Ajustement Cover) */}
                         <div className={`relative group ${isBanner ? 'w-24 h-24' : 'w-52 h-52'} shrink-0`}>
                             <div className="absolute inset-0 border-4 border-[#2980b9] rounded-2xl rotate-6 opacity-30"></div>
                             <div className="absolute inset-0 bg-[#f39c12] rounded-2xl -rotate-3 opacity-20"></div>
                             <div className="relative w-full h-full bg-white rounded-xl shadow-xl overflow-hidden border-2 border-white">
-                                <img src={images.main} className="w-full h-full object-cover object-center" crossOrigin="anonymous" />
+                                {/* APPLICATION DU ZOOM PHOTO ICI */}
+                                <img 
+                                    src={images.main} 
+                                    style={{ transform: `scale(${photoZoom})`, transformOrigin: 'center center', transition: 'transform 0.1s' }}
+                                    className="w-full h-full object-cover object-center" 
+                                    crossOrigin="anonymous" 
+                                />
                             </div>
                         </div>
 
-                        {/* Logo Principal (Remplace le titre texte) */}
                         <div className={`${isLandscape ? 'text-left' : 'text-center'} flex flex-col ${isLandscape ? 'items-start' : 'items-center'}`}>
                             <img src={images.logoText} className={`w-auto ${isBanner ? 'h-12' : 'h-24'} mb-4 drop-shadow-sm`} crossOrigin="anonymous" />
-                            
                             <div className="w-12 h-1 bg-[#f39c12] my-2 rounded-full inline-block"></div>
-                            
                             <p className="font-bold text-gray-700 tracking-widest text-sm uppercase">{text.subtitle}</p>
                             <p className="text-gray-400 text-[10px] uppercase mt-1 tracking-wider">{text.location}</p>
                             <p className="text-[#2980b9] text-xs font-mono mt-2 font-bold">{text.web}</p>
@@ -144,21 +151,21 @@
                 </div>
             );
 
-            // STYLE 2: BARCELONA SKY (NOUVEAU - CLAIR ET LUMINEUX)
             const BarcelonaStyle = ({ isLandscape, isBanner }) => (
                 <div className="relative h-full w-full bg-gradient-to-b from-[#e0f7fa] to-white flex items-center justify-center overflow-hidden font-sans">
-                     {/* Décoration Ciel */}
                      <div className="absolute top-0 w-full h-1/2 bg-[#2980b9] opacity-5 rounded-b-[50%] scale-150"></div>
-                     
                      <div className={`z-10 flex ${isLandscape ? 'flex-row-reverse gap-12' : 'flex-col gap-6'} items-center animate-fade-in w-full px-8 justify-center`}>
-                        
-                        {/* Photo en cercle avec bordure colorée */}
                         <div className={`relative ${isBanner ? 'w-24 h-24' : 'w-48 h-48'} rounded-full p-1 bg-gradient-to-tr from-[#2980b9] to-[#f39c12] shadow-xl`}>
                             <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-white">
-                                <img src={images.main} className="w-full h-full object-cover object-top" crossOrigin="anonymous" />
+                                {/* APPLICATION DU ZOOM PHOTO ICI */}
+                                <img 
+                                    src={images.main} 
+                                    style={{ transform: `scale(${photoZoom})`, transformOrigin: 'center center', transition: 'transform 0.1s' }}
+                                    className="w-full h-full object-cover object-top" 
+                                    crossOrigin="anonymous" 
+                                />
                             </div>
                         </div>
-
                         <div className={`${isLandscape ? 'text-right' : 'text-center'}`}>
                              <img src={images.logoText} className={`w-auto ${isBanner ? 'h-10' : 'h-20'} mb-2 mx-auto md:mx-0`} crossOrigin="anonymous" />
                              <p className="text-[#2980b9] font-black text-sm uppercase tracking-widest">{text.subtitle}</p>
@@ -168,70 +175,78 @@
                 </div>
             );
 
-            // STYLE 3: CORPORATE DARK (NOUVEAU - SOMBRE ET PRO)
-            const DarkProStyle = ({ isLandscape }) => (
-                <div className="relative h-full w-full bg-[#1e293b] flex overflow-hidden font-sans">
-                    {/* Fond sombre texturé */}
-                    <div className="absolute inset-0 z-0">
-                        <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
-                        <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-[#0f172a] to-transparent opacity-80"></div>
+            const DarkProStyle = ({ isLandscape, isBanner }) => {
+                // MODIF BLACK BANNER : Si banner, fond NOIR PUR, sinon Gris Foncé Pro
+                const bgClass = isBanner ? 'bg-black' : 'bg-[#1e293b]';
+                
+                return (
+                    <div className={`relative h-full w-full ${bgClass} flex overflow-hidden font-sans`}>
+                        <div className="absolute inset-0 z-0">
+                            {/* Texture seulement si pas bannière noire pure, pour garder le noir pur */}
+                            {!isBanner && <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>}
+                            <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-black/50 to-transparent opacity-80"></div>
+                        </div>
+
+                        <div className={`relative z-10 w-full h-full flex ${isLandscape ? 'flex-row' : 'flex-col'} items-center justify-between ${isBanner ? 'px-12' : 'p-10'} animate-fade-in`}>
+                             
+                             <div className={`${isLandscape ? 'w-1/2 h-full' : 'w-full h-1/2'} flex items-center justify-center`}>
+                                <div className={`relative w-full h-full ${isBanner ? 'max-w-none' : 'max-w-xs'} rounded-lg overflow-hidden ${!isBanner && 'border border-gray-700 shadow-2xl'}`}>
+                                    {/* APPLICATION DU ZOOM PHOTO ICI */}
+                                    <img 
+                                        src={images.main} 
+                                        style={{ transform: `scale(${photoZoom})`, transformOrigin: 'center center', transition: 'transform 0.1s' }}
+                                        className={`w-full h-full object-cover ${isBanner && 'opacity-80 mask-image-linear'}`} 
+                                        crossOrigin="anonymous" 
+                                    />
+                                    {/* Dégradé spécifique bannière pour fondre l'image */}
+                                    {isBanner && <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent"></div>}
+                                    {!isBanner && <div className="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent opacity-50"></div>}
+                                </div>
+                             </div>
+
+                             <div className={`${isLandscape ? 'w-1/2 text-right pl-8' : 'w-full h-1/2 text-center pt-6'} flex flex-col justify-center`}>
+                                <div className="bg-white p-3 rounded-lg inline-block self-center md:self-end shadow-lg mb-2">
+                                    <img src={images.logoText} className="h-6 w-auto" crossOrigin="anonymous" />
+                                </div>
+                                
+                                {!isBanner && <h2 className="text-white text-2xl font-bold leading-tight mb-2">"{text.quote}"</h2>}
+                                <p className="text-[#f39c12] font-bold tracking-widest text-xs uppercase">{text.subtitle}</p>
+                                {!isBanner && <div className="h-px w-20 bg-gray-600 my-4 mx-auto md:ml-auto md:mr-0"></div>}
+                                <p className="text-gray-500 text-[10px] tracking-wider mt-1">{text.web}</p>
+                             </div>
+                        </div>
                     </div>
-
-                    <div className={`relative z-10 w-full h-full flex ${isLandscape ? 'flex-row' : 'flex-col'} items-center justify-between p-10 animate-fade-in`}>
-                         
-                         {/* Zone Photo (Intégrée) */}
-                         <div className={`${isLandscape ? 'w-1/2 h-full' : 'w-full h-1/2'} flex items-center justify-center`}>
-                            <div className="relative w-full h-full max-h-64 max-w-xs rounded-lg overflow-hidden border border-gray-700 shadow-2xl">
-                                <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent opacity-50"></div>
-                            </div>
-                         </div>
-
-                         {/* Zone Texte */}
-                         <div className={`${isLandscape ? 'w-1/2 text-right pl-8' : 'w-full h-1/2 text-center pt-6'} flex flex-col justify-center`}>
-                            {/* Logo doit être visible sur fond sombre -> On met un fond blanc arrondi derrière si c'est le PNG noir, ou on suppose que l'utilisateur uploadera un logo blanc */}
-                            <div className="bg-white p-3 rounded-lg inline-block self-center md:self-end shadow-lg mb-4">
-                                <img src={images.logoText} className="h-8 w-auto" crossOrigin="anonymous" />
-                            </div>
-                            
-                            <h2 className="text-white text-2xl font-bold leading-tight mb-2">"{text.quote}"</h2>
-                            <p className="text-[#f39c12] font-bold tracking-widest text-xs uppercase">{text.subtitle}</p>
-                            <div className="h-px w-20 bg-gray-600 my-4 mx-auto md:ml-auto md:mr-0"></div>
-                            <p className="text-gray-400 text-[10px] tracking-wider">{text.web}</p>
-                         </div>
-                    </div>
-                </div>
-            );
-
-            // --- LAYOUT DIMS ---
-            const formatDims = {
-                phone: 'w-[300px] h-[650px] rounded-[2.5rem]',
-                desktop: 'w-[640px] h-[360px] rounded-lg',
-                banner: 'w-[640px] h-[160px] rounded-lg'
+                );
             };
+
+            const formatDims = {
+                phone:   { w: 300, h: 650, radius: '2.5rem' },
+                desktop: { w: 640, h: 360, radius: '0.5rem' },
+                banner:  { w: 640, h: 160, radius: '0.5rem' }
+            };
+            const currentDim = formatDims[activeFormat];
 
             return (
                 <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
                     
-                    {/* --- SIDEBAR DE CONTRÔLE --- */}
+                    {/* --- SIDEBAR --- */}
                     <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-30 h-1/2 lg:h-full relative overflow-hidden">
                         <div className="p-4 bg-white border-b border-gray-100 shrink-0 flex justify-between items-center">
                             <h1 className="text-lg font-black text-[#2980b9] flex items-center gap-2 tracking-tight">
                                 {icons.Layout} STUDIO BCN
                             </h1>
-                            <span className="text-[10px] bg-orange-100 text-orange-600 px-2 py-1 rounded-full font-bold">V4.0</span>
+                            <span className="text-[10px] bg-black text-white px-2 py-1 rounded-full font-bold">V6.0</span>
                         </div>
                         
                         <div className="flex-1 overflow-y-auto p-5 space-y-8 pb-20">
                             
-                            {/* SECTION IMAGES */}
+                            {/* SECTION 1: IMAGES */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3 border-b pb-1">1. Imágenes (Logos & Foto)</label>
-                                
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3 border-b pb-1">1. Imágenes</label>
                                 <div className="space-y-4">
-                                    {/* Upload Logo Principal (SVG/PNG) */}
+                                    {/* Upload Logo */}
                                     <div className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-center relative group">
-                                        <p className="text-xs font-bold text-gray-700 mb-2">Logo Principal (SVG/PNG)</p>
+                                        <p className="text-xs font-bold text-gray-700 mb-2">Logo Principal</p>
                                         <div className="h-12 flex items-center justify-center mb-2">
                                             <img src={images.logoText} className="h-full object-contain" />
                                         </div>
@@ -240,24 +255,43 @@
                                             <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoText', e)} className="hidden" />
                                         </label>
                                     </div>
-
-                                    {/* Upload Main Photo */}
-                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
-                                        <div className="w-12 h-12 rounded bg-gray-200 overflow-hidden shrink-0 border">
-                                            <img src={images.main} className="w-full h-full object-cover" />
+                                    
+                                    {/* Upload Photo & ZOOM CONTROL */}
+                                    <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded bg-gray-200 overflow-hidden shrink-0 border">
+                                                <img src={images.main} className="w-full h-full object-cover" />
+                                            </div>
+                                            <div className="flex-1 overflow-hidden">
+                                                <p className="text-xs font-bold text-gray-700">Foto Principal</p>
+                                                <label className="text-[10px] text-[#f39c12] font-bold cursor-pointer hover:underline flex items-center gap-1 mt-1">
+                                                    {icons.Upload} Cambiar foto
+                                                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload('main', e)} className="hidden" />
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div className="flex-1 overflow-hidden">
-                                            <p className="text-xs font-bold text-gray-700">Foto Principal</p>
-                                            <label className="text-[10px] text-[#f39c12] font-bold cursor-pointer hover:underline flex items-center gap-1 mt-1">
-                                                {icons.Upload} Subir nueva foto
-                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('main', e)} className="hidden" />
+                                        
+                                        {/* NOUVEAU : CONTROLE DU ZOOM IMAGE */}
+                                        <div className="pt-2 border-t border-gray-200">
+                                            <label className="flex items-center justify-between text-[10px] font-bold text-gray-500 uppercase mb-1">
+                                                <span className="flex items-center gap-1">{icons.ZoomIn} Zoom Foto Principal</span>
+                                                <span>{Math.round(photoZoom * 100)}%</span>
                                             </label>
+                                            <input 
+                                                type="range" 
+                                                min="0.5" 
+                                                max="2.5" 
+                                                step="0.1" 
+                                                value={photoZoom} 
+                                                onChange={(e) => setPhotoZoom(parseFloat(e.target.value))} 
+                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#f39c12]" 
+                                            />
                                         </div>
                                     </div>
                                 </div>
                             </section>
 
-                            {/* SECTION FORMAT */}
+                            {/* SECTION 2: FORMAT */}
                             <section>
                                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">2. Formato</label>
                                 <div className="flex gap-2 mb-4">
@@ -271,27 +305,22 @@
                                         </button>
                                     ))}
                                 </div>
-
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">3. Estilo de Fondo</label>
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">3. Estilo</label>
                                 <div className="flex flex-col gap-2">
                                     <button onClick={() => setActiveStyle('geometric')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'geometric' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
                                         <span className="text-xs font-bold">Original Geométrico</span>
-                                        <div className="w-4 h-4 bg-white border rounded-full"></div>
                                     </button>
                                     <button onClick={() => setActiveStyle('barcelona')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'barcelona' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
                                         <span className="text-xs font-bold flex items-center gap-2">{icons.Sun} Barcelona Sky</span>
-                                        <div className="w-4 h-4 bg-gradient-to-tr from-blue-200 to-white rounded-full"></div>
                                     </button>
                                     <button onClick={() => setActiveStyle('dark')} className={`p-3 text-left rounded border transition-all flex items-center justify-between ${activeStyle === 'dark' ? 'border-[#2980b9] bg-blue-50 text-[#2980b9]' : 'hover:bg-gray-50'}`}>
-                                        <span className="text-xs font-bold flex items-center gap-2">{icons.Moon} Corporate Dark</span>
-                                        <div className="w-4 h-4 bg-slate-800 rounded-full"></div>
+                                        <span className="text-xs font-bold flex items-center gap-2">{icons.Moon} Corporate Dark {activeFormat === 'banner' && '(Black Ed.)'}</span>
                                     </button>
                                 </div>
                             </section>
 
-                            {/* SECTION TEXTE */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">4. Textos (Español)</label>
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">4. Textos</label>
                                 <div className="space-y-3">
                                     <div>
                                         <label className="text-[9px] text-gray-500 uppercase font-bold">Actividad</label>
@@ -301,7 +330,7 @@
                                         <label className="text-[9px] text-gray-500 uppercase font-bold">Ubicación</label>
                                         <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.location} onChange={e => setText({...text, location: e.target.value})} />
                                     </div>
-                                    {activeStyle === 'dark' && (
+                                    {activeStyle === 'dark' && activeFormat !== 'banner' && (
                                         <div>
                                             <label className="text-[9px] text-gray-500 uppercase font-bold">Cita</label>
                                             <textarea className="w-full p-2 text-xs border rounded bg-white h-16 resize-none focus:border-[#f39c12] outline-none" value={text.quote} onChange={e => setText({...text, quote: e.target.value})} />
@@ -309,44 +338,48 @@
                                     )}
                                 </div>
                             </section>
+
+                            <section className="pt-4 border-t">
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2">Zoom Visualización (Pantalla)</label>
+                                <input type="range" min="0.4" max="1.2" step="0.1" value={previewScale} onChange={(e) => setPreviewScale(parseFloat(e.target.value))} className="w-full" />
+                            </section>
                         </div>
                     </div>
 
                     {/* --- ZONE DE PRÉVISUALISATION --- */}
-                    <div className="flex-1 bg-gray-200 flex flex-col items-center justify-center relative overflow-hidden h-1/2 lg:h-full p-4">
-                         {/* Pattern fond interface */}
-                         <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                    <div className="flex-1 bg-gray-200 h-1/2 lg:h-full relative overflow-hidden">
                          
-                         {/* WRAPPER CENTRÉ SCROLLABLE */}
-                         <div className="w-full h-full flex flex-col items-center justify-center overflow-auto preview-container">
-                             
-                             {/* LE RENDU (CAPTURE ZONE) */}
-                             <div 
-                                id="preview-capture"
-                                className={`bg-white preview-shadow transition-all duration-300 relative overflow-hidden shrink-0 ${formatDims[activeFormat]}`}
-                             >
-                                {/* Encoche iPhone */}
-                                {activeFormat === 'phone' && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50 pointer-events-none"></div>}
-                                
-                                {activeStyle === 'geometric' && <GeometricStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
-                                {activeStyle === 'barcelona' && <BarcelonaStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
-                                {activeStyle === 'dark' && <DarkProStyle isLandscape={activeFormat !== 'phone'} />}
+                         {/* SCENE */}
+                         <div className="stage-container">
+                             <div style={{ transform: `scale(${previewScale})`, transformOrigin: 'center center', transition: 'transform 0.2s' }}>
+                                 <div 
+                                    ref={captureRef}
+                                    id="preview-capture"
+                                    className="bg-white preview-shadow relative overflow-hidden shrink-0"
+                                    style={{
+                                        width: `${currentDim.w}px`,
+                                        height: `${currentDim.h}px`,
+                                        borderRadius: currentDim.radius
+                                    }}
+                                 >
+                                    {activeFormat === 'phone' && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50 pointer-events-none"></div>}
+                                    
+                                    {activeStyle === 'geometric' && <GeometricStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                    {activeStyle === 'barcelona' && <BarcelonaStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                    {activeStyle === 'dark' && <DarkProStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                 </div>
                              </div>
+                         </div>
 
-                             {/* ACTION BAR */}
-                             <div className="mt-8 flex gap-4 z-40">
-                                <button 
-                                    onClick={downloadImage}
-                                    disabled={isDownloading}
-                                    className="bg-[#2980b9] hover:bg-[#2c3e50] text-white px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    {isDownloading ? 'Generando...' : <>{icons.Download} DESCARGAR IMAGEN</>}
-                                </button>
-                             </div>
-                             
-                             <p className="mt-4 text-[10px] text-gray-500 font-mono">
-                                Cedric CarSitter Studio • Barcelona
-                             </p>
+                         {/* ACTION BAR */}
+                         <div className="absolute bottom-8 left-0 right-0 flex justify-center z-50 pointer-events-none">
+                            <button 
+                                onClick={downloadImage}
+                                disabled={isDownloading}
+                                className="bg-[#2980b9] hover:bg-[#2c3e50] text-white px-8 py-3 rounded-full font-bold shadow-xl flex items-center gap-2 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto"
+                            >
+                                {isDownloading ? 'Generando...' : <>{icons.Download} DESCARGAR IMAGEN</>}
+                            </button>
                          </div>
                     </div>
                 </div>
