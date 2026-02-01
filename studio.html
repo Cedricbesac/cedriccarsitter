@@ -3,55 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarSitter Studio - Outil Interne</title>
-    <meta name="robots" content="noindex, nofollow"> <!-- Pour ne pas être référencé sur Google -->
+    <title>CarSitter Studio - Générateur Pro</title>
+    <meta name="robots" content="noindex, nofollow">
     
+    <!-- Librairies -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- html2canvas pour le téléchargement -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f0f2f5; }
         .animate-fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        /* Masquer input file brut */
-        input[type=file] { display: none; }
+        
+        /* Styles personnalisés pour l'interface */
+        .preview-shadow { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); }
+        
+        /* Input file caché mais accessible */
+        .custom-file-upload { display: inline-block; cursor: pointer; }
     </style>
 </head>
-<body class="h-screen overflow-hidden text-gray-800">
+<body class="text-gray-800 h-screen overflow-hidden">
     <div id="root" class="h-full"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useRef } = React;
 
         // --- ICONES ---
         const Icon = ({ path }) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{path}</svg>;
         const icons = {
+            Download: <Icon path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></>} />,
             Upload: <Icon path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></>} />,
             Layout: <Icon path={<><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></>} />,
             Phone: <Icon path={<><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></>} />,
             Monitor: <Icon path={<><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>} />,
             Banner: <Icon path={<><path d="M2 12h20"/><path d="M2 12l5-5"/><path d="M22 12l-5 5"/></>} />,
-            Image: <Icon path={<><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></>} />
+            Refresh: <Icon path={<><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>} />
         };
 
         const WallpaperGenerator = () => {
             const [activeStyle, setActiveStyle] = useState('geometric');
             const [activeFormat, setActiveFormat] = useState('phone');
-            const [customImage, setCustomImage] = useState(null);
+            const [isDownloading, setIsDownloading] = useState(false);
             
-            // --- CONFIGURATION PAR DÉFAUT ---
-            // Ces images doivent être sur ton serveur au même endroit que ce fichier
-            const serverImages = {
-                portrait: "cedricvis.png",
-                logoOnly: "logo_1_transparent.png",
-                logoFull: "Logo.png"
-            };
+            // --- GESTION DES IMAGES ---
+            const [images, setImages] = useState({
+                main: "cedricvis.png",            // Photo de Cédric ou Voiture
+                logoIcon: "logo_1_transparent.png", // Le "C" Orange
+                logoText: "Logo.png"              // Le Logo complet
+            });
 
-            const [activeVisualSrc, setActiveVisualSrc] = useState(serverImages.portrait);
-            
             const [text, setText] = useState({
                 title: 'CEDRIC CARSITTER',
                 subtitle: 'GESTION & CONCIERGERIE',
@@ -59,20 +64,42 @@
                 quote: 'Votre voiture,\nma responsabilité.'
             });
 
-            // Gestion de l'upload local
-            const handleImageUpload = (event) => {
+            const handleImageUpload = (key, event) => {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        setCustomImage(e.target.result);
-                        setActiveVisualSrc(e.target.result);
+                        setImages(prev => ({ ...prev, [key]: e.target.result }));
                     };
                     reader.readAsDataURL(file);
                 }
             };
 
-            // --- STYLES GRAPHIQUES ---
+            // --- FONCTION DE TÉLÉCHARGEMENT ---
+            const downloadImage = () => {
+                setIsDownloading(true);
+                const element = document.getElementById('preview-capture');
+                
+                // Options pour html2canvas pour haute qualité
+                html2canvas(element, {
+                    scale: 2, // Retina quality
+                    useCORS: true, // Autoriser les images locales/serveur
+                    backgroundColor: null,
+                    logging: false
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `CarSitter-${activeFormat}-${Date.now()}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    setIsDownloading(false);
+                }).catch(err => {
+                    console.error("Erreur téléchargement", err);
+                    alert("Erreur lors de la génération. Vérifiez que les images sont bien chargées.");
+                    setIsDownloading(false);
+                });
+            };
+
+            // --- STYLES GRAPHIQUES (MIS À JOUR POUR CONTRASTE) ---
 
             const GeometricStyle = ({ isLandscape, isBanner }) => (
                 <div className="relative h-full w-full bg-white overflow-hidden flex flex-col items-center justify-center font-sans">
@@ -80,6 +107,9 @@
                     <div className={`absolute -top-20 -right-20 rounded-full bg-[#f39c12] opacity-90 z-0 ${isLandscape ? 'w-96 h-96' : 'w-80 h-80'}`}></div>
                     <div className={`absolute -bottom-10 -left-10 rounded-full bg-[#2980b9] opacity-10 z-0 ${isLandscape ? 'w-[500px] h-[500px]' : 'w-96 h-96'}`}></div>
                     
+                    {/* Filigrane Logo Icon */}
+                    <img src={images.logoIcon} className="absolute bottom-20 right-20 w-32 opacity-5 rotate-12 pointer-events-none" />
+
                     {/* Contenu */}
                     <div className={`relative z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in`}>
                         {/* Cadre Photo */}
@@ -87,20 +117,20 @@
                             <div className="absolute inset-0 border-4 border-[#2980b9] rounded-2xl rotate-6 opacity-30"></div>
                             <div className="absolute inset-0 bg-[#f39c12] rounded-2xl -rotate-3 opacity-20"></div>
                             <div className="relative w-full h-full bg-white rounded-xl shadow-xl overflow-hidden border-2 border-white">
-                                <img src={activeVisualSrc} className="w-full h-full object-cover" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
-                                <div className="absolute inset-0 hidden items-center justify-center text-xs text-center bg-gray-100 p-2 text-gray-400">Image introuvable<br/>(Uploader ou vérifier serveur)</div>
+                                <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
                             </div>
                         </div>
 
-                        {/* Texte */}
+                        {/* Texte - CORRECTION CONTRASTE : Texte sombre sur fond blanc */}
                         <div className={`${isLandscape ? 'text-left' : 'text-center'}`}>
                             <h1 className="text-3xl font-black text-gray-800 leading-none tracking-tight">
                                 {text.title.split(' ')[0]}
                                 <span className="text-[#f39c12] block">{text.title.split(' ')[1]}</span>
                             </h1>
                             <div className="w-12 h-2 bg-[#2980b9] my-2 rounded-full inline-block"></div>
-                            <p className="font-bold text-gray-500 tracking-widest text-sm uppercase">{text.subtitle}</p>
-                            <p className="text-[#2980b9] text-xs font-mono mt-1">{text.web}</p>
+                            {/* Fond blanc ajouté derrière le sous-titre si besoin, ici texte gris foncé safe */}
+                            <p className="font-bold text-gray-600 tracking-widest text-sm uppercase">{text.subtitle}</p>
+                            <p className="text-[#2980b9] text-xs font-mono mt-1 font-bold">{text.web}</p>
                         </div>
                     </div>
                 </div>
@@ -109,43 +139,66 @@
             const FocusStyle = ({ isLandscape }) => (
                 <div className="relative h-full w-full bg-gray-900 flex overflow-hidden font-sans">
                     <div className="absolute inset-0 z-0">
-                        <img src={activeVisualSrc} className={`w-full h-full object-cover opacity-40 mix-blend-overlay ${isLandscape ? 'object-center' : 'object-center'}`} />
-                        <div className={`absolute inset-0 bg-gradient-to-${isLandscape ? 'r' : 't'} from-[#2c3e50] via-[#2c3e50]/80 to-[#f39c12]/20`}></div>
+                        <img src={images.main} className={`w-full h-full object-cover opacity-50 mix-blend-overlay ${isLandscape ? 'object-center' : 'object-center'}`} crossOrigin="anonymous" />
+                        {/* Dégradé sombre pour garantir la lisibilité du texte blanc */}
+                        <div className={`absolute inset-0 bg-gradient-to-${isLandscape ? 'r' : 't'} from-[#1a252f] via-[#2c3e50]/90 to-[#f39c12]/10`}></div>
                     </div>
-                    <div className="relative z-10 w-full h-full flex items-center justify-center p-8 animate-fade-in">
-                         <div className="text-center">
-                            <h2 className="text-white text-3xl font-bold leading-tight whitespace-pre-line mb-4">"{text.quote}"</h2>
-                            <div className="inline-block px-4 py-2 border-2 border-[#f39c12] text-[#f39c12] font-bold tracking-wider text-sm uppercase">
+                    <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-8 animate-fade-in">
+                         <div className="text-center w-full max-w-lg">
+                            {/* Logo Texte en blanc ou sur fond clair */}
+                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg inline-block mb-6 border border-white/10">
+                                <img src={images.logoText} alt="Logo" className="h-8 w-auto filter drop-shadow-lg" crossOrigin="anonymous" />
+                            </div>
+                            
+                            <h2 className="text-white text-3xl font-bold leading-tight whitespace-pre-line mb-6 drop-shadow-md">
+                                "{text.quote}"
+                            </h2>
+                            
+                            {/* CORRECTION CONTRASTE : Badge Orange texte Blanc (pas orange sur orange) */}
+                            <div className="inline-block px-6 py-2 bg-[#f39c12] text-white font-black tracking-wider text-xs uppercase rounded-full shadow-lg">
                                 {text.subtitle}
                             </div>
-                            <div className="mt-8 bg-white/90 backdrop-blur px-4 py-2 rounded shadow-lg inline-block">
-                                <img src={serverImages.logoFull} alt="Logo" className="h-8 w-auto" onError={(e) => e.target.style.display='none'} />
-                            </div>
+                         </div>
+                         
+                         <div className="absolute bottom-8 flex flex-col items-center opacity-80">
+                             <img src={images.logoIcon} className="w-8 h-8 mb-2 filter brightness-0 invert" crossOrigin="anonymous" />
+                             <p className="text-gray-300 text-[10px] tracking-widest">{text.web}</p>
                          </div>
                     </div>
                 </div>
             );
 
             const CleanStyle = ({ isLandscape, isBanner }) => (
-                 <div className="relative h-full w-full bg-[#f4f6f7] flex items-center justify-center overflow-hidden font-sans">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#2980b9] rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                 <div className="relative h-full w-full bg-[#f8fafc] flex items-center justify-center overflow-hidden font-sans">
+                    {/* Formes douces */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#f39c12] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#2980b9] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                    
+                    {/* Pattern Grille Discrète */}
+                    <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
 
-                    <div className={`z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-6'} items-center animate-fade-in`}>
-                        <div className={`relative ${isBanner ? 'w-20 h-20' : 'w-40 h-40'} rounded-full overflow-hidden border-4 border-white shadow-lg`}>
-                            <img src={activeVisualSrc} className="w-full h-full object-cover" />
+                    <div className={`z-10 flex ${isLandscape ? 'flex-row gap-12' : 'flex-col gap-8'} items-center animate-fade-in w-full px-8 justify-center`}>
+                        {/* Logo Icon flottant */}
+                        <div className="absolute top-8 left-8">
+                             <img src={images.logoIcon} className="w-10 h-10 opacity-80" crossOrigin="anonymous" />
                         </div>
-                        <div className={`${isLandscape ? 'text-left' : 'text-center'}`}>
-                             <img src={serverImages.logoFull} className="h-12 w-auto mb-2 mx-auto md:mx-0" />
-                             <p className="text-gray-500 text-xs font-bold uppercase tracking-wider">{text.subtitle}</p>
+
+                        <div className={`relative ${isBanner ? 'w-20 h-20' : 'w-48 h-48'} rounded-full overflow-hidden border-[6px] border-white shadow-2xl`}>
+                            <img src={images.main} className="w-full h-full object-cover" crossOrigin="anonymous" />
+                        </div>
+                        
+                        <div className={`${isLandscape ? 'text-left' : 'text-center'} bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white shadow-sm`}>
+                             <img src={images.logoText} className="h-10 w-auto mb-3 mx-auto md:mx-0" crossOrigin="anonymous" />
+                             <div className="h-px w-full bg-gray-200 my-3"></div>
+                             {/* Texte Gris Foncé sur fond blanc = Contraste OK */}
+                             <p className="text-gray-600 text-xs font-bold uppercase tracking-widest mb-1">{text.subtitle}</p>
                              <p className="text-[#2980b9] font-bold text-sm">{text.web}</p>
                         </div>
                     </div>
                  </div>
             );
 
-            // --- MAIN LAYOUT ---
-            
+            // --- LAYOUT DIMS ---
             const formatDims = {
                 phone: 'w-[300px] h-[650px] rounded-[2.5rem]',
                 desktop: 'w-[640px] h-[360px] rounded-lg',
@@ -153,45 +206,71 @@
             };
 
             return (
-                <div className="flex h-full flex-col lg:flex-row">
-                    {/* SIDEBAR */}
-                    <div className="w-full lg:w-80 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-20 h-full">
-                        <div className="p-5 bg-gray-50 border-b border-gray-100 shrink-0">
-                            <h1 className="text-lg font-bold text-[#2c3e50] flex items-center gap-2">
-                                {icons.Layout} CarSitter Studio
+                <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
+                    
+                    {/* --- SIDEBAR DE CONTRÔLE --- */}
+                    <div className="w-full lg:w-96 bg-white border-r border-gray-200 flex flex-col shadow-2xl z-30 h-1/2 lg:h-full relative">
+                        <div className="p-4 bg-gray-50 border-b border-gray-100 shrink-0 flex justify-between items-center">
+                            <h1 className="text-lg font-black text-[#2c3e50] flex items-center gap-2 tracking-tight">
+                                {icons.Layout} STUDIO CARSITTER
                             </h1>
-                            <p className="text-xs text-gray-400">Connecté à cedriccarsitter.com</p>
                         </div>
                         
                         <div className="flex-1 overflow-y-auto p-5 space-y-6">
                             
-                            {/* 1. VISUEL */}
+                            {/* SECTION IMAGES */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2">1. Choisir le Visuel Central</label>
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3 border-b pb-1">1. Images & Logos</label>
                                 
-                                <div className="grid grid-cols-2 gap-2 mb-2">
-                                    <button onClick={() => setActiveVisualSrc(serverImages.portrait)} className={`p-2 text-xs border rounded flex flex-col items-center gap-1 ${activeVisualSrc === serverImages.portrait ? 'bg-blue-50 border-[#2980b9]' : 'hover:bg-gray-50'}`}>
-                                        <div className="w-6 h-6 rounded-full bg-gray-200 overflow-hidden"><img src={serverImages.portrait} className="w-full h-full object-cover"/></div>
-                                        <span>Ma Photo</span>
-                                    </button>
-                                    <button onClick={() => setActiveVisualSrc(serverImages.logoOnly)} className={`p-2 text-xs border rounded flex flex-col items-center gap-1 ${activeVisualSrc === serverImages.logoOnly ? 'bg-blue-50 border-[#2980b9]' : 'hover:bg-gray-50'}`}>
-                                        <div className="w-6 h-6 rounded-full bg-gray-200 overflow-hidden"><img src={serverImages.logoOnly} className="w-full h-full object-contain"/></div>
-                                        <span>Logo C</span>
-                                    </button>
-                                </div>
+                                <div className="space-y-3">
+                                    {/* Upload Main */}
+                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
+                                        <div className="w-10 h-10 rounded bg-gray-200 overflow-hidden shrink-0 border">
+                                            <img src={images.main} className="w-full h-full object-cover" />
+                                        </div>
+                                        <div className="flex-1 overflow-hidden">
+                                            <p className="text-xs font-bold text-gray-700">Photo Principale</p>
+                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
+                                                {icons.Upload} Changer la photo
+                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('main', e)} className="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
 
-                                <label className="flex items-center justify-center w-full p-2 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50 transition-colors">
-                                    <input type="file" accept="image/*" onChange={handleImageUpload} />
-                                    <span className="text-xs text-gray-500 flex items-center gap-2">
-                                        {icons.Upload} Ou importer une image
-                                    </span>
-                                </label>
+                                    {/* Upload Logo Icon */}
+                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
+                                        <div className="w-10 h-10 rounded bg-gray-100 overflow-hidden shrink-0 border p-1">
+                                            <img src={images.logoIcon} className="w-full h-full object-contain" />
+                                        </div>
+                                        <div className="flex-1 overflow-hidden">
+                                            <p className="text-xs font-bold text-gray-700">Logo "C" (Icône)</p>
+                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
+                                                {icons.Upload} Changer l'icône
+                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoIcon', e)} className="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Upload Logo Text */}
+                                    <div className="flex items-center gap-3 p-2 border rounded hover:bg-gray-50 transition-colors">
+                                        <div className="w-10 h-10 rounded bg-white overflow-hidden shrink-0 border p-1">
+                                            <img src={images.logoText} className="w-full h-full object-contain" />
+                                        </div>
+                                        <div className="flex-1 overflow-hidden">
+                                            <p className="text-xs font-bold text-gray-700">Logo Texte</p>
+                                            <label className="text-[10px] text-[#2980b9] cursor-pointer hover:underline flex items-center gap-1 mt-1">
+                                                {icons.Upload} Changer le logo
+                                                <input type="file" accept="image/*" onChange={(e) => handleImageUpload('logoText', e)} className="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
 
-                            {/* 2. FORMAT */}
+                            {/* SECTION FORMAT */}
                             <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2">2. Format Écran</label>
-                                <div className="flex gap-2">
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">2. Format & Style</label>
+                                <div className="flex gap-2 mb-3">
                                     {[
                                         {id: 'phone', icon: icons.Phone, label: 'Tel'}, 
                                         {id: 'desktop', icon: icons.Monitor, label: 'PC'},
@@ -202,50 +281,69 @@
                                         </button>
                                     ))}
                                 </div>
-                            </section>
 
-                            {/* 3. STYLE */}
-                            <section>
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2">3. Design</label>
-                                <div className="flex flex-col gap-2">
-                                    <button onClick={() => setActiveStyle('geometric')} className={`px-3 py-2 text-left rounded border transition-all ${activeStyle === 'geometric' ? 'border-gray-800 bg-gray-800 text-white shadow-md' : 'hover:bg-gray-50'}`}>
-                                        <span className="font-bold text-xs block">Géométrie & Fusion</span>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <button onClick={() => setActiveStyle('geometric')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'geometric' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
+                                        Géométrique
                                     </button>
-                                    <button onClick={() => setActiveStyle('focus')} className={`px-3 py-2 text-left rounded border transition-all ${activeStyle === 'focus' ? 'border-gray-800 bg-gray-800 text-white shadow-md' : 'hover:bg-gray-50'}`}>
-                                        <span className="font-bold text-xs block">L'Expert Focus</span>
+                                    <button onClick={() => setActiveStyle('focus')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'focus' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
+                                        Focus Pro
                                     </button>
-                                    <button onClick={() => setActiveStyle('clean')} className={`px-3 py-2 text-left rounded border transition-all ${activeStyle === 'clean' ? 'border-gray-800 bg-gray-800 text-white shadow-md' : 'hover:bg-gray-50'}`}>
-                                        <span className="font-bold text-xs block">Minimaliste</span>
+                                    <button onClick={() => setActiveStyle('clean')} className={`p-2 text-center rounded border transition-all text-[10px] font-bold ${activeStyle === 'clean' ? 'bg-gray-800 text-white' : 'hover:bg-gray-50'}`}>
+                                        Épuré
                                     </button>
                                 </div>
                             </section>
 
-                            {/* 4. TEXTE */}
-                            <section className="bg-gray-50 p-3 rounded border border-gray-200">
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2">4. Personnalisation</label>
-                                <input className="w-full mb-2 p-2 text-xs border rounded bg-white" value={text.subtitle} onChange={e => setText({...text, subtitle: e.target.value})} placeholder="Sous-titre" />
-                                <input className="w-full mb-2 p-2 text-xs border rounded bg-white" value={text.web} onChange={e => setText({...text, web: e.target.value})} placeholder="Site web" />
-                                {activeStyle === 'focus' && (
-                                    <textarea className="w-full p-2 text-xs border rounded bg-white h-16 resize-none" value={text.quote} onChange={e => setText({...text, quote: e.target.value})} placeholder="Citation..." />
-                                )}
+                            {/* SECTION TEXTE */}
+                            <section>
+                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-2 border-b pb-1">3. Textes</label>
+                                <div className="space-y-2">
+                                    <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.subtitle} onChange={e => setText({...text, subtitle: e.target.value})} placeholder="Sous-titre" />
+                                    <input className="w-full p-2 text-xs border rounded bg-white focus:border-[#f39c12] outline-none" value={text.web} onChange={e => setText({...text, web: e.target.value})} placeholder="Site web" />
+                                    {activeStyle === 'focus' && (
+                                        <textarea className="w-full p-2 text-xs border rounded bg-white h-16 resize-none focus:border-[#f39c12] outline-none" value={text.quote} onChange={e => setText({...text, quote: e.target.value})} placeholder="Citation..." />
+                                    )}
+                                </div>
                             </section>
                         </div>
                     </div>
 
-                    {/* PREVIEW AREA */}
-                    <div className="flex-1 bg-gray-200 flex items-center justify-center relative overflow-hidden p-4">
+                    {/* --- ZONE DE PRÉVISUALISATION --- */}
+                    <div className="flex-1 bg-gray-200 flex flex-col items-center justify-center relative overflow-hidden h-1/2 lg:h-full p-4 lg:p-8">
+                         {/* Pattern fond interface */}
                          <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#2c3e50 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
                          
-                         <div className={`bg-white shadow-2xl border-8 border-gray-800 transition-all duration-300 relative overflow-hidden shrink-0 ${formatDims[activeFormat]}`}>
-                            {activeFormat === 'phone' && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50"></div>}
-                            
-                            {activeStyle === 'geometric' && <GeometricStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
-                            {activeStyle === 'focus' && <FocusStyle isLandscape={activeFormat !== 'phone'} />}
-                            {activeStyle === 'clean' && <CleanStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
-                         </div>
+                         {/* WRAPPER CENTRÉ SCROLLABLE SI BESOIN */}
+                         <div className="w-full h-full flex flex-col items-center justify-center overflow-auto">
+                             
+                             {/* LE RENDU (CAPTURE ZONE) */}
+                             <div 
+                                id="preview-capture"
+                                className={`bg-white preview-shadow transition-all duration-300 relative overflow-hidden shrink-0 ${formatDims[activeFormat]}`}
+                             >
+                                {/* Encoche iPhone (uniquement visuelle, pas sur l'export si on veut) */}
+                                {activeFormat === 'phone' && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50 pointer-events-none"></div>}
+                                
+                                {activeStyle === 'geometric' && <GeometricStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                                {activeStyle === 'focus' && <FocusStyle isLandscape={activeFormat !== 'phone'} />}
+                                {activeStyle === 'clean' && <CleanStyle isLandscape={activeFormat !== 'phone'} isBanner={activeFormat === 'banner'} />}
+                             </div>
 
-                         <div className="absolute bottom-4 text-xs text-gray-500 font-medium">
-                            💡 Astuce : Fais une capture d'écran pour sauvegarder
+                             {/* ACTION BAR */}
+                             <div className="mt-8 flex gap-4 z-40">
+                                <button 
+                                    onClick={downloadImage}
+                                    disabled={isDownloading}
+                                    className="bg-[#2980b9] hover:bg-[#2c3e50] text-white px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {isDownloading ? 'Génération...' : <>{icons.Download} TÉLÉCHARGER L'IMAGE</>}
+                                </button>
+                             </div>
+                             
+                             <p className="mt-4 text-[10px] text-gray-500 font-mono">
+                                Résolution HD • Généré par Cedric CarSitter Studio
+                             </p>
                          </div>
                     </div>
                 </div>
