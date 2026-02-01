@@ -3,102 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidad - Cedric CarSitter</title>
-    <meta name="robots" content="noindex">
+    <title>Cedric CarSitter | Gestión de Flotas y Carsharing Barcelona</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Gestión integral de alquiler de coches en el aeropuerto de Barcelona El Prat. Rentabiliza tu vehículo o invierte en carsharing con total tranquilidad.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#0f172a' } },
-                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'] }
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            blue: '#1C75BC', // Bleu officiel
+                            dark: '#1E293B', 
+                            orange: '#F7941D', // Orange officiel
+                            light: '#EFF6FF'
+                        }
+                    }
                 }
             }
         }
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        .whatsapp-float { position: fixed; bottom: 30px; left: 30px; background-color: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; transition: transform 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        .back-to-top-floating { position: fixed; bottom: 30px; right: 30px; background-color: #333; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999; text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s; }
-        .footer-carsitter { background-color: #ffffff; padding: 40px 0 20px 0; border-top: 1px solid #eee; }
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .footer-links a { text-decoration: none; color: #444; margin-left: 20px; font-weight: 500; font-size: 0.9rem; }
-        @media (max-width: 768px) { .footer-container { flex-direction: column; text-align: center; gap: 20px; } }
     </style>
 </head>
-<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="index.html" class="block hover:opacity-90 transition"><img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" class="h-12 w-auto"></a>
-            <div class="flex items-center gap-6"><a href="index.html" class="text-sm font-bold text-slate-600 hover:text-brand-blue flex items-center gap-2"><span>←</span> Volver / Retour</a></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <a href="#" class="block hover:opacity-90 transition">
+                    <svg viewBox="0 0 250 85" class="h-14 w-auto" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M45,10 A32.5,32.5 0 1,0 45,75 A32.5,32.5 0 0,0 72.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                      <text x="45" y="52" fill="#1E293B" font-family="Montserrat" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                      <text x="56" y="52" fill="#1E293B" font-family="Montserrat" font-weight="500" font-size="18">edric</text>
+                      <text x="82" y="72" fill="#F7941D" font-family="Montserrat" font-weight="700" font-size="28">ar</text>
+                      <text x="112" y="72" fill="#1C75BC" font-family="Montserrat" font-weight="600" font-size="28">Sitter</text>
+                    </svg>
+                </a>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#experiencia" class="text-slate-600 hover:text-brand-blue font-medium transition uppercase text-sm tracking-wide">Experiencia</a>
+                    <a href="#modelos" class="text-slate-600 hover:text-brand-blue font-medium transition uppercase text-sm tracking-wide">Inversión</a>
+                    <a href="#faq" class="text-slate-600 hover:text-brand-blue font-medium transition uppercase text-sm tracking-wide">FAQ</a>
+                    <a href="#contacto" class="bg-brand-blue hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30 text-sm uppercase tracking-wide">
+                        WhatsApp Directo
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="pt-32 pb-20 max-w-4xl mx-auto px-4 py-12 flex-grow">
-        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-200">
-            <h1 class="text-3xl font-bold text-brand-dark mb-8">Política de Privacidad</h1>
-            
-            <div class="space-y-6 text-slate-600 leading-relaxed">
-                <p class="text-sm text-slate-400">Última actualización: 26 de enero de 2026.</p>
-                <p>El respeto a tu privacidad es un pilar fundamental de mi actividad. Por ello, trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) de España.</p>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">1. ¿Quién es el Responsable del tratamiento de tus datos?</h2>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Identidad:</strong> Cédric Ducornet</li>
-                    <li><strong>Actividad:</strong> Logística y Gestión de vehículos (CarSitter)</li>
-                    <li><strong>Ubicación:</strong> Barcelona, España</li>
-                    <li><strong>Contacto:</strong> <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline">cedric@cedriccarsitter.com</a></li>
-                </ul>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">2. ¿Con qué finalidad trato tus datos personales?</h2>
-                <p>Utilizo la información que me facilitas para los siguientes fines:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Gestión de servicios:</strong> Ejecutar las prestaciones logísticas o de transporte que me solicites.</li>
-                    <li><strong>Comunicación:</strong> Atender tus consultas, dudas o presupuestos de forma directa y personalizada.</li>
-                    <li><strong>Relación contractual:</strong> Gestionar la facturación y el cumplimiento de las obligaciones legales derivadas de mis servicios.</li>
-                </ul>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">3. Base legal para el tratamiento</h2>
-                <p>Trato tus datos basándome en:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Tu consentimiento:</strong> Al contactarme a través de los formularios o canales indicados.</li>
-                    <li><strong>Ejecución de un contrato:</strong> Cuando contratas mis servicios, el tratamiento de tus datos es necesario para llevar a cabo el trabajo.</li>
-                    <li><strong>Obligación legal:</strong> Para el cumplimiento de normativas fiscales y contables en España.</li>
-                </ul>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">4. ¿Por cuánto tiempo conservaré tus datos?</h2>
-                <p>Conservaré tus datos personales solo durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados, o mientras exista un interés mutuo, y en todo caso, durante los plazos legales exigidos por la normativa española.</p>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">5. ¿A quién se comunicarán tus datos?</h2>
-                <p>Yo no vendo ni alquilo tus datos personales a terceros. Solo los comunicaré en los siguientes casos:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>A proveedores de servicios necesarios para mi actividad (por ejemplo, hosting o herramientas de facturación), siempre bajo estrictos acuerdos de confidencialidad.</li>
-                    <li>A las autoridades competentes cuando exista una obligación legal.</li>
-                </ul>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">6. Tus Derechos</h2>
-                <p>La ley te otorga el control total sobre tu información. Puedes ejercer en cualquier momento los siguientes derechos:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Acceso:</strong> Saber qué datos tengo sobre ti.</li>
-                    <li><strong>Rectificación:</strong> Corregir datos que sean inexactos o estén incompletos.</li>
-                    <li><strong>Supresión (Derecho al olvido):</strong> Solicitar que elimine tus datos de mis registros.</li>
-                    <li><strong>Oposición y Limitación:</strong> Oponerte al tratamiento o solicitar que se limite en determinadas circunstancias.</li>
-                    <li><strong>Portabilidad:</strong> Recibir tus datos en un formato electrónico estructurado.</li>
-                </ul>
-                <p class="mt-4">Para ejercer estos derechos, solo tienes que enviarme un correo electrónico a <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline">cedric@cedriccarsitter.com</a>, adjuntando una copia de tu DNI o documento equivalente para verificar tu identidad.</p>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">7. Seguridad de los datos</h2>
-                <p>He implementado las medidas técnicas y organizativas necesarias para evitar la pérdida, mal uso, alteración o acceso no autorizado a tus datos, garantizando así su integridad y confidencialidad.</p>
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-brand-orange rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-orange-100">
+                        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                        Barcelona Centro y Aeropuerto El Prat de Llobregat
+                    </div>
+                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                        Tu coche trabaja,<br> 
+                        <span class="text-brand-blue">tú cobras.</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg font-medium">
+                        Transforma tu vehículo en un activo o invierte en una flota gestionada de principio a fin. Logística, limpieza y gestión operativa integral.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contacto" class="flex items-center justify-center gap-2 bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-orange-500/20 transform hover:-translate-y-1">
+                            Solicitar Estudio por WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative hidden lg:block">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2rem] transform rotate-3"></div>
+                    <img src="2008.webp" alt="Entrega de llaves aeropuerto" class="relative rounded-[2rem] shadow-2xl border-4 border-white object-cover h-[500px] w-full transform -rotate-2 hover:rotate-0 transition duration-500">
+                    <div class="absolute bottom-8 left-8 bg-white/95 backdrop-blur px-6 py-4 rounded-xl shadow-lg border border-slate-100">
+                        <p class="text-slate-500 text-xs font-bold uppercase mb-1">Ingreso Medio Mensual</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-bold text-slate-900">620€</span>
+                            <span class="text-sm text-green-600 font-bold">(Peugeot 2008)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <a href="https://wa.me/34602313096" class="whatsapp-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35"></a>
-    <a href="#top" class="back-to-top-floating" id="btnTop"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg></a>
+    <section class="bg-brand-dark py-8 border-y border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-center md:text-left">
+                <div class="flex text-brand-orange text-2xl">
+                    ★★★★★
+                </div>
+                <div>
+                    <p class="text-white text-lg font-medium">"Gestión impecable y pagos puntuales. La mejor decisión para mi coche."</p>
+                    <p class="text-slate-400 text-sm mt-1">Más de 50 propietarios confían en nosotros</p>
+                </div>
+                <a href="#contacto" class="ml-0 md:ml-auto text-white underline hover:text-brand-orange transition font-bold">
+                    Únete al club de propietarios &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative order-2 md:order-1">
+                    <div class="absolute -inset-4 bg-brand-orange/10 rounded-3xl transform -rotate-3"></div>
+                    <img src="cedric.png" alt="Cédric Gestor" class="relative rounded-3xl shadow-xl w-full object-cover h-[500px]">
+                </div>
+                
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Más que un gestor,<br>tu socio sobre el terreno.</h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Soy <strong>Cédric</strong>. Mi método se basa en una premisa simple: <span class="text-brand-blue font-bold">presencia física y control total</span>.
+                    </p>
+                    <div class="space-y-6 mb-8">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Logística Aeroportuaria</h4>
+                                <p class="text-sm text-slate-500">Gestión directa en El Prat. Recepción y entrega de vehículos 24/7.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Mantenimiento Preventivo</h4>
+                                <p class="text-sm text-slate-500">Limpieza profesional y control de niveles antes de cada alquiler.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0">3</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Transparencia Radical</h4>
+                                <p class="text-sm text-slate-500">Sabes dónde está tu coche y cuánto genera en cada momento.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="inline-block bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-blue transition">
+                        Hablar con Cédric
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modelos" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Un Modelo Ganar-Ganar</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
+                    Nuestros honorarios (30%) son <strong>gastos de funcionamiento</strong>. Tú recibes el 70% del beneficio neto sin preocupaciones.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-brand-blue/30 transition duration-300 flex flex-col">
+                    <div class="mb-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mb-4 text-2xl">🔑</div>
+                        <h3 class="text-2xl font-bold text-slate-900">Propietario</h3>
+                        <p class="text-slate-500 mt-2 text-sm font-medium">Ya tienes un coche que usas poco.</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100">
+                        <div class="flex justify-between text-sm text-slate-600 mb-2">
+                            <span>Ingreso Bruto</span>
+                            <span class="font-bold">100%</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-red-400 mb-2">
+                            <span>Gastos Operativos</span>
+                            <span>-30%</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                            <span class="font-bold text-slate-900">Tu Neto</span>
+                            <span class="font-bold text-brand-blue text-xl">70%</span>
+                        </div>
+                    </div>
+
+                    <a href="#contacto" onclick="selectSubject('prop')" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue hover:text-brand-blue transition">
+                        Valorar mi coche
+                    </a>
+                </div>
+
+                <div class="relative bg-white rounded-3xl p-8 border-2 border-brand-orange shadow-xl flex flex-col transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        Top Rentabilidad
+                    </div>
+                    <div class="mb-6">
+                        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-brand-orange mb-4 text-2xl">📈</div>
+                        <h3 class="text-2xl font-bold text-slate-900">Inversión Cash</h3>
+                        <p class="text-slate-500 mt-2 text-sm font-medium">Compra de vehículo de ocasión para alquilar.</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-5 mb-6 border border-orange-100">
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-600">Ticket entrada</span>
+                            <span class="font-bold text-slate-900">8k€ - 12k€</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-600">ROI Anual Neto</span>
+                            <span class="font-bold text-green-600">+15-25%</span>
+                        </div>
+                    </div>
+                    <a href="#contacto" onclick="selectSubject('cash')" class="w-full block text-center bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/30">
+                        Ver oportunidades
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-brand-blue/30 transition duration-300 flex flex-col">
+                    <div class="mb-6">
+                        <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4 text-2xl">🔄</div>
+                        <h3 class="text-2xl font-bold text-slate-900">Leasing Nuevo</h3>
+                        <p class="text-slate-500 mt-2 text-sm font-medium">Autofinanciación de coche nuevo (48 meses).</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100">
+                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                            <span>Ingreso Neto (tras 30%)</span>
+                            <span class="font-bold text-green-600">+500€</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-3">
+                            <span>Cuota Leasing</span>
+                            <span class="font-bold text-red-400">-300€</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                            <span class="font-bold text-slate-900">Cashflow / mes</span>
+                            <span class="font-bold text-brand-blue text-xl">+200€</span>
+                        </div>
+                    </div>
+
+                    <a href="#contacto" onclick="selectSubject('leasing')" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue hover:text-brand-blue transition">
+                        Estudio personalizado
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Preguntas Frecuentes</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">¿Cómo funciona el seguro?</h3>
+                    <p class="text-slate-600 mb-4">
+                        Todos los alquileres están cubiertos por un seguro a Todo Riesgo. En caso de daños, la franquicia corre a cargo del conductor/cliente, nunca del propietario.
+                    </p>
+                    <a href="#contacto" class="text-brand-blue font-bold text-sm hover:underline">Quiero más detalles &rarr;</a>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">¿Y si hay multas de tráfico?</h3>
+                    <p class="text-slate-600 mb-4">
+                        CarSitter se encarga de la gestión. Identificamos al conductor responsable en el momento de la infracción y tramitamos la denuncia para que no te afecte.
+                    </p>
+                    <a href="#contacto" class="text-brand-blue font-bold text-sm hover:underline">Hablar con un experto &rarr;</a>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">¿Cuándo recibo mis pagos?</h3>
+                    <p class="text-slate-600 mb-4">
+                        Recibes un informe detallado y el pago de tus beneficios mensualmente, directamente en tu cuenta bancaria.
+                    </p>
+                    <a href="#contacto" class="text-brand-blue font-bold text-sm hover:underline">Empezar ahora &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                <div class="bg-brand-blue p-10 md:w-2/5 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Contacto Directo</h3>
+                        <p class="text-blue-100 mb-8 text-sm font-medium">
+                            Rellena este formulario y te responderé directamente por WhatsApp para agilizar el estudio de tu caso.
+                        </p>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">WhatsApp / Teléfono</p>
+                                <p class="text-xl font-bold">+34 602 313 096</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">Email</p>
+                                <p class="text-lg font-bold">cedric@cedriccarsitter.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10 md:w-3/5">
+                    <form id="whatsappForm" onsubmit="sendToWhatsApp(event)" class="space-y-5">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Iniciar conversación</h3>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nombre</label>
+                                <input type="text" id="nombre" required class="w-full px-4 py-3 rounded-lg border-slate-200 bg-slate-50 border focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition font-medium" placeholder="Tu nombre">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Teléfono</label>
+                                <input type="tel" id="telefono" required class="w-full px-4 py-3 rounded-lg border-slate-200 bg-slate-50 border focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition font-medium" placeholder="+34...">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo de Proyecto</label>
+                            <select id="proyecto" class="w-full px-4 py-3 rounded-lg border-slate-200 bg-slate-50 border focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition font-medium">
+                                <option value="Gestión coche actual">Gestión de mi coche actual</option>
+                                <option value="Inversión Cash">Inversión Cash (Coche Nuevo o Ocasión)</option>
+                                <option value="Leasing">Proyecto Leasing (Coche Nuevo)</option>
+                                <option value="Otra consulta">Otra consulta</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Mensaje (Opcional)</label>
+                            <textarea id="mensaje" rows="3" class="w-full px-4 py-3 rounded-lg border-slate-200 bg-slate-50 border focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition font-medium" placeholder="Detalles de tu coche o dudas..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-xl transition shadow-lg transform active:scale-[0.98] uppercase tracking-wide text-sm flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            Enviar a WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-sm text-slate-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="text-center md:text-left">
+                    <p class="font-bold text-slate-900 mb-1">Cedric CarSitter</p>
+                    <p>© 2024 Cedric DUCORNET. Todos los derechos reservados.</p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="https://www.cedriccarsitter.com/aviso-legal" target="_blank" class="hover:text-brand-blue transition underline font-medium">
+                        Aviso Legal
+                    </a>
+                    <a href="https://www.cedriccarsitter.com/politica-privacidad" target="_blank" class="hover:text-brand-blue transition underline font-medium">
+                        Política de Privacidad
+                    </a>
+                    <a href="https://www.cedriccarsitter.com/cookies" target="_blank" class="hover:text-brand-blue transition underline font-medium">
+                        Política de Cookies
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function selectSubject(val) {
+            const select = document.getElementById('proyecto');
+            if(select) select.value = val;
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            // Récupération des valeurs
+            const nombre = document.getElementById('nombre').value;
+            const proyecto = document.getElementById('proyecto').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            // Numéro de Cédric (format international sans +)
+            const phone = "34602313096";
+
+            // Création du texte du message
+            let text = `Hola Cedric, soy *${nombre}*.\n\nEstoy interesado en: *${proyecto}*.\n`;
+            
+            if(mensaje) {
+                text += `\nMensaje adicional: ${mensaje}`;
+            }
+
+            // Encodage pour l'URL
+            const encodedText = encodeURIComponent(text);
+
+            // Ouverture de WhatsApp
+            window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+        }
+    </script>
+</body>
+</html>o-top-floating" id="btnTop"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg></a>
 
     <footer class="footer-carsitter">
         <div class="footer-container">
@@ -128,4 +432,5 @@
         };
     </script>
 </body>
+
 </html>
