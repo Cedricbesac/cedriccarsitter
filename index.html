@@ -36,75 +36,73 @@
     <style>
         .lang-btn.active { border-bottom: 2px solid #F7941D; font-weight: bold; color: #1C75BC; }
         html { scroll-behavior: smooth; }
-    /* Bouton WhatsApp */
-.whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    background-color: #25d366;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-    transition: 0.3s;
-}
+        
+        /* Boutons Flottants */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25d366;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
+        }
 
-/* Bouton Retour Haut */
-.back-to-top-floating {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #333;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
-    text-decoration: none;
-}
+        .back-to-top-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #333;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-decoration: none;
+            display: none; /* Caché par défaut, géré par JS */
+            opacity: 0;
+        }
 
-/* Footer Style */
-.footer-carsitter {
-    background-color: #ffffff;
-    padding: 40px 0 20px 0;
-    border-top: 1px solid #eee;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.footer-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.footer-left span { font-size: 0.85rem; display: block; }
-.footer-left small { color: #999; font-size: 0.75rem; }
-
-.footer-links a {
-    text-decoration: none;
-    color: #444;
-    font-size: 0.85rem;
-    margin-left: 20px;
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .footer-container { flex-direction: column; text-align: center; gap: 20px; }
-    .footer-links a { margin: 0 10px; }
-}
+        /* Footer Style */
+        .footer-carsitter {
+            background-color: #ffffff;
+            padding: 40px 0 20px 0;
+            border-top: 1px solid #eee;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .footer-left span { font-size: 0.85rem; display: block; }
+        .footer-left small { color: #999; font-size: 0.75rem; }
+        .footer-links a {
+            text-decoration: none;
+            color: #444;
+            font-size: 0.85rem;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .footer-container { flex-direction: column; text-align: center; gap: 20px; }
+            .footer-links a { margin: 0 10px; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,17 +159,9 @@
                         </a>
                     </div>
                 </div>
-                
                 <div class="relative hidden lg:block">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2rem] transform rotate-3"></div>
                     <img src="2008.webp" alt="Peugeot 2008" class="relative rounded-[2rem] shadow-2xl border-4 border-white object-cover h-[500px] w-full transform -rotate-2 hover:rotate-0 transition duration-500">
-                    <div class="absolute bottom-8 left-8 bg-white/95 backdrop-blur px-6 py-4 rounded-xl shadow-lg border border-slate-100">
-                        <p class="text-slate-500 text-xs font-bold uppercase mb-1" data-i18n="hero_stat">Ingreso Medio Mensual</p>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-3xl font-bold text-slate-900">~620€</span>
-                            <span class="text-sm text-green-600 font-bold">(Peugeot 2008)</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -181,12 +171,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-center md:text-left">
                 <div class="flex text-brand-orange text-2xl">★★★★★</div>
-                <div>
-                    <p class="text-white text-lg font-medium italic" data-i18n="trust_quote">"Seriedad, pagos puntuales y cero preocupaciones. Cédric es un socio de confianza."</p>
-                </div>
-                <a href="#contacto" class="ml-0 md:ml-auto text-white underline hover:text-brand-orange transition font-bold" data-i18n="trust_link">
-                    Únete al club &rarr;
-                </a>
+                <p class="text-white text-lg font-medium italic" data-i18n="trust_quote">"Seriedad, pagos puntuales y cero preocupaciones. Cédric es un socio de confianza."</p>
+                <a href="#contacto" class="ml-0 md:ml-auto text-white underline hover:text-brand-orange transition font-bold" data-i18n="trust_link">Únete al club &rarr;</a>
             </div>
         </div>
     </section>
@@ -198,34 +184,19 @@
                     <div class="absolute -inset-4 bg-brand-orange/10 rounded-3xl transform -rotate-3"></div>
                     <img src="cedricvis.png" alt="Cédric Ducornet" class="relative rounded-3xl shadow-xl w-full object-cover h-[500px]">
                 </div>
-                
                 <div class="order-1 md:order-2">
                     <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6" data-i18n="exp_title">Más que un gestor,<br>tu socio estratégico.</h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                        <span data-i18n="exp_intro">Soy <strong>Cédric Ducornet</strong>. Experto con 17 años de experiencia. Ofrezco presencia física, control total y rentabilidad real.</span>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed" data-i18n="exp_intro">
+                        Soy <strong>Cédric Ducornet</strong>. Experto con 17 años de experiencia. Ofrezco presencia física, control total y rentabilité réelle.
                     </p>
-                    
-                    <div class="space-y-6 mb-8">
+                    <div class="space-y-6">
                         <div class="flex gap-4">
                             <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p1_title">Logística In-Situ</h4>
-                                <p class="text-slate-500" data-i18n="exp_p1_desc">Gestión directa en Barcelona o en el aeropuerto. Recepción y entrega de llaves. Yo cuido tu coche.</p>
-                            </div>
+                            <div><h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p1_title">Logística In-Situ</h4><p class="text-slate-500" data-i18n="exp_p1_desc">Gestión directa en Barcelona o en el aeropuerto.</p></div>
                         </div>
                         <div class="flex gap-4">
                             <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">2</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p2_title">Mantenimiento Impecable</h4>
-                                <p class="text-slate-500" data-i18n="exp_p2_desc">Limpieza profesional, control de niveles y revisión de neumáticos antes de cada alquiler.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">3</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p3_title">Transparencia Radical</h4>
-                                <p class="text-slate-500" data-i18n="exp_p3_desc">Acceso total a los datos. Sabes cuándo se alquila tu coche y cuánto genera al momento.</p>
-                            </div>
+                            <div><h4 class="font-bold text-slate-900 text-lg" data-i18n="exp_p2_title">Mantenimiento</h4><p class="text-slate-500" data-i18n="exp_p2_desc">Limpieza profesional y revisión de neumáticos.</p></div>
                         </div>
                     </div>
                 </div>
@@ -234,66 +205,43 @@
     </section>
 
     <section id="modelos" class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4" data-i18n="mod_title">El Modelo "Ganar-Ganar"</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto text-lg font-medium" data-i18n="mod_subtitle">
-                    Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.
-                </p>
-            </div>
-
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4" data-i18n="mod_title">El Modelo "Ganar-Ganar"</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mb-16 text-lg font-medium" data-i18n="mod_subtitle">Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.</p>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col">
-                    <div class="mb-6">
-                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mb-4 text-2xl">🔑</div>
-                        <h3 class="text-2xl font-bold text-slate-900" data-i18n="card1_title">Propietario</h3>
-                        <p class="text-slate-500 mt-2 text-sm font-medium" data-i18n="card1_desc">Tienes un coche que usas poco.</p>
-                    </div>
-                    <a href="#contacto" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue hover:text-brand-blue transition mt-auto" data-i18n="btn_val">Valorar mi coche</a>
+                    <h3 class="text-2xl font-bold text-slate-900" data-i18n="card1_title">Propietario</h3>
+                    <p class="text-slate-500 mt-2 mb-6 text-sm font-medium" data-i18n="card1_desc">Tienes un coche que usas poco.</p>
+                    <a href="#contacto" class="w-full bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition mt-auto" data-i18n="btn_val">Valorar mi coche</a>
                 </div>
-
                 <div class="relative bg-white rounded-3xl p-8 border-2 border-brand-orange shadow-xl flex flex-col transform md:-translate-y-4">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Top</div>
-                    <div class="mb-6">
-                        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-brand-orange mb-4 text-2xl">📈</div>
-                        <h3 class="text-2xl font-bold text-slate-900" data-i18n="card2_title">Inversión Cash</h3>
-                        <p class="text-slate-500 mt-2 text-sm font-medium" data-i18n="card2_desc">Compra de vehículo para alquilar (ROI +15%).</p>
-                    </div>
-                    <a href="#contacto" class="w-full block text-center bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg" data-i18n="btn_opp">Ver oportunidades</a>
+                    <h3 class="text-2xl font-bold text-slate-900" data-i18n="card2_title">Inversión Cash</h3>
+                    <p class="text-slate-500 mt-2 mb-6 text-sm font-medium" data-i18n="card2_desc">Compra de vehículo para alquilar (ROI +15%).</p>
+                    <a href="#contacto" class="w-full bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg" data-i18n="btn_opp">Ver oportunidades</a>
                 </div>
-
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col">
-                    <div class="mb-6">
-                        <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4 text-2xl">🔄</div>
-                        <h3 class="text-2xl font-bold text-slate-900" data-i18n="card3_title">Leasing</h3>
-                        <p class="text-slate-500 mt-2 text-sm font-medium" data-i18n="card3_desc">Autofinanciación de coche nuevo.</p>
-                    </div>
-                    <a href="#contacto" class="w-full block text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue hover:text-brand-blue transition mt-auto" data-i18n="btn_lea">Estudio</a>
+                    <h3 class="text-2xl font-bold text-slate-900" data-i18n="card3_title">Leasing</h3>
+                    <p class="text-slate-500 mt-2 mb-6 text-sm font-medium" data-i18n="card3_desc">Autofinanciación de coche nuevo.</p>
+                    <a href="#contacto" class="w-full bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:border-brand-blue transition mt-auto" data-i18n="btn_lea">Estudio</a>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="requisitos" class="py-24 bg-white border-t border-slate-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4" data-i18n="req_title">Vehículos Elegibles</h2>
-                <p class="text-slate-500" data-i18n="req_sub">Normas estrictas para garantizar la rentabilidad.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-12" data-i18n="req_title">Vehículos Elegibles</h2>
+            <div class="grid md:grid-cols-2 gap-12 text-left">
                 <div>
                     <h3 class="font-bold text-slate-900 text-xl mb-4" data-i18n="req_c1">1. Obligatorio</h3>
                     <ul class="space-y-3 text-slate-600">
                         <li>📅 <span data-i18n="req_list1">Max 15 años / 150.000 km</span></li>
                         <li>📄 <span data-i18n="req_list2">Matrícula Española</span></li>
-                        <li>✅ <span data-i18n="req_list3">ITV + Seguro en vigor</span></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold text-slate-900 text-xl mb-4" data-i18n="req_c2">2. CarSitter Standard</h3>
+                    <h3 class="font-bold text-slate-900 text-xl mb-4" data-i18n="req_c2">2. Standard</h3>
                     <ul class="space-y-3 text-slate-600">
-                        <li>📲 <span data-i18n="req_list4">Cierre centralizado (Sin llave)</span></li>
                         <li>🍃 <span data-i18n="req_list5">Etiqueta ZBE (B, C, ECO, 0)</span></li>
                         <li>⭐ <span data-i18n="req_list6">Estado impecable</span></li>
                     </ul>
@@ -308,7 +256,6 @@
                 <div class="bg-brand-blue p-10 md:w-2/5 text-white flex flex-col justify-between">
                     <div>
                         <h3 class="text-2xl font-bold mb-4" data-i18n="ctc_title">Contacto Directo</h3>
-                        <p class="text-blue-100 mb-8 text-sm" data-i18n="ctc_desc">Rellena el formulario y te respondo por WhatsApp.</p>
                         <div class="space-y-6">
                             <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">WhatsApp</p><p class="text-xl font-bold">+34 602 313 096</p></div>
                             <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">Email</p><p class="text-lg font-bold">cedric@cedriccarsitter.com</p></div>
@@ -322,8 +269,7 @@
                             <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Teléfono</label><input type="tel" id="telefono" required class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50"></div>
                         </div>
                         <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Mensaje</label><textarea id="mensaje" rows="3" class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50"></textarea></div>
-                        <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-xl transition shadow-lg uppercase tracking-wide text-sm flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                             <span data-i18n="ctc_btn">Enviar a WhatsApp</span>
                         </button>
                     </form>
@@ -332,32 +278,32 @@
         </div>
     </section>
 
-    a href="https://wa.me/34602313096" class="whatsapp-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30">
-</a>
+    <a href="https://wa.me/34602313096" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30">
+    </a>
 
-<a href="#top" class="back-to-top-floating" id="btnTop">
-    <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
-</a>
+    <a href="#top" class="back-to-top-floating" id="btnTop">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
+    </a>
 
-<footer class="footer-carsitter">
-    <div class="footer-container">
-        <div class="footer-left">
-            <div class="footer-logo">
-                <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" width="140">
+    <footer class="footer-carsitter">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-logo mb-2">
+                    <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" width="140">
+                </div>
+                <span>© 2026 Cedric CarSitter. Todos los derechos reservados.</span>
+                <small>Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</small>
             </div>
-            <span>© 2026 Cedric CarSitter. Todos los derechos reservados.</span>
-            <small>Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</small>
+            <div class="footer-right">
+                <nav class="footer-links">
+                    <a href="/aviso-legal.html">Legal</a>
+                    <a href="/politica-privacidad.html">Privacidad</a>
+                    <a href="/cookies.html">Cookies</a>
+                </nav>
+            </div>
         </div>
-        <div class="footer-right">
-            <nav class="footer-links">
-                <a href="/aviso-legal">Legal</a>
-                <a href="/politica-privacidad.html">Privacidad</a>
-                <a href="/cookies.html">Cookies</a>
-            </nav>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         const translations = {
@@ -365,80 +311,48 @@
                 nav_exp: "Experiencia", nav_inv: "Inversión", nav_req: "Requisitos", nav_contact: "WhatsApp",
                 hero_badge: "Barcelona Ciudad y Aeropuerto",
                 hero_title1: "Tu coche trabaja,", hero_title2: "tú cobras.",
-                hero_desc: "Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable. Gestión 360°, cero preocupaciones.",
-                hero_cta: "Solicitar Estudio Gratuito", hero_stat: "Ingreso Medio Mensual",
-                trust_quote: "\"Seriedad, pagos puntuales y cero preocupaciones. Cédric es un socio de confianza.\"",
+                hero_desc: "Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable.",
+                hero_cta: "Solicitar Estudio Gratuito",
+                trust_quote: "\"Seriedad, pagos puntuales y cero preocupaciones.\"",
                 trust_link: "Únete al club →",
-                exp_title: "Más que un gestor,\ntu socio estratégico.",
-                exp_intro: "Soy <strong>Cédric Ducornet</strong>. Experto con 17 años de experiencia. Ofrezco presencia física, control total y rentabilidad real.",
-                exp_p1_title: "Logística In-Situ", exp_p1_desc: "Gestión directa en Barcelona o en el aeropuerto. Recepción y entrega de llaves. Yo cuido tu coche.",
-                exp_p2_title: "Mantenimiento Impecable", exp_p2_desc: "Limpieza profesional, control de niveles y revisión de neumáticos antes de cada alquiler.",
-                exp_p3_title: "Transparencia Radical", exp_p3_desc: "Acceso total a los datos. Sabes cuándo se alquila tu coche y cuánto genera al momento.",
-                mod_title: "El Modelo \"Ganar-Ganar\"",
-                mod_subtitle: "Tú recibes el 70% del beneficio neto. Mis honorarios (30%) cubren la gestión integral.",
-                card1_title: "Propietario", card1_desc: "Tienes un coche que usas poco.",
-                card2_title: "Inversión Cash", card2_desc: "Compra de vehículo para alquilar (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Autofinanciación de coche nuevo.",
-                btn_val: "Valorar mi coche", btn_opp: "Ver oportunidades", btn_lea: "Estudio personalizado",
-                req_title: "Vehículos Elegibles", req_sub: "Normas estrictas para garantizar la rentabilidad.",
-                req_c1: "1. Obligatorio", req_list1: "Max 15 años / 150.000 km", req_list2: "Matrícula Española", req_list3: "ITV + Seguro en vigor",
-                req_c2: "2. CarSitter Standard", req_list4: "Cierre centralizado (Sin llave)", req_list5: "Etiqueta ZBE (B, C, ECO, 0)", req_list6: "Estado impecable",
-                ctc_title: "Contacto Directo", ctc_desc: "Rellena el formulario y te respondo por WhatsApp.", ctc_btn: "Enviar a WhatsApp"
+                exp_title: "Más que un gestor, socio estratégico.",
+                exp_intro: "Soy Cédric Ducornet. Experto con 17 años de experiencia.",
+                exp_p1_title: "Logística In-Situ", exp_p1_desc: "Gestión en Barcelona o aeropuerto.",
+                mod_title: "Modelo Ganar-Ganar", mod_subtitle: "Tú 70% / Yo 30%.",
+                card1_title: "Propietario", card1_desc: "Usas poco tu coche.",
+                card2_title: "Inversión Cash", card2_desc: "ROI +15%.",
+                card3_title: "Leasing", card3_desc: "Autofinanciación.",
+                btn_val: "Valorar mi coche", btn_opp: "Oportunidades", btn_lea: "Estudio",
+                req_title: "Vehículos Elegibles", req_c1: "1. Obligatorio", req_c2: "2. Standard",
+                req_list1: "Max 15 años", req_list2: "Matrícula ES", req_list5: "Etiqueta ZBE", req_list6: "Impecable",
+                ctc_title: "Contacto Directo", ctc_btn: "Enviar a WhatsApp"
             },
             fr: {
                 nav_exp: "Expérience", nav_inv: "Investissement", nav_req: "Prérequis", nav_contact: "WhatsApp",
                 hero_badge: "Barcelone Ville & Aéroport",
                 hero_title1: "Votre voiture travaille,", hero_title2: "vous encaissez.",
-                hero_desc: "Leader par l'Innovation. Le seul service intégral à Barcelone qui transforme votre véhicule en actif rentable. Gestion 360°, zéro souci.",
-                hero_cta: "Demander une Étude Gratuite", hero_stat: "Revenu Moyen Mensuel",
-                trust_quote: "\"Sérieux, paiements ponctuels et zéro souci. Cédric est un partenaire de confiance.\"",
+                hero_desc: "Le service intégral à Barcelone qui transforme votre véhicule en actif rentable.",
+                hero_cta: "Étude Gratuite",
+                trust_quote: "\"Sérieux, paiements ponctuels et zéro souci.\"",
                 trust_link: "Rejoindre le club →",
-                exp_title: "Plus qu'un gestionnaire,\nvotre partenaire.",
-                exp_intro: "Je suis <strong>Cédric Ducornet</strong>. Expert depuis 17 ans. J'offre une présence physique, un contrôle total et une rentabilité réelle.",
-                exp_p1_title: "Logistique & Livraison", exp_p1_desc: "Gestion à Barcelone ou Aéroport. Remise des clés. Je prends soin de votre voiture.",
-                exp_p2_title: "Entretien Impeccable", exp_p2_desc: "Nettoyage pro, niveaux et pression des pneus vérifiés avant chaque location.",
-                exp_p3_title: "Transparence Totale", exp_p3_desc: "Accès total aux données. Vous savez quand la voiture est louée et combien elle génère.",
-                mod_title: "Le Modèle \"Gagnant-Gagnant\"",
-                mod_subtitle: "Vous touchez 70% du net. Mes honoraires (30%) couvrent la gestion intégrale.",
-                card1_title: "Propriétaire", card1_desc: "Vous avez une voiture peu utilisée.",
-                card2_title: "Investissement Cash", card2_desc: "Achat de véhicule pour louer (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Autofinancement de voiture neuve.",
-                btn_val: "Estimer ma voiture", btn_opp: "Voir opportunités", btn_lea: "Étude personnalisée",
-                req_title: "Véhicules Éligibles", req_sub: "Règles strictes pour garantir la rentabilité.",
-                req_c1: "1. Obligatoire", req_list1: "Max 15 ans / 150.000 km", req_list2: "Immatriculation Espagnole", req_list3: "ITV + Assurance à jour",
-                req_c2: "2. CarSitter Standard", req_list4: "Fermeture centralisée (Sans clé)", req_list5: "Vignette ZBE (B, C, ECO, 0)", req_list6: "État impeccable",
-                ctc_title: "Contact Direct", ctc_desc: "Remplissez le formulaire, je réponds sur WhatsApp.", ctc_btn: "Envoyer sur WhatsApp"
-            },
-            en: {
-                nav_exp: "Experience", nav_inv: "Investment", nav_req: "Requirements", nav_contact: "WhatsApp",
-                hero_badge: "Barcelona City & Airport",
-                hero_title1: "Your car works,", hero_title2: "you get paid.",
-                hero_desc: "Leader by Innovation. The only 360° full-service in Barcelona transforming your vehicle into a profitable asset. Zero worry.",
-                hero_cta: "Get Free Estimate", hero_stat: "Average Monthly Income",
-                trust_quote: "\"Reliability, punctual payments, and zero worries. Cédric is a trusted partner.\"",
-                trust_link: "Join the club →",
-                exp_title: "More than a manager,\nyour strategic partner.",
-                exp_intro: "I am <strong>Cédric Ducornet</strong>. Expert with 17 years of experience. I offer physical presence, total control, and real profitability.",
-                exp_p1_title: "Logistics & Delivery", exp_p1_desc: "Management in Barcelona or Airport. Key handover. I take care of your car.",
-                exp_p2_title: "Impeccable Maintenance", exp_p2_desc: "Pro cleaning, fluids, and tire pressure checked before every rental.",
-                exp_p3_title: "Radical Transparency", exp_p3_desc: "Full data access. You know when your car is rented and how much it earns.",
-                mod_title: "The \"Win-Win\" Model",
-                mod_subtitle: "You receive 70% of net profit. My fees (30%) cover the complete management.",
-                card1_title: "Owner", card1_desc: "You have an underused car.",
-                card2_title: "Cash Investment", card2_desc: "Buy a car to rent (ROI +15%).",
-                card3_title: "Leasing", card3_desc: "Self-financing a new car.",
-                btn_val: "Value my car", btn_opp: "See opportunities", btn_lea: "Personalized study",
-                req_title: "Eligible Vehicles", req_sub: "Strict rules to guarantee profitability.",
-                req_c1: "1. Mandatory", req_list1: "Max 15 years / 150,000 km", req_list2: "Spanish License Plate", req_list3: "Valid ITV + Insurance",
-                req_c2: "2. CarSitter Standard", req_list4: "Central locking (Keyless)", req_list5: "ZBE Sticker (B, C, ECO, 0)", req_list6: "Impeccable condition",
-                ctc_title: "Direct Contact", ctc_desc: "Fill the form, I reply on WhatsApp.", ctc_btn: "Send to WhatsApp"
+                exp_title: "Plus qu'un gestionnaire, partenaire.",
+                exp_intro: "Je suis Cédric Ducornet. Expert depuis 17 ans.",
+                exp_p1_title: "Livraison & Logistique", exp_p1_desc: "Gestion à Barcelone ou Aéroport.",
+                mod_title: "Modèle Gagnant-Gagnant", mod_subtitle: "Vous 70% / Moi 30%.",
+                card1_title: "Propriétaire", card1_desc: "Voiture peu utilisée.",
+                card2_title: "Investissement", card2_desc: "ROI +15%.",
+                card3_title: "Leasing", card3_desc: "Autofinancement.",
+                btn_val: "Estimer", btn_opp: "Opportunités", btn_lea: "Étude",
+                req_title: "Véhicules Éligibles", req_c1: "1. Obligatoire", req_c2: "2. Standard",
+                req_list1: "Max 15 ans", req_list2: "Plaques ES", req_list5: "Vignette ZBE", req_list6: "Impeccable",
+                ctc_title: "Contact Direct", ctc_btn: "Envoyer sur WhatsApp"
             }
         };
 
         function changeLang(lang) {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
+                if (translations[lang] && translations[lang][key]) {
                     el.innerHTML = translations[lang][key];
                 }
             });
@@ -452,26 +366,20 @@
             const mensaje = document.getElementById('mensaje').value;
             const phone = "34602313096";
             const text = `Hola Cedric, soy *${nombre}*.\n${mensaje}`;
+            const encodedText = encodeURIComponent(text);
             window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
         }
 
-        // On récupère le bouton de retour en haut par son ID
-    const btnTop = document.getElementById("btnTop");
-
-    // On écoute l'événement "scroll" (défilement de la page)
-    window.onscroll = function() {
-        // Si on a descendu de plus de 300 pixels
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btnTop.style.display = "flex";    // On affiche le bouton
-            btnTop.style.opacity = "1";       // On le rend visible
-        } else {
-            btnTop.style.display = "none";    // On le cache
-            btnTop.style.opacity = "0";       // On le rend invisible
-        }
-    };
-</script>
-
-    
+        const btnTop = document.getElementById("btnTop");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnTop.style.display = "flex";
+                setTimeout(() => btnTop.style.opacity = "1", 10);
+            } else {
+                btnTop.style.opacity = "0";
+                setTimeout(() => btnTop.style.display = "none", 300);
+            }
+        };
+    </script>
 </body>
 </html>
-
