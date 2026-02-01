@@ -6,17 +6,13 @@
     <title>Política de Privacidad - Cedric CarSitter</title>
     <meta name="robots" content="noindex">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#0f172a' }
-                    },
+                    colors: { brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#0f172a' } },
                     fontFamily: { montserrat: ['Montserrat', 'sans-serif'] }
                 }
             }
@@ -26,22 +22,21 @@
         html { scroll-behavior: smooth; }
         .whatsapp-float {
             position: fixed; bottom: 30px; left: 30px; background-color: #25d366;
-            width: 50px; height: 50px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 1000; transition: 0.3s;
+            width: 60px; height: 60px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 9999; transition: transform 0.3s;
         }
+        .whatsapp-float:hover { transform: scale(1.1); }
         .back-to-top-floating {
             position: fixed; bottom: 30px; right: 30px; background-color: #333;
-            width: 45px; height: 45px; border-radius: 50%; display: flex;
+            width: 50px; height: 50px; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 1000; text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
+            z-index: 9999; text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
         }
         .footer-carsitter { background-color: #ffffff; padding: 40px 0 20px 0; border-top: 1px solid #eee; }
         .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .footer-left span { font-size: 0.85rem; display: block; }
-        .footer-left small { color: #999; font-size: 0.75rem; }
-        .footer-links a { text-decoration: none; color: #444; font-size: 0.85rem; margin-left: 20px; font-weight: 500; }
-        @media (max-width: 768px) { .footer-container { flex-direction: column; text-align: center; gap: 20px; } .footer-links a { margin: 0 10px; } }
+        .footer-links a { text-decoration: none; color: #444; margin-left: 20px; font-weight: 500; font-size: 0.9rem; }
+        @media (max-width: 768px) { .footer-container { flex-direction: column; text-align: center; gap: 20px; } }
     </style>
 </head>
 <body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -49,44 +44,38 @@
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <a href="index.html" class="block hover:opacity-90 transition">
-                 <svg viewBox="0 0 250 85" class="h-12 w-auto" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M45,10 A32.5,32.5 0 1,0 45,75 A32.5,32.5 0 0,0 72.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
-                      <text x="45" y="52" fill="#1E293B" font-family="Montserrat" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                      <text x="56" y="52" fill="#1E293B" font-family="Montserrat" font-weight="500" font-size="18">edric</text>
-                      <text x="82" y="72" fill="#F7941D" font-family="Montserrat" font-weight="700" font-size="28">ar</text>
-                      <text x="112" y="72" fill="#1C75BC" font-family="Montserrat" font-weight="600" font-size="28">Sitter</text>
-                </svg>
+                <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" class="h-12 w-auto">
             </a>
             <div class="flex items-center gap-6">
-                <a href="index.html#contacto" class="hidden md:block bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">WhatsApp / Contacto</a>
-                <a href="index.html" class="text-sm font-bold text-slate-600 hover:text-brand-blue flex items-center gap-2"><span>←</span> Volver</a>
+                <a href="index.html#contacto" class="hidden md:block bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">
+                    WhatsApp / Contacto
+                </a>
+                <a href="index.html" class="text-sm font-bold text-slate-600 hover:text-brand-blue flex items-center gap-2">
+                    <span>←</span> Volver
+                </a>
             </div>
         </div>
     </nav>
 
     <main class="pt-32 pb-20 max-w-3xl mx-auto px-4 sm:px-6 flex-grow">
         <h1 class="text-3xl font-bold text-slate-900 mb-8">Política de Privacidad</h1>
-        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 space-y-6 text-slate-600 leading-relaxed text-sm">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6 text-slate-600 text-sm">
             <p class="text-xs text-slate-400">Última actualización: 26 de enero de 2026.</p>
-            <p>Trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el RGPD y la Ley Orgánica 3/2018 de España.</p>
-
-            <h2 class="text-lg font-bold text-slate-900 mt-6">1. Responsable del tratamiento</h2>
-            <ul class="list-disc pl-5">
-                <li><strong>Identidad:</strong> Cédric Ducornet</li>
-                <li><strong>Ubicación:</strong> Barcelona Ciudad y Aeropuerto, España</li>
-                <li><strong>Contacto:</strong> cedric@cedriccarsitter.com</li>
-            </ul>
-
+            <p>Trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el RGPD.</p>
+            
+            <h2 class="text-lg font-bold text-slate-900 mt-6">1. Responsable</h2>
+            <p>Cédric Ducornet - cedric@cedriccarsitter.com</p>
+            
             <h2 class="text-lg font-bold text-slate-900 mt-6">2. Finalidad</h2>
-            <p>Utilizo la información para la gestión de servicios logísticos, comunicación directa para presupuestos y cumplimiento de obligaciones fiscales.</p>
-
-            <h2 class="text-lg font-bold text-slate-900 mt-6">3. Tus Derechos</h2>
-            <p>Puedes ejercer tus derechos de Acceso, Rectificación, Supresión (Olvido) y Portabilidad enviando un correo a cedric@cedriccarsitter.com con copia de tu DNI.</p>
+            <p>Gestión de servicios y comunicación vía WhatsApp/Email.</p>
+            
+            <h2 class="text-lg font-bold text-slate-900 mt-6">3. Derechos</h2>
+            <p>Acceso, rectificación y supresión enviando copia del DNI al email de contacto.</p>
         </div>
     </main>
 
     <a href="https://wa.me/34602313096" class="whatsapp-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
     </a>
 
     <a href="#top" class="back-to-top-floating" id="btnTop">
@@ -96,7 +85,11 @@
     <footer class="footer-carsitter">
         <div class="footer-container">
             <div class="footer-left">
-                <div class="footer-logo mb-2"><img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" width="140"></div>
+                <div class="footer-logo mb-2">
+                    <a href="index.html">
+                        <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" width="140">
+                    </a>
+                </div>
                 <span>© 2026 Cedric CarSitter. Todos los derechos reservados.</span>
                 <small>Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</small>
             </div>
