@@ -380,7 +380,7 @@
             </div>
             
             <div class="mt-12 text-center">
-                <a href="https://wa.me/34744767629" 
+                <a href="https://wa.me/34744767629?text=Hola,%20estoy%20en%20la%20web%20y%20me%20interesa." 
                    class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-orange-500/20 transform hover:-translate-y-1 group"
                    target="_blank">
                     <span data-i18n="req_btn">Verificar elegibilidad ahora</span>
@@ -719,13 +719,13 @@
         function sendToWhatsApp(e) {
     e.preventDefault();
     // On récupère les valeurs OU on met un texte par défaut si c'est vide
-    const nombre = document.getElementById('nombre').value || "Un contacto web";
-    const proyecto = document.getElementById('proyecto').value || "Información General";
+    const nombre = document.getElementById('nombre').value || "un contacto web";
+    const proyecto = document.getElementById('proyecto').value || "información general";
     const mensaje = document.getElementById('mensaje').value;
-    const telefono = document.getElementById('telefono').value || "Sin número";
+    const telefono = document.getElementById('telefono').value || "número";
     const phone = "34744767629";
 
-    let text = `Hola Cedric, soy *${nombre}* (${telefono}).\n\nEstoy interesado en: *${proyecto}*.\n`;
+    let text = `Hola Cedric, soy ${nombre} (${telefono}).\n\nEstoy interesado en ${proyecto}.\n`;
     if(mensaje) text += `\nMensaje adicional: ${mensaje}`;
 
     const encodedText = encodeURIComponent(text);
