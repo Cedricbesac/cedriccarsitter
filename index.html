@@ -683,8 +683,8 @@
             }
         };
 
-                function changeLang(lang) {
-                // 1. Changer les textes visibles
+// Fonction pour changer la langue
+function changeLang(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
@@ -692,23 +692,38 @@
         }
     });
 
-    // 2. NOUVEAU : Changer le Titre de l'onglet et la Description
     if (translations[lang].meta_title) {
         document.title = translations[lang].meta_title;
         document.querySelector('meta[name="description"]').setAttribute("content", translations[lang].meta_desc);
     }
 
-    // 3. Changer la déclaration de langue du navigateur
     document.documentElement.lang = lang;
 
-    // 4. Gérer les boutons (inchangé)
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    // Astuce : on cible le bouton cliqué plus précisément si l'event est passé
-    if(event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-    }
-} 
+    // Mise à jour visuelle des boutons de drapeau
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        // On active le bouton correspondant à la langue choisie
+        if(btn.getAttribute('onclick').includes(`'${lang}'`)) {
+            btn.classList.add('active');
+        }
+    });
+}
 
+// --- NOUVEAU : Détection automatique au chargement ---
+window.addEventListener('load', function() {
+    // On regarde si l'URL contient ?lang=fr ou ?lang=en
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+
+    if (langParam && translations[langParam]) {
+        changeLang(langParam);
+    }
+    
+    // Vérification des cookies (ton code existant)
+    if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookieBanner').classList.remove('hidden');
+    }
+});
         function selectSubject(val) {
             const select = document.getElementById('proyecto');
             if(select) {
