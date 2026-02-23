@@ -68,6 +68,32 @@
         /* Animation Cookie */
         .cookie-banner { animation: slideUp 0.5s ease-out forwards; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* Animation Défilé de Texte (Text Spinner) */
+        .slogan-container {
+            height: 30px;
+            overflow: hidden;
+            display: inline-flex;
+            vertical-align: middle;
+        }
+        .slogan-slider {
+            display: flex;
+            flex-direction: column;
+            animation: slide-slogan 6s ease-in-out infinite;
+        }
+        .slogan-slider span {
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .slogan-container { height: 36px; }
+            .slogan-slider span { height: 36px; }
+        }
+        @keyframes slide-slogan {
+            0%, 40% { transform: translateY(0); }
+            50%, 90% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
     </style>
 </head>
 <body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen font-montserrat">
@@ -142,6 +168,15 @@
                         <span data-i18n="hero_title1">Tu coche trabaja,</span><br> 
                         <span class="text-brand-blue" data-i18n="hero_title2">tú cobras.</span>
                     </h1>
+                    <div class="text-xl lg:text-2xl font-extrabold mb-6 italic flex flex-wrap items-center gap-2">
+    <span class="text-slate-700" data-i18n="slogan_start">¿Tu coche</span>
+    <div class="slogan-container">
+        <div class="slogan-slider">
+            <span class="text-brand-blue" data-i18n="slogan_neg">duerme en el parking?</span>
+            <span class="text-brand-orange" data-i18n="slogan_pos">trabaja para ti?</span>
+        </div>
+    </div>
+</div>
                     <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg font-medium" data-i18n="hero_desc">
                         Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable. Gestión 360°, cero preocupaciones.
                     </p>
@@ -530,7 +565,7 @@
         </div>
     </div>
 
-    <a href="https://wa.me/34744767629?text=Hola,%20estoy%20en%20la%20web%20y%20me%20interesa." class="whatsapp-float" target="_blank">
+    <a href="#contacto" class="whatsapp-float">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
     </a>
     <a href="#top" class="back-to-top-floating" id="btnTop">
@@ -548,6 +583,7 @@
                 hero_title1: "Tu coche trabaja,", hero_title2: "tú cobras.",
                 hero_desc: "Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable. Gestión 360°, cero preocupaciones.",
                 hero_cta: "Solicitar Estudio Gratuito", hero_income_label: "Ingreso Medio Mensual",
+                slogan_start: "¿Tu coche", slogan_neg: "duerme en el parking?", slogan_pos: "trabaja para ti?",
                 trust_quote: "\"Seriedad, pagos puntuales y cero preocupaciones. Cédric es un socio de confianza.\"",
                 trust_link: "Únete al club →", status_label: "Estado", status_val: "Operativo 24/7",
                 
@@ -595,6 +631,7 @@
                 hero_title1: "Votre voiture travaille,", hero_title2: "vous encaissez.",
                 hero_desc: "Leader par l'Innovation. Le seul service intégral à Barcelone qui transforme votre véhicule en actif rentable. Gestion 360°, zéro souci.",
                 hero_cta: "Demander une Étude Gratuite", hero_income_label: "Revenu Moyen Mensuel",
+                slogan_start: "Votre voiture", slogan_neg: "dort au parking ?", slogan_pos: "travaille pour vous ?",
                 trust_quote: "\"Sérieux, paiements ponctuels et zéro souci. Cédric est un partenaire de confiance.\"",
                 trust_link: "Rejoindre le club →", status_label: "Statut", status_val: "Opérationnel 24/7",
                 
@@ -642,6 +679,7 @@
                 hero_title1: "Your car works,", hero_title2: "you get paid.",
                 hero_desc: "The only 360° full-service in Barcelona transforming your vehicle into a profitable asset. Zero worry.",
                 hero_cta: "Get Free Estimate", hero_income_label: "Avg. Monthly Income",
+                slogan_start: "Does your car", slogan_neg: "sleep in the parking lot?", slogan_pos: "work for you?",
                 trust_quote: "\"Reliability, punctual payments, and zero worries. Cédric is a trusted partner.\"",
                 trust_link: "Join the club →", status_label: "Status", status_val: "Live 24/7",
                 
