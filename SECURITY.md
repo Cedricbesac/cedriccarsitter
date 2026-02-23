@@ -1,21 +1,25 @@
-# Security Policy
+# Politique de Sécurité (Security Policy)
 
-## Supported Versions
+## Versions supportées
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Ce projet est un site web statique. Actuellement, seule la version principale (en direct) est supportée avec des mises à jour de sécurité.
 
-| Version | Supported          |
+| Version | Supportée          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version Actuelle (Live) | :white_check_mark: |
+| Versions antérieures    | :x:                |
 
-## Reporting a Vulnerability
+## Signaler une vulnérabilité
 
-Use this section to tell people how to report a vulnerability.
+La sécurité de nos utilisateurs est une priorité. Si vous découvrez une vulnérabilité ou un problème de sécurité sur ce projet, merci de nous en informer.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+**Comment signaler un problème ?**
+Veuillez ne pas créer d' "Issue" publique sur GitHub. Envoyez-nous plutôt un e-mail avec les détails de la vulnérabilité à :
+📧 **cedric@cedriccarsitter.com**
+
+**À quoi s'attendre ?**
+1. Nous accuserons réception de votre signalement dans un délai de 48 heures.
+2. Nous évaluerons le problème et vous tiendrons informé des étapes de résolution.
+3. Nous vous demandons de garder le problème confidentiel jusqu'à ce que nous ayons pu déployer un correctif.
+
+Merci d'aider à garder Cedric CarSitter sécurisé !

@@ -13,7 +13,7 @@ This repository hosts the code and documentation for **Cedric CarSitter**, a fle
 
 **Our Mission:** Empower vehicle owners to generate passive income via car-sharing platforms (Getaround, Amovens) without handling the operational complexity.
 
-This project is not just a showcase; it is the digital interface of 20 years of field expertise (Ex-Leaseway, Automotive Expert).
+This project is not just a showcase; it is the digital interface of 17 years of field expertise (Ex-Leaseway, Automotive Expert).
 
 ---
 
@@ -37,6 +37,14 @@ To clarify the technical and commercial positioning:
 * **Location:** Barcelona & surroundings (ZBE Zone).
 * **Website Languages:** French 🇫🇷, Spanish 🇪🇸, English 🇬🇧 (Strict trilingual scope).
 * **Target Integrations:** Getaround APIs, Amovens flows.
+
+---
+
+## 💻 Tech Stack
+
+* **Frontend:** HTML5, Vanilla JavaScript.
+* **Styling:** Tailwind CSS (via CDN for rapid static deployment).
+* **Hosting:** Static Web Hosting ready.
 
 ---
 

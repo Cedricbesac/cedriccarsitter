@@ -12,13 +12,13 @@
       gtag('config', 'G-BKZGBQHDDB');
     </script>
 
-    <title>Política de Privacidad - Cedric CarSitter</title>
-    <meta name="description" content="Información privacidad de Cedric CarSitter">
+    <title>Política de Privacidad | Cedric CarSitter</title>
+    <meta name="description" content="Política de privacidad y protección de datos de Cedric CarSitter.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://cedriccarsitter.com/politica-privacidad.html">
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,6 +34,10 @@
 
     <style>
         html { scroll-behavior: smooth; }
+        .lang-btn { opacity: 0.5; transition: all 0.3s ease; filter: grayscale(100%); cursor: pointer; }
+        .lang-btn.active { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
+        .lang-btn:hover { opacity: 1; filter: grayscale(0%); }
+        
         .whatsapp-float {
             position: fixed; bottom: 30px; left: 30px;
             background-color: #25d366; width: 60px; height: 60px;
@@ -49,82 +53,119 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999;
             text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
         }
-        .footer-carsitter { background-color: #ffffff; padding: 40px 0 20px 0; border-top: 1px solid #eee; }
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .footer-links a { text-decoration: none; color: #444; margin-left: 20px; font-weight: 500; font-size: 0.9rem; }
-        @media (max-width: 768px) { .footer-container { flex-direction: column; text-align: center; gap: 20px; } }
     </style>
 </head>
-<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen font-montserrat">
 
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="index.html" class="block hover:opacity-90 transition">
-                <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" class="h-12 w-auto">
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="index.html" class="text-sm font-bold text-slate-600 hover:text-brand-blue flex items-center gap-2">
-                    <span>←</span> Volver / Retour
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="block hover:opacity-90 transition">
+                    <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                        </g>
+                    </svg>
                 </a>
+
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 bg-slate-50 rounded-full px-3 py-1 border border-slate-100">
+                        <button onclick="changeLang('es')" class="lang-btn active"><img src="https://flagcdn.com/w40/es.png" width="24" alt="ES"></button>
+                        <button onclick="changeLang('fr')" class="lang-btn"><img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR"></button>
+                        <button onclick="changeLang('en')" class="lang-btn"><img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN"></button>
+                    </div>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-brand-blue focus:outline-none p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                    <div class="hidden md:flex space-x-6 items-center">
+                        <a href="index.html#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_exp">Experiencia</a>
+                        <a href="index.html#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_inv">Inversión</a>
+                        <a href="index.html#rentabilidad" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_results">Resultados</a>
+                        <a href="index.html#faq" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">FAQ</a>
+                        <a href="index.html" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide" data-i18n="nav_back">← Volver Inicio</a>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-4 z-40">
+            <a href="index.html#experiencia" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_exp">Experiencia</a>
+            <a href="index.html#modelos" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_inv">Inversión</a>
+            <a href="index.html#rentabilidad" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_results">Resultados</a>
+            <a href="index.html" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md" data-i18n="nav_back">← Volver Inicio</a>
         </div>
     </nav>
 
     <main class="pt-32 pb-20 max-w-4xl mx-auto px-4 py-12 flex-grow">
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-200">
-            <h1 class="text-3xl font-bold text-brand-dark mb-8">Política de Privacidad</h1>
+            <h1 class="text-3xl font-bold text-slate-900 mb-8" data-i18n="priv_title">Política de Privacidad</h1>
             
-            <div class="space-y-6 text-slate-600 leading-relaxed">
-                <p class="text-sm text-slate-400">Última actualización: 26 de enero de 2026.</p>
-                <p>El respeto a tu privacidad es un pilar fundamental de mi actividad. Por ello, trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) de España.</p>
+            <div class="space-y-6 text-slate-600 leading-relaxed text-justify">
+                <p class="text-sm text-slate-400 font-medium" data-i18n="priv_date">Última actualización: 26 de enero de 2026.</p>
+                <p data-i18n="priv_intro">El respeto a tu privacidad es un pilar fundamental de mi actividad. Por ello, trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) de España.</p>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">1. ¿Quién es el Responsable del tratamiento de tus datos?</h2>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Identidad:</strong> Cédric Ducornet</li>
-                    <li><strong>Actividad:</strong> Logística y Gestión de vehículos (CarSitter)</li>
-                    <li><strong>Ubicación:</strong> Barcelona, España</li>
-                    <li><strong>Contacto:</strong> <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline">cedric@cedriccarsitter.com</a></li>
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec1_title">1. ¿Quién es el Responsable del tratamiento de tus datos?</h2>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-sm">
+                    <ul class="space-y-2">
+                        <li><strong data-i18n="priv_owner">Identidad:</strong> Cédric Ducornet</li>
+                        <li><strong data-i18n="priv_activity">Actividad:</strong> Logística y Gestión de vehículos (CarSitter)</li>
+                        <li><strong data-i18n="priv_location">Ubicación:</strong> Barcelona, España</li>
+                        <li><strong data-i18n="priv_contact">Contacto:</strong> <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline font-medium">cedric@cedriccarsitter.com</a></li>
+                    </ul>
+                </div>
+
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec2_title">2. ¿Con qué finalidad trato tus datos personales?</h2>
+                <p data-i18n="priv_sec2_intro">Utilizo la información que me facilitas para los siguientes fines:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong data-i18n="priv_sec2_1_title">Gestión de servicios:</strong> <span data-i18n="priv_sec2_1_text">Ejecutar las prestaciones logísticas o de transporte que me solicites.</span></li>
+                    <li><strong data-i18n="priv_sec2_2_title">Comunicación:</strong> <span data-i18n="priv_sec2_2_text">Atender tus consultas, dudas o presupuestos de forma directa y personalizada.</span></li>
+                    <li><strong data-i18n="priv_sec2_3_title">Relación contractual:</strong> <span data-i18n="priv_sec2_3_text">Gestionar la facturación y el cumplimiento de las obligaciones legales derivadas de mis servicios.</span></li>
                 </ul>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">2. ¿Con qué finalidad trato tus datos personales?</h2>
-                <p>Utilizo la información que me facilitas para los siguientes fines:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Gestión de servicios:</strong> Ejecutar las prestaciones logísticas o de transporte que me solicites.</li>
-                    <li><strong>Comunicación:</strong> Atender tus consultas, dudas o presupuestos de forma directa y personalizada.</li>
-                    <li><strong>Relación contractual:</strong> Gestionar la facturación y el cumplimiento de las obligaciones legales derivadas de mis servicios.</li>
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec3_title">3. Base legal para el tratamiento</h2>
+                <p data-i18n="priv_sec3_intro">Trato tus datos basándome en:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong data-i18n="priv_sec3_1_title">Tu consentimiento:</strong> <span data-i18n="priv_sec3_1_text">Al contactarme a través de los formularios o canales indicados.</span></li>
+                    <li><strong data-i18n="priv_sec3_2_title">Ejecución de un contrato:</strong> <span data-i18n="priv_sec3_2_text">Cuando contratas mis servicios, el tratamiento de tus datos es necesario para llevar a cabo el trabajo.</span></li>
+                    <li><strong data-i18n="priv_sec3_3_title">Obligación legal:</strong> <span data-i18n="priv_sec3_3_text">Para el cumplimiento de normativas fiscales y contables en España.</span></li>
                 </ul>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">3. Base legal para el tratamiento</h2>
-                <p>Trato tus datos basándome en:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Tu consentimiento:</strong> Al contactarme a través de los formularios o canales indicados.</li>
-                    <li><strong>Ejecución de un contrato:</strong> Cuando contratas mis servicios, el tratamiento de tus datos es necesario para llevar a cabo el trabajo.</li>
-                    <li><strong>Obligación legal:</strong> Para el cumplimiento de normativas fiscales y contables en España.</li>
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec4_title">4. ¿Por cuánto tiempo conservaré tus datos?</h2>
+                <p data-i18n="priv_sec4_text">Conservaré tus datos personales solo durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados, o mientras exista un interés mutuo, y en todo caso, durante los plazos legales exigidos por la normativa española.</p>
+
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec5_title">5. ¿A quién se comunicarán tus datos?</h2>
+                <p data-i18n="priv_sec5_intro">Yo no vendo ni alquilo tus datos personales a terceros. Solo los comunicaré en los siguientes casos:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li data-i18n="priv_sec5_1">A proveedores de servicios necesarios para mi actividad (por ejemplo, hosting o herramientas de facturación), siempre bajo estrictos acuerdos de confidencialidad.</li>
+                    <li data-i18n="priv_sec5_2">A las autoridades competentes cuando exista una obligación legal.</li>
                 </ul>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">4. ¿Por cuánto tiempo conservaré tus datos?</h2>
-                <p>Conservaré tus datos personales solo durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados, o mientras exista un interés mutuo, y en todo caso, durante los plazos legales exigidos por la normativa española.</p>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">5. ¿A quién se comunicarán tus datos?</h2>
-                <p>Yo no vendo ni alquilo tus datos personales a terceros. Solo los comunicaré en los siguientes casos:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>A proveedores de servicios necesarios para mi actividad (por ejemplo, hosting o herramientas de facturación), siempre bajo estrictos acuerdos de confidencialidad.</li>
-                    <li>A las autoridades competentes cuando exista una obligación legal.</li>
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec6_title">6. Tus Derechos</h2>
+                <p data-i18n="priv_sec6_intro">La ley te otorga el control total sobre tu información. Puedes ejercer en cualquier momento los siguientes derechos:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong data-i18n="priv_sec6_1_title">Acceso:</strong> <span data-i18n="priv_sec6_1_text">Saber qué datos tengo sobre ti.</span></li>
+                    <li><strong data-i18n="priv_sec6_2_title">Rectificación:</strong> <span data-i18n="priv_sec6_2_text">Corregir datos que sean inexactos o estén incompletos.</span></li>
+                    <li><strong data-i18n="priv_sec6_3_title">Supresión (Derecho al olvido):</strong> <span data-i18n="priv_sec6_3_text">Solicitar que elimine tus datos de mis registros.</span></li>
+                    <li><strong data-i18n="priv_sec6_4_title">Oposición y Limitación:</strong> <span data-i18n="priv_sec6_4_text">Oponerte al tratamiento o solicitar que se limite en determinadas circunstancias.</span></li>
+                    <li><strong data-i18n="priv_sec6_5_title">Portabilidad:</strong> <span data-i18n="priv_sec6_5_text">Recibir tus datos en un formato electrónico estructurado.</span></li>
                 </ul>
+                <p class="mt-4" data-i18n="priv_sec6_outro">Para ejercer estos derechos, solo tienes que enviarme un correo electrónico a <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline font-medium">cedric@cedriccarsitter.com</a>, adjuntando una copia de tu DNI o documento equivalente para verificar tu identidad.</p>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">6. Tus Derechos</h2>
-                <p>La ley te otorga el control total sobre tu información. Puedes ejercer en cualquier momento los siguientes derechos:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Acceso:</strong> Saber qué datos tengo sobre ti.</li>
-                    <li><strong>Rectificación:</strong> Corregir datos que sean inexactos o estén incompletos.</li>
-                    <li><strong>Supresión (Derecho al olvido):</strong> Solicitar que elimine tus datos de mis registros.</li>
-                    <li><strong>Oposición y Limitación:</strong> Oponerte al tratamiento o solicitar que se limite en determinadas circunstancias.</li>
-                    <li><strong>Portabilidad:</strong> Recibir tus datos en un formato electrónico estructurado.</li>
-                </ul>
-                <p class="mt-4">Para ejercer estos derechos, solo tienes que enviarme un correo electrónico a <a href="mailto:cedric@cedriccarsitter.com" class="text-brand-blue hover:underline">cedric@cedriccarsitter.com</a>, adjuntando una copia de tu DNI o documento equivalente para verificar tu identidad.</p>
-
-                <h2 class="text-xl font-bold text-slate-900 mt-8">7. Seguridad de los datos</h2>
-                <p>He implementado las medidas técnicas y organizativas necesarias para evitar la pérdida, mal uso, alteración o acceso no autorizado a tus datos, garantizando así su integridad y confidencialidad.</p>
+                <h2 class="text-xl font-bold text-brand-blue mt-8" data-i18n="priv_sec7_title">7. Seguridad de los datos</h2>
+                <p data-i18n="priv_sec7_text">He implementado las medidas técnicas y organizativas necesarias para evitar la pérdida, mal uso, alteración o acceso no autorizado a tus datos, garantizando así su integridad y confidencialidad.</p>
             </div>
         </div>
     </main>
@@ -136,54 +177,202 @@
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
     </a>
 
-<footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            
-            <div class="flex flex-col items-center md:items-start text-center md:text-left">
-                <a href="https://cedriccarsitter.com" class="block hover:opacity-90 transition mb-4">
-                    
-                    <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
-                        <style>
-                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;display=swap');
-                            .logo-text { font-family: 'Montserrat', sans-serif; }
-                        </style>
-
-                        <g class="logo-text">
-                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" 
-                                  fill="none" 
-                                  stroke="#F7941D" 
-                                  stroke-width="7" 
-                                  stroke-linecap="round" />
-
-                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
-                            
-                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
-                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
-                            
-                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
-                        </g>
-                    </svg>
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <a href="index.html" class="block hover:opacity-90 transition mb-4">
+                        <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                            <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                                .logo-text { font-family: 'Montserrat', sans-serif; }
+                            </style>
+                            <g class="logo-text">
+                                <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                                <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                                <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                                <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                                <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                                <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                            </g>
+                        </svg>
                     </a>
-                
-                <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
-                
-                <p class="text-xs text-slate-400 mt-1 font-light">
-                    Gestor de Carsharing en Barcelona Ciudad y Aeropuerto
-                </p>
-            </div>
+                    <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
+                    <p class="text-xs text-slate-400 mt-1 font-light">Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</p>
+                </div>
 
-            <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
-                <a href="aviso-legal.html" class="hover:text-brand-blue transition hover:underline">Aviso Legal</a>
-                <a href="politica-privacidad.html" class="hover:text-brand-blue transition hover:underline">Privacidad</a>
-                <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="aviso-legal.html" class="hover:text-brand-blue transition hover:underline">Aviso Legal</a>
+                    <a href="politica-privacidad.html" class="text-brand-blue font-bold hover:underline">Privacidad</a>
+                    <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
+        const translations = {
+            es: {
+                nav_exp: "Experiencia", nav_inv: "Inversión", nav_results: "Resultados", nav_back: "← Volver Inicio",
+                priv_title: "Política de Privacidad",
+                priv_date: "Última actualización: 26 de enero de 2026.",
+                priv_intro: "El respeto a tu privacidad es un pilar fundamental de mi actividad. Por ello, trato tus datos personales con la máxima responsabilidad, cumpliendo estrictamente con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) de España.",
+                
+                priv_sec1_title: "1. ¿Quién es el Responsable del tratamiento de tus datos?",
+                priv_owner: "Identidad:", priv_activity: "Actividad:", priv_location: "Ubicación:", priv_contact: "Contacto:",
+                
+                priv_sec2_title: "2. ¿Con qué finalidad trato tus datos personales?",
+                priv_sec2_intro: "Utilizo la información que me facilitas para los siguientes fines:",
+                priv_sec2_1_title: "Gestión de servicios:", priv_sec2_1_text: "Ejecutar las prestaciones logísticas o de transporte que me solicites.",
+                priv_sec2_2_title: "Comunicación:", priv_sec2_2_text: "Atender tus consultas, dudas o presupuestos de forma directa y personalizada.",
+                priv_sec2_3_title: "Relación contractual:", priv_sec2_3_text: "Gestionar la facturación y el cumplimiento de las obligaciones legales derivadas de mis servicios.",
+                
+                priv_sec3_title: "3. Base legal para el tratamiento",
+                priv_sec3_intro: "Trato tus datos basándome en:",
+                priv_sec3_1_title: "Tu consentimiento:", priv_sec3_1_text: "Al contactarme a través de los formularios o canales indicados.",
+                priv_sec3_2_title: "Ejecución de un contrato:", priv_sec3_2_text: "Cuando contratas mis servicios, el tratamiento de tus datos es necesario para llevar a cabo el trabajo.",
+                priv_sec3_3_title: "Obligación legal:", priv_sec3_3_text: "Para el cumplimiento de normativas fiscales y contables en España.",
+                
+                priv_sec4_title: "4. ¿Por cuánto tiempo conservaré tus datos?",
+                priv_sec4_text: "Conservaré tus datos personales solo durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados, o mientras exista un interés mutuo, y en todo caso, durante los plazos legales exigidos por la normativa española.",
+                
+                priv_sec5_title: "5. ¿A quién se comunicarán tus datos?",
+                priv_sec5_intro: "Yo no vendo ni alquilo tus datos personales a terceros. Solo los comunicaré en los siguientes casos:",
+                priv_sec5_1: "A proveedores de servicios necesarios para mi actividad (por ejemplo, hosting o herramientas de facturación), siempre bajo estrictos acuerdos de confidencialidad.",
+                priv_sec5_2: "A las autoridades competentes cuando exista una obligación legal.",
+                
+                priv_sec6_title: "6. Tus Derechos",
+                priv_sec6_intro: "La ley te otorga el control total sobre tu información. Puedes ejercer en cualquier momento los siguientes derechos:",
+                priv_sec6_1_title: "Acceso:", priv_sec6_1_text: "Saber qué datos tengo sobre ti.",
+                priv_sec6_2_title: "Rectificación:", priv_sec6_2_text: "Corregir datos que sean inexactos o estén incompletos.",
+                priv_sec6_3_title: "Supresión (Derecho al olvido):", priv_sec6_3_text: "Solicitar que elimine tus datos de mis registros.",
+                priv_sec6_4_title: "Oposición y Limitación:", priv_sec6_4_text: "Oponerte al tratamiento o solicitar que se limite en determinadas circunstancias.",
+                priv_sec6_5_title: "Portabilidad:", priv_sec6_5_text: "Recibir tus datos en un formato electrónico estructurado.",
+                priv_sec6_outro: "Para ejercer estos derechos, solo tienes que enviarme un correo electrónico a <a href='mailto:cedric@cedriccarsitter.com' class='text-brand-blue hover:underline font-medium'>cedric@cedriccarsitter.com</a>, adjuntando una copia de tu DNI o documento equivalente para verificar tu identidad.",
+                
+                priv_sec7_title: "7. Seguridad de los datos",
+                priv_sec7_text: "He implementado las medidas técnicas y organizativas necesarias para evitar la pérdida, mal uso, alteración o acceso no autorizado a tus datos, garantizando así su integridad y confidencialidad."
+            },
+            fr: {
+                nav_exp: "Expérience", nav_inv: "Investissement", nav_results: "Résultats", nav_back: "← Retour Accueil",
+                priv_title: "Politique de Confidentialité",
+                priv_date: "Dernière mise à jour : 26 janvier 2026.",
+                priv_intro: "Le respect de votre vie privée est un pilier fondamental de mon activité. C'est pourquoi je traite vos données personnelles avec la plus grande responsabilité, en respectant strictement le Règlement Général sur la Protection des Données (RGPD) et la loi espagnole (LOPDGDD).",
+                
+                priv_sec1_title: "1. Qui est le Responsable du traitement de vos données ?",
+                priv_owner: "Identité :", priv_activity: "Activité :", priv_location: "Localisation :", priv_contact: "Contact :",
+                
+                priv_sec2_title: "2. Dans quel but je traite vos données ?",
+                priv_sec2_intro: "J'utilise les informations que vous me fournissez pour les finalités suivantes :",
+                priv_sec2_1_title: "Gestion des services :", priv_sec2_1_text: "Exécuter les prestations logistiques que vous demandez.",
+                priv_sec2_2_title: "Communication :", priv_sec2_2_text: "Répondre à vos questions ou demandes de devis de manière directe.",
+                priv_sec2_3_title: "Relation contractuelle :", priv_sec2_3_text: "Gérer la facturation et le respect des obligations légales.",
+                
+                priv_sec3_title: "3. Base légale du traitement",
+                priv_sec3_intro: "Je traite vos données sur la base de :",
+                priv_sec3_1_title: "Votre consentement :", priv_sec3_1_text: "En me contactant via les formulaires ou canaux indiqués.",
+                priv_sec3_2_title: "Exécution d'un contrat :", priv_sec3_2_text: "Le traitement est nécessaire pour réaliser le travail demandé.",
+                priv_sec3_3_title: "Obligation légale :", priv_sec3_3_text: "Pour le respect des réglementations fiscales et comptables en Espagne.",
+                
+                priv_sec4_title: "4. Combien de temps je conserve vos données ?",
+                priv_sec4_text: "Je conserverai vos données personnelles uniquement le temps nécessaire pour atteindre l'objectif pour lequel elles ont été collectées, ou tant qu'il existe un intérêt mutuel, et dans les délais légaux espagnols.",
+                
+                priv_sec5_title: "5. À qui vos données sont-elles communiquées ?",
+                priv_sec5_intro: "Je ne vends ni ne loue vos données personnelles. Elles ne seront communiquées que dans les cas suivants :",
+                priv_sec5_1: "À des prestataires de services nécessaires (hébergement, facturation), sous accords de confidentialité.",
+                priv_sec5_2: "Aux autorités compétentes en cas d'obligation légale.",
+                
+                priv_sec6_title: "6. Vos Droits",
+                priv_sec6_intro: "La loi vous donne le contrôle total. Vous pouvez exercer à tout moment les droits suivants :",
+                priv_sec6_1_title: "Accès :", priv_sec6_1_text: "Savoir quelles données je détiens sur vous.",
+                priv_sec6_2_title: "Rectification :", priv_sec6_2_text: "Corriger des données inexactes ou incomplètes.",
+                priv_sec6_3_title: "Suppression (Droit à l'oubli) :", priv_sec6_3_text: "Demander la suppression de vos données de mes dossiers.",
+                priv_sec6_4_title: "Opposition et Limitation :", priv_sec6_4_text: "Vous opposer au traitement ou demander sa limitation.",
+                priv_sec6_5_title: "Portabilité :", priv_sec6_5_text: "Recevoir vos données dans un format électronique structuré.",
+                priv_sec6_outro: "Pour exercer ces droits, envoyez-moi un email à <a href='mailto:cedric@cedriccarsitter.com' class='text-brand-blue hover:underline font-medium'>cedric@cedriccarsitter.com</a>, avec une copie de votre pièce d'identité.",
+                
+                priv_sec7_title: "7. Sécurité des données",
+                priv_sec7_text: "J'ai mis en place les mesures techniques et organisationnelles nécessaires pour éviter la perte, l'altération ou l'accès non autorisé à vos données."
+            },
+            en: {
+                nav_exp: "Experience", nav_inv: "Investment", nav_results: "Results", nav_back: "← Back Home",
+                priv_title: "Privacy Policy",
+                priv_date: "Last updated: January 26, 2026.",
+                priv_intro: "Respecting your privacy is a fundamental pillar of my business. Therefore, I handle your personal data with the utmost responsibility, strictly complying with the General Data Protection Regulation (GDPR) and the Spanish LOPDGDD.",
+                
+                priv_sec1_title: "1. Who is responsible for processing your data?",
+                priv_owner: "Identity:", priv_activity: "Activity:", priv_location: "Location:", priv_contact: "Contact:",
+                
+                priv_sec2_title: "2. For what purpose do I process your data?",
+                priv_sec2_intro: "I use the information you provide for the following purposes:",
+                priv_sec2_1_title: "Service management:", priv_sec2_1_text: "To execute the logistics or transport services you request.",
+                priv_sec2_2_title: "Communication:", priv_sec2_2_text: "To answer your questions or provide direct quotes.",
+                priv_sec2_3_title: "Contractual relationship:", priv_sec2_3_text: "To manage billing and comply with legal obligations.",
+                
+                priv_sec3_title: "3. Legal basis for processing",
+                priv_sec3_intro: "I process your data based on:",
+                priv_sec3_1_title: "Your consent:", priv_sec3_1_text: "By contacting me through the indicated forms or channels.",
+                priv_sec3_2_title: "Execution of a contract:", priv_sec3_2_text: "When you hire my services, the processing is necessary to carry out the work.",
+                priv_sec3_3_title: "Legal obligation:", priv_sec3_3_text: "To comply with tax and accounting regulations in Spain.",
+                
+                priv_sec4_title: "4. How long will I keep your data?",
+                priv_sec4_text: "I will keep your personal data only for the time necessary to fulfill the purpose for which it was collected, or as long as there is a mutual interest, and in any case, during the legal terms required by Spanish law.",
+                
+                priv_sec5_title: "5. To whom will your data be communicated?",
+                priv_sec5_intro: "I do not sell or rent your personal data. I will only communicate it in the following cases:",
+                priv_sec5_1: "To necessary service providers (e.g., hosting or billing tools), always under strict confidentiality agreements.",
+                priv_sec5_2: "To the competent authorities when there is a legal obligation.",
+                
+                priv_sec6_title: "6. Your Rights",
+                priv_sec6_intro: "The law gives you total control over your information. You can exercise the following rights at any time:",
+                priv_sec6_1_title: "Access:", priv_sec6_1_text: "Know what data I have about you.",
+                priv_sec6_2_title: "Rectification:", priv_sec6_2_text: "Correct data that is inaccurate or incomplete.",
+                priv_sec6_3_title: "Deletion (Right to be forgotten):", priv_sec6_3_text: "Request that I delete your data from my records.",
+                priv_sec6_4_title: "Opposition and Limitation:", priv_sec6_4_text: "Object to the processing or request that it be limited.",
+                priv_sec6_5_title: "Portability:", priv_sec6_5_text: "Receive your data in a structured electronic format.",
+                priv_sec6_outro: "To exercise these rights, simply email me at <a href='mailto:cedric@cedriccarsitter.com' class='text-brand-blue hover:underline font-medium'>cedric@cedriccarsitter.com</a>, attaching a copy of your ID.",
+                
+                priv_sec7_title: "7. Data Security",
+                priv_sec7_text: "I have implemented the necessary technical and organizational measures to prevent the loss, misuse, alteration, or unauthorized access to your data."
+            }
+        };
+
+        function changeLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.title = translations[lang].priv_title + " | Cedric CarSitter";
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(`'${lang}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        window.addEventListener('load', function() {
+            const savedLang = localStorage.getItem('preferredLang');
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang') || savedLang;
+
+            if (langParam && translations[langParam]) {
+                changeLang(langParam);
+            }
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
         const btnTop = document.getElementById("btnTop");
         window.onscroll = function() {
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -194,5 +383,4 @@
         };
     </script>
 </body>
-
 </html>

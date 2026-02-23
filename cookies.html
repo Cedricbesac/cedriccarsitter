@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<<head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -12,13 +12,13 @@
       gtag('config', 'G-BKZGBQHDDB');
     </script>
 
-    <title>Aviso Legal - Cedric CarSitter</title>
-    <meta name="description" content="Información cookies de Cedric CarSitter">
+    <title>Política de Cookies | Cedric CarSitter</title>
+    <meta name="description" content="Política de cookies de Cedric CarSitter.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://cedriccarsitter.com/cookies.html">
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,6 +34,10 @@
 
     <style>
         html { scroll-behavior: smooth; }
+        .lang-btn { opacity: 0.5; transition: all 0.3s ease; filter: grayscale(100%); cursor: pointer; }
+        .lang-btn.active { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
+        .lang-btn:hover { opacity: 1; filter: grayscale(0%); }
+        
         .whatsapp-float {
             position: fixed; bottom: 30px; left: 30px;
             background-color: #25d366; width: 60px; height: 60px;
@@ -49,53 +53,90 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999;
             text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
         }
-        .footer-carsitter { background-color: #ffffff; padding: 40px 0 20px 0; border-top: 1px solid #eee; }
-        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .footer-links a { text-decoration: none; color: #444; margin-left: 20px; font-weight: 500; font-size: 0.9rem; }
-        @media (max-width: 768px) { .footer-container { flex-direction: column; text-align: center; gap: 20px; } }
     </style>
 </head>
-<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen font-montserrat">
 
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="index.html" class="block hover:opacity-90 transition">
-                <img src="https://cedriccarsitter.com/logo.svg" alt="Cedric CarSitter" class="h-12 w-auto">
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="index.html" class="text-sm font-bold text-slate-600 hover:text-brand-blue flex items-center gap-2">
-                    <span>←</span> Volver / Retour
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="block hover:opacity-90 transition">
+                    <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                        </g>
+                    </svg>
                 </a>
+
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 bg-slate-50 rounded-full px-3 py-1 border border-slate-100">
+                        <button onclick="changeLang('es')" class="lang-btn active"><img src="https://flagcdn.com/w40/es.png" width="24" alt="ES"></button>
+                        <button onclick="changeLang('fr')" class="lang-btn"><img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR"></button>
+                        <button onclick="changeLang('en')" class="lang-btn"><img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN"></button>
+                    </div>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-brand-blue focus:outline-none p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                    <div class="hidden md:flex space-x-6 items-center">
+                        <a href="index.html#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_exp">Experiencia</a>
+                        <a href="index.html#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_inv">Inversión</a>
+                        <a href="index.html#rentabilidad" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_results">Resultados</a>
+                        <a href="index.html#faq" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">FAQ</a>
+                        <a href="index.html" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide" data-i18n="nav_back">← Volver Inicio</a>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-4 z-40">
+            <a href="index.html#experiencia" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_exp">Experiencia</a>
+            <a href="index.html#modelos" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_inv">Inversión</a>
+            <a href="index.html#rentabilidad" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_results">Resultados</a>
+            <a href="index.html" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md" data-i18n="nav_back">← Volver Inicio</a>
         </div>
     </nav>
 
     <main class="pt-32 pb-20 max-w-4xl mx-auto px-4 py-12 flex-grow">
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-200">
-            <h1 class="text-3xl font-bold text-brand-dark mb-8">Política de Cookies</h1>
+            <h1 class="text-3xl font-bold text-brand-dark mb-8" data-i18n="cookie_title">Política de Cookies</h1>
             
-            <div class="space-y-6 text-slate-600 leading-relaxed">
-                <h2 class="text-xl font-bold text-slate-900 mt-8">1. ¿Qué son las cookies?</h2>
-                <p>Una cookie es un pequeño archivo de texto que se almacena en tu navegador cuando visitas casi cualquier página web. Su utilidad es que la web sea capaz de recordar tu visita cuando vuelvas a navegar por esa página. Las cookies suelen almacenar información de carácter técnico, preferencias personales, personalización de contenidos, estadísticas de uso, enlaces a redes sociales, acceso a cuentas de usuario, etc.</p>
+            <div class="space-y-6 text-slate-600 leading-relaxed text-justify">
+                <h2 class="text-xl font-bold text-slate-900 mt-8" data-i18n="cookie_sec1_title">1. ¿Qué son las cookies?</h2>
+                <p data-i18n="cookie_sec1_text">Una cookie es un pequeño archivo de texto que se almacena en tu navegador cuando visitas casi cualquier página web. Su utilidad es que la web sea capaz de recordar tu visita cuando vuelvas a navegar por esa página. Las cookies suelen almacenar información de carácter técnico, preferencias personales, personalización de contenidos, estadísticas de uso, enlaces a redes sociales, acceso a cuentas de usuario, etc.</p>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">2. Cookies utilizadas en este sitio web</h2>
-                <p>Siguiendo las directrices de la Agencia Española de Protección de Datos procedo a detallar el uso de cookies que hace esta web:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Cookies técnicas:</strong> Son aquellas imprescindibles y estrictamente necesarias para el correcto funcionamiento del portal web y la utilización de las diferentes opciones y servicios que ofrece.</li>
-                    <li><strong>Cookies de terceros:</strong> Esta web puede utilizar servicios de terceros (como Google Maps para la ubicación o YouTube para videos) que recopilen información con fines estadísticos y de uso del sitio por parte del usuario.</li>
+                <h2 class="text-xl font-bold text-slate-900 mt-8" data-i18n="cookie_sec2_title">2. Cookies utilizadas en este sitio web</h2>
+                <p data-i18n="cookie_sec2_intro">Siguiendo las directrices de la Agencia Española de Protección de Datos procedo a detallar el uso de cookies que hace esta web:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li data-i18n="cookie_sec2_li1"><strong>Cookies técnicas:</strong> Son aquellas imprescindibles y estrictamente necesarias para el correcto funcionamiento del portal web y la utilización de las diferentes opciones y servicios que ofrece.</li>
+                    <li data-i18n="cookie_sec2_li2"><strong>Cookies de terceros:</strong> Esta web puede utilizar servicios de terceros (como Google Maps para la ubicación o YouTube para videos) que recopilen información con fines estadísticos y de uso del sitio por parte del usuario.</li>
                 </ul>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">3. Desactivación o eliminación de cookies</h2>
-                <p>En cualquier momento podrás ejercer tu derecho de desactivación o eliminación de cookies de este sitio web. Estas acciones se realizan de forma diferente en función del navegador que estés usando:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li><strong>Chrome:</strong> Configuración > Privacidad y seguridad > Cookies y otros datos de sitios.</li>
-                    <li><strong>Safari:</strong> Preferencias > Privacidad.</li>
-                    <li><strong>Firefox:</strong> Opciones > Privacidad y seguridad.</li>
-                    <li><strong>Edge:</strong> Configuración > Cookies y permisos del sitio.</li>
-                </ul>
+                <h2 class="text-xl font-bold text-slate-900 mt-8" data-i18n="cookie_sec3_title">3. Desactivación o eliminación de cookies</h2>
+                <p data-i18n="cookie_sec3_intro">En cualquier momento podrás ejercer tu derecho de desactivación o eliminación de cookies de este sitio web. Estas acciones se realizan de forma diferente en función del navegador que estés usando:</p>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-sm mt-4">
+                    <ul class="space-y-2">
+                        <li data-i18n="cookie_sec3_li1"><strong>Chrome:</strong> Configuración > Privacidad y seguridad > Cookies y otros datos de sitios.</li>
+                        <li data-i18n="cookie_sec3_li2"><strong>Safari:</strong> Preferencias > Privacidad.</li>
+                        <li data-i18n="cookie_sec3_li3"><strong>Firefox:</strong> Opciones > Privacidad y seguridad.</li>
+                        <li data-i18n="cookie_sec3_li4"><strong>Edge:</strong> Configuración > Cookies y permisos del sitio.</li>
+                    </ul>
+                </div>
 
-                <h2 class="text-xl font-bold text-slate-900 mt-8">4. Notas adicionales</h2>
-                <p>Ni esta web ni sus representantes legales se hacen responsables ni del contenido ni de la veracidad de las políticas de privacidad que puedan tener los terceros mencionados en esta política de cookies.</p>
+                <h2 class="text-xl font-bold text-slate-900 mt-8" data-i18n="cookie_sec4_title">4. Notas adicionales</h2>
+                <p data-i18n="cookie_sec4_text">Ni esta web ni sus representantes legales se hacen responsables ni del contenido ni de la veracidad de las políticas de privacidad que puedan tener los terceros mencionados en esta política de cookies.</p>
             </div>
         </div>
     </main>
@@ -107,54 +148,133 @@
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
     </a>
 
- <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            
-            <div class="flex flex-col items-center md:items-start text-center md:text-left">
-                <a href="https://cedriccarsitter.com" class="block hover:opacity-90 transition mb-4">
-                    
-                    <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
-                        <style>
-                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;display=swap');
-                            .logo-text { font-family: 'Montserrat', sans-serif; }
-                        </style>
-
-                        <g class="logo-text">
-                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" 
-                                  fill="none" 
-                                  stroke="#F7941D" 
-                                  stroke-width="7" 
-                                  stroke-linecap="round" />
-
-                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
-                            
-                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
-                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
-                            
-                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
-                        </g>
-                    </svg>
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <a href="index.html" class="block hover:opacity-90 transition mb-4">
+                        <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                            <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                                .logo-text { font-family: 'Montserrat', sans-serif; }
+                            </style>
+                            <g class="logo-text">
+                                <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                                <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                                <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                                <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                                <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                                <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                            </g>
+                        </svg>
                     </a>
-                
-                <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
-                
-                <p class="text-xs text-slate-400 mt-1 font-light">
-                    Gestor de Carsharing en Barcelona Ciudad y Aeropuerto
-                </p>
-            </div>
+                    <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
+                    <p class="text-xs text-slate-400 mt-1 font-light">Gestor de Carsharing en Barcelona Ciudad y Aeropuerto</p>
+                </div>
 
-            <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
-                <a href="aviso-legal.html" class="hover:text-brand-blue transition hover:underline">Aviso Legal</a>
-                <a href="politica-privacidad.html" class="hover:text-brand-blue transition hover:underline">Privacidad</a>
-                <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="aviso-legal.html" class="hover:text-brand-blue transition hover:underline">Aviso Legal</a>
+                    <a href="politica-privacidad.html" class="hover:text-brand-blue transition hover:underline">Privacidad</a>
+                    <a href="cookies.html" class="text-brand-blue font-bold hover:underline">Cookies</a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
+        const translations = {
+            es: {
+                nav_exp: "Experiencia", nav_inv: "Inversión", nav_results: "Resultados", nav_back: "← Volver Inicio",
+                cookie_title: "Política de Cookies",
+                cookie_sec1_title: "1. ¿Qué son las cookies?",
+                cookie_sec1_text: "Una cookie es un pequeño archivo de texto que se almacena en tu navegador cuando visitas casi cualquier página web. Su utilidad es que la web sea capaz de recordar tu visita cuando vuelvas a navegar por esa página. Las cookies suelen almacenar información de carácter técnico, preferencias personales, personalización de contenidos, estadísticas de uso, enlaces a redes sociales, acceso a cuentas de usuario, etc.",
+                cookie_sec2_title: "2. Cookies utilizadas en este sitio web",
+                cookie_sec2_intro: "Siguiendo las directrices de la Agencia Española de Protección de Datos procedo a detallar el uso de cookies que hace esta web:",
+                cookie_sec2_li1: "<strong>Cookies técnicas:</strong> Son aquellas imprescindibles y estrictamente necesarias para el correcto funcionamiento del portal web y la utilización de las diferentes opciones y servicios que ofrece.",
+                cookie_sec2_li2: "<strong>Cookies de terceros:</strong> Esta web puede utilizar servicios de terceros (como Google Maps para la ubicación o YouTube para videos) que recopilen información con fines estadísticos y de uso del sitio por parte del usuario.",
+                cookie_sec3_title: "3. Desactivación o eliminación de cookies",
+                cookie_sec3_intro: "En cualquier momento podrás ejercer tu derecho de desactivación o eliminación de cookies de este sitio web. Estas acciones se realizan de forma diferente en función del navegador que estés usando:",
+                cookie_sec3_li1: "<strong>Chrome:</strong> Configuración > Privacidad y seguridad > Cookies y otros datos de sitios.",
+                cookie_sec3_li2: "<strong>Safari:</strong> Preferencias > Privacidad.",
+                cookie_sec3_li3: "<strong>Firefox:</strong> Opciones > Privacidad y seguridad.",
+                cookie_sec3_li4: "<strong>Edge:</strong> Configuración > Cookies y permisos del sitio.",
+                cookie_sec4_title: "4. Notas adicionales",
+                cookie_sec4_text: "Ni esta web ni sus representantes legales se hacen responsables ni del contenido ni de la veracidad de las políticas de privacidad que puedan tener los terceros mencionados en esta política de cookies."
+            },
+            fr: {
+                nav_exp: "Expérience", nav_inv: "Investissement", nav_results: "Résultats", nav_back: "← Retour Accueil",
+                cookie_title: "Politique de Cookies",
+                cookie_sec1_title: "1. Que sont les cookies ?",
+                cookie_sec1_text: "Un cookie est un petit fichier texte stocké dans votre navigateur lorsque vous visitez presque n'importe quelle page web. Son utilité est de permettre au site de se souvenir de votre visite lorsque vous y retournez. Les cookies stockent généralement des informations techniques, des préférences personnelles, des personnalisations de contenu, des statistiques d'utilisation, des liens vers les réseaux sociaux, l'accès aux comptes utilisateurs, etc.",
+                cookie_sec2_title: "2. Cookies utilisés sur ce site",
+                cookie_sec2_intro: "Conformément aux directives de l'Agence Espagnole de Protection des Données, voici l'utilisation des cookies faite par ce site :",
+                cookie_sec2_li1: "<strong>Cookies techniques :</strong> Ce sont ceux qui sont indispensables et strictement nécessaires au bon fonctionnement du portail web et à l'utilisation des différentes options et services qu'il propose.",
+                cookie_sec2_li2: "<strong>Cookies tiers :</strong> Ce site peut utiliser des services tiers (comme Google Analytics ou Google Tag Manager) qui collectent des informations à des fins statistiques et d'utilisation du site par l'utilisateur.",
+                cookie_sec3_title: "3. Désactivation ou suppression des cookies",
+                cookie_sec3_intro: "À tout moment, vous pouvez exercer votre droit de désactiver ou de supprimer les cookies de ce site web. Ces actions s'effectuent différemment selon le navigateur que vous utilisez :",
+                cookie_sec3_li1: "<strong>Chrome :</strong> Paramètres > Confidentialité et sécurité > Cookies et autres données de site.",
+                cookie_sec3_li2: "<strong>Safari :</strong> Préférences > Confidentialité.",
+                cookie_sec3_li3: "<strong>Firefox :</strong> Options > Vie privée et sécurité.",
+                cookie_sec3_li4: "<strong>Edge :</strong> Paramètres > Cookies et autorisations de site.",
+                cookie_sec4_title: "4. Notes supplémentaires",
+                cookie_sec4_text: "Ni ce site ni ses représentants légaux ne sont responsables du contenu ou de la véracité des politiques de confidentialité que peuvent avoir les tiers mentionnés dans cette politique de cookies."
+            },
+            en: {
+                nav_exp: "Experience", nav_inv: "Investment", nav_results: "Results", nav_back: "← Back Home",
+                cookie_title: "Cookie Policy",
+                cookie_sec1_title: "1. What are cookies?",
+                cookie_sec1_text: "A cookie is a small text file stored in your browser when you visit almost any web page. Its purpose is for the web to remember your visit when you return to browse that page. Cookies usually store technical information, personal preferences, content personalization, usage statistics, links to social networks, access to user accounts, etc.",
+                cookie_sec2_title: "2. Cookies used on this website",
+                cookie_sec2_intro: "Following the guidelines of the Spanish Data Protection Agency, I detail the use of cookies made by this website:",
+                cookie_sec2_li1: "<strong>Technical cookies:</strong> These are essential and strictly necessary for the proper functioning of the web portal and the use of the different options and services it offers.",
+                cookie_sec2_li2: "<strong>Third-party cookies:</strong> This website may use third-party services (such as Google Analytics or Google Tag Manager) that collect information for statistical purposes and website usage by the user.",
+                cookie_sec3_title: "3. Disabling or deleting cookies",
+                cookie_sec3_intro: "At any time, you can exercise your right to disable or delete cookies from this website. These actions are performed differently depending on the browser you are using:",
+                cookie_sec3_li1: "<strong>Chrome:</strong> Settings > Privacy and security > Cookies and other site data.",
+                cookie_sec3_li2: "<strong>Safari:</strong> Preferences > Privacy.",
+                cookie_sec3_li3: "<strong>Firefox:</strong> Options > Privacy & Security.",
+                cookie_sec3_li4: "<strong>Edge:</strong> Settings > Cookies and site permissions.",
+                cookie_sec4_title: "4. Additional notes",
+                cookie_sec4_text: "Neither this website nor its legal representatives are responsible for the content or the veracity of the privacy policies that the third parties mentioned in this cookie policy may have."
+            }
+        };
+
+        function changeLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.title = translations[lang].cookie_title + " | Cedric CarSitter";
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(`'${lang}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        window.addEventListener('load', function() {
+            const savedLang = localStorage.getItem('preferredLang');
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang') || savedLang || 'es';
+
+            if (langParam && translations[langParam]) {
+                changeLang(langParam);
+            }
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
         const btnTop = document.getElementById("btnTop");
         window.onscroll = function() {
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -165,5 +285,4 @@
         };
     </script>
 </body>
-
 </html>

@@ -4,38 +4,38 @@
 
     <url>
         <loc>https://cedriccarsitter.com/</loc>
-        <lastmod>2026-02-05</lastmod>
+        <lastmod>2026-02-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         
         <image:image>
-            <image:loc>https://cedriccarsitter.com/peugeot-bcn.png</image:loc>
+            <image:loc>https://cedriccarsitter.com/2008.webp</image:loc>
             <image:title>Peugeot 2008 Aeropuerto Barcelona - Rentabilidad</image:title>
             <image:caption>Gestión de alquiler de coches en Barcelona El Prat</image:caption>
         </image:image>
         <image:image>
-            <image:loc>https://cedriccarsitter.com/cedric.jpg</image:loc>
+            <image:loc>https://cedriccarsitter.com/cedricvis.png</image:loc>
             <image:title>Cédric Ducornet - Gestor CarSitter Barcelona</image:title>
         </image:image>
     </url>
 
     <url>
         <loc>https://cedriccarsitter.com/aviso-legal.html</loc>
-        <lastmod>2026-02-05</lastmod>
+        <lastmod>2026-02-23</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
     <url>
         <loc>https://cedriccarsitter.com/politica-privacidad.html</loc>
-        <lastmod>2026-02-05</lastmod>
+        <lastmod>2026-02-23</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
     <url>
         <loc>https://cedriccarsitter.com/cookies.html</loc>
-        <lastmod>2026-02-05</lastmod>
+        <lastmod>2026-02-23</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>

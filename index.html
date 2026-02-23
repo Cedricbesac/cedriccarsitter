@@ -166,7 +166,7 @@
         </div>
     </section>
 
-        <section id="experiencia" class="py-24 bg-white">
+    <section id="experiencia" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="relative order-2 md:order-1">
@@ -442,40 +442,41 @@
                 </div>
                 <div class="p-8 md:p-10 md:w-3/5">
                     <form class="space-y-4" onsubmit="sendToWhatsApp(event)">
-    <div>
-        <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_name">Nombre</label>
-        <input type="text" id="nombre" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Tu nombre" required>
-    </div>
-    
-    <div>
-        <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_phone">Teléfono</label>
-        <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+34..." required>
-    </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_name">Nombre</label>
+                            <input type="text" id="nombre" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Tu nombre">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_phone">Teléfono</label>
+                            <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+34...">
+                        </div>
 
-    <div>
-        <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_project">Estoy interesado en</label>
-        <div class="relative">
-            <select id="proyecto" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50 appearance-none text-slate-600">
-                <option value="Información General" selected>Seleccionar...</option> <option value="Gestión coche actual">Gestión de mi coche actual</option>
-                <option value="Inversión Cash">Inversión (Comprar para alquilar)</option>
-                <option value="Leasing">Leasing (Autofinanciación)</option>
-            </select>
-            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </div>
-        </div>
-    </div>
-    
-    <div>
-        <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_msg">Mensaje (Opcional)</label>
-        <textarea id="mensaje" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="..."></textarea>
-    </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_project">Estoy interesado en</label>
+                            <div class="relative">
+                                <select id="proyecto" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50 appearance-none text-slate-600">
+                                    <option value="Información General" selected>Seleccionar...</option> 
+                                    <option value="Gestión coche actual">Gestión de mi coche actual</option>
+                                    <option value="Inversión Cash">Inversión (Comprar para alquilar)</option>
+                                    <option value="Leasing">Leasing (Autofinanciación)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_msg">Mensaje (Opcional)</label>
+                            <textarea id="mensaje" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="..."></textarea>
+                        </div>
 
-    <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group">
-        <span data-i18n="ctc_btn">Enviar por WhatsApp</span>
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-    </button>
-</form>
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group">
+                            <span data-i18n="ctc_btn">Enviar por WhatsApp</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -487,33 +488,23 @@
             
             <div class="flex flex-col items-center md:items-start text-center md:text-left">
                 <a href="https://cedriccarsitter.com" class="block hover:opacity-90 transition mb-4">
-                    
                     <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
                         <style>
                             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
                             .logo-text { font-family: 'Montserrat', sans-serif; }
                         </style>
-
                         <g class="logo-text">
-                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" 
-                                  fill="none" 
-                                  stroke="#F7941D" 
-                                  stroke-width="7" 
-                                  stroke-linecap="round" />
-
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
                             <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
                             <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
-                            
                             <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
                             <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
-                            
                             <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
                         </g>
                     </svg>
-                    </a>
+                </a>
                 
                 <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
-                
                 <p class="text-xs text-slate-400 mt-1 font-light">
                     Gestor de Carsharing en Barcelona Ciudad y Aeropuerto
                 </p>
@@ -591,8 +582,8 @@
 
                 /* Ajouts pour le formulaire */
                 form_name: "Nombre", form_phone: "Teléfono", form_project: "Estoy interesado en", form_msg: "Mensaje (Opcional)",
-
                 ctc_title: "Contacto Directo", ctc_subtitle: "Rellena este formulario y te responderé directamente por WhatsApp.", ctc_btn: "Enviar por WhatsApp",
+                ctc_btn_loading: "Abriendo WhatsApp...",
                 cookie_txt: "Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.", cookie_btn: "Aceptar y Cerrar"
             },
             fr: {
@@ -638,8 +629,8 @@
 
                 /* Ajouts pour le formulaire */
                 form_name: "Nom", form_phone: "Téléphone", form_project: "Je suis intéressé par", form_msg: "Message (Optionnel)",
-
                 ctc_title: "Contact Direct", ctc_subtitle: "Remplissez ce formulaire, je vous réponds directement sur WhatsApp.", ctc_btn: "Envoyer sur WhatsApp",
+                ctc_btn_loading: "Ouverture de WhatsApp...",
                 cookie_txt: "Nous utilisons des cookies pour améliorer votre expérience. En naviguant, vous acceptez notre <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>politique de cookies</a>.", cookie_btn: "Accepter et Fermer"
             },
             en: {
@@ -685,8 +676,8 @@
 
                 /* Ajouts pour le formulaire */
                 form_name: "Name", form_phone: "Phone", form_project: "I am interested in", form_msg: "Message (Optional)",
-
                 ctc_title: "Direct Contact", ctc_subtitle: "Fill this form, I'll reply directly on WhatsApp.", ctc_btn: "Send to WhatsApp",
+                ctc_btn_loading: "Opening WhatsApp...",
                 cookie_txt: "We use cookies to improve your experience. By browsing, you accept our <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>cookie policy</a>.", cookie_btn: "Accept and Close"
             }
         };
@@ -710,18 +701,21 @@ function changeLang(lang) {
     // Mise à jour visuelle des boutons de drapeau
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
-        // On active le bouton correspondant à la langue choisie
         if(btn.getAttribute('onclick').includes(`'${lang}'`)) {
             btn.classList.add('active');
         }
     });
+    
+    // NOUVEAU : On sauvegarde la langue pour ne pas la perdre en changeant de page !
+    localStorage.setItem('preferredLang', lang); 
 }
 
-// Nettoyé : On rassemble le code exécuté au chargement
+// Vérifications au chargement de la page
 window.addEventListener('load', function() {
-    // 1. Détection automatique au chargement
+    // 1. Détection automatique de la langue (URL ou mémoire du navigateur)
+    const savedLang = localStorage.getItem('preferredLang');
     const urlParams = new URLSearchParams(window.location.search);
-    const langParam = urlParams.get('lang');
+    const langParam = urlParams.get('lang') || savedLang;
 
     if (langParam && translations[langParam]) {
         changeLang(langParam);
@@ -732,7 +726,6 @@ window.addEventListener('load', function() {
         document.getElementById('cookieBanner').classList.remove('hidden');
     }
 });
-
 function selectSubject(val) {
     const select = document.getElementById('proyecto');
     if(select) {
@@ -743,7 +736,16 @@ function selectSubject(val) {
 
 function sendToWhatsApp(e) {
     e.preventDefault();
-    // On récupère les valeurs OU on met un texte par défaut si c'est vide
+    
+    // --- 1. Animation visuelle du bouton ---
+    const btnSpan = e.target.querySelector('button[type="submit"] span');
+    const originalText = btnSpan.innerHTML; // On sauvegarde le texte original
+    const currentLang = document.documentElement.lang || 'es'; // On vérifie la langue actuelle
+    
+    // On remplace le texte par le message de chargement traduit
+    btnSpan.innerHTML = translations[currentLang].ctc_btn_loading || "Abriendo WhatsApp...";
+    
+    // --- 2. Récupération des données ---
     const nombre = document.getElementById('nombre').value || "un contacto web";
     const proyecto = document.getElementById('proyecto').value || "información general";
     const mensaje = document.getElementById('mensaje').value;
@@ -754,7 +756,14 @@ function sendToWhatsApp(e) {
     if(mensaje) text += `\nMensaje adicional: ${mensaje}`;
 
     const encodedText = encodeURIComponent(text);
+    
+    // --- 3. Ouverture de WhatsApp ---
     window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+
+    // --- 4. Retour à la normale après 3 secondes ---
+    setTimeout(() => {
+        btnSpan.innerHTML = originalText;
+    }, 3000);
 }
 
 // Logic Cookie Banner
