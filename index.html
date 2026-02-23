@@ -68,12 +68,14 @@
         /* Animation Cookie */
         .cookie-banner { animation: slideUp 0.5s ease-out forwards; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    /* Animation Défilé de Texte (Text Spinner) */
+        
+        /* Animation Défilé de Texte (Text Spinner) Corrigée */
         .slogan-container {
-            height: 30px;
+            height: 1.5em;
             overflow: hidden;
-            display: inline-flex;
-            vertical-align: middle;
+            display: inline-block;
+            vertical-align: bottom;
+            padding-right: 0.3em;
         }
         .slogan-slider {
             display: flex;
@@ -81,17 +83,13 @@
             animation: slide-slogan 6s ease-in-out infinite;
         }
         .slogan-slider span {
-            height: 30px;
-            display: flex;
-            align-items: center;
-        }
-        @media (min-width: 1024px) {
-            .slogan-container { height: 36px; }
-            .slogan-slider span { height: 36px; }
+            display: block;
+            height: 1.5em;
+            line-height: 1.5em;
         }
         @keyframes slide-slogan {
-            0%, 40% { transform: translateY(0); }
-            50%, 90% { transform: translateY(-50%); }
+            0%, 45% { transform: translateY(0); }
+            50%, 95% { transform: translateY(-50%); }
             100% { transform: translateY(0); }
         }
     </style>
@@ -159,24 +157,28 @@
     <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
                 <div>
+                    <div class="text-xl md:text-2xl font-extrabold text-slate-800 mb-5 italic flex flex-wrap items-center gap-2">
+                        <span data-i18n="slogan_start">¿Tu coche</span>
+                        <div class="slogan-container">
+                            <div class="slogan-slider">
+                                <span class="text-brand-blue" data-i18n="slogan_neg">duerme en el parking?</span>
+                                <span class="text-brand-orange" data-i18n="slogan_pos">trabaja para ti?</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-brand-orange rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-orange-100">
                         <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
                         <span data-i18n="hero_badge">Gestión de Alquiler & Carsharing • Barcelona Ciudad y Aeropuerto</span>
                     </div>
+                    
                     <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
                         <span data-i18n="hero_title1">Tu coche trabaja,</span><br> 
                         <span class="text-brand-blue" data-i18n="hero_title2">tú cobras.</span>
                     </h1>
-                    <div class="text-xl lg:text-2xl font-extrabold mb-6 italic flex flex-wrap items-center gap-2">
-    <span class="text-slate-700" data-i18n="slogan_start">¿Tu coche</span>
-    <div class="slogan-container">
-        <div class="slogan-slider">
-            <span class="text-brand-blue" data-i18n="slogan_neg">duerme en el parking?</span>
-            <span class="text-brand-orange" data-i18n="slogan_pos">trabaja para ti?</span>
-        </div>
-    </div>
-</div>
+                    
                     <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg font-medium" data-i18n="hero_desc">
                         Líder por Innovación. El único servicio integral en Barcelona que transforma tu vehículo en un activo rentable. Gestión 360°, cero preocupaciones.
                     </p>
@@ -186,6 +188,7 @@
                         </a>
                     </div>
                 </div>
+                
                 <div class="relative hidden lg:block">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2rem] transform rotate-3"></div>
                     <img src="2008.webp" alt="Peugeot 2008" class="relative rounded-[2rem] shadow-2xl border-4 border-white object-cover h-[500px] w-full transform -rotate-2 hover:rotate-0 transition duration-500">
@@ -764,6 +767,7 @@ window.addEventListener('load', function() {
         document.getElementById('cookieBanner').classList.remove('hidden');
     }
 });
+
 function selectSubject(val) {
     const select = document.getElementById('proyecto');
     if(select) {
