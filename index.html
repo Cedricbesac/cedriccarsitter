@@ -307,7 +307,8 @@
                         <div class="flex justify-between text-sm text-slate-600 mb-1"><span data-i18n="c3_inc">Ingreso Neto (tras 30%)</span><span class="font-bold text-green-600">+500€</span></div>
                         <div class="flex justify-between text-sm text-slate-600 mb-3"><span data-i18n="c3_fee">Cuota Leasing</span><span class="font-bold text-red-400">-300€</span></div>
                         <div class="border-t border-slate-200 pt-2 flex justify-between items-center"><span class="font-bold text-slate-900" data-i18n="c3_flow">Cashflow / mes</span><span class="font-bold text-brand-blue text-xl">+200€</span></div>
-<a href="#contacto" onclick="selectSubject('Leasing')" class="w-full block text-center bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-brand-blue transition mt-auto shadow-md" data-i18n="btn_lea">Estudio personalizado</a>
+                        </div>
+                        <a href="#contacto" onclick="selectSubject('Leasing')" class="w-full block text-center bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-brand-blue transition mt-auto shadow-md" data-i18n="btn_lea">Estudio personalizado</a>
                 </div>
             </div>
         </div>
@@ -379,9 +380,8 @@
                 </div>
             </div>
             
-            <div class="mt-12 text-center">
-                <a href="#contacto" class="inline-flex items-center gap-3 bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-orange-500/20 transform hover:-translate-y-1 group"
-                   target="_blank">
+            <div class="mt-12 flex flex-col items-center">
+                <a href="#contacto" onclick="selectSubject('Gestión coche actual')" class="inline-flex items-center justify-center gap-2 bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-blue transition shadow-md group">
                     <span data-i18n="req_btn">Verificar elegibilidad ahora</span>
                     <svg class="w-6 h-6 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -444,12 +444,12 @@
                     <form class="space-y-4" onsubmit="sendToWhatsApp(event)">
     <div>
         <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_name">Nombre</label>
-        <input type="text" id="nombre" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Tu nombre">
+        <input type="text" id="nombre" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Tu nombre" required>
     </div>
     
     <div>
         <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_phone">Teléfono</label>
-        <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+34...">
+        <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+34..." required>
     </div>
 
     <div>
@@ -472,7 +472,7 @@
     </div>
 
     <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group">
-        <span data-i18n="form_btn">Enviar por WhatsApp</span>
+        <span data-i18n="ctc_btn">Enviar por WhatsApp</span>
         <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
     </button>
 </form>
@@ -490,7 +490,7 @@
                     
                     <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
                         <style>
-                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;display=swap');
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
                             .logo-text { font-family: 'Montserrat', sans-serif; }
                         </style>
 
@@ -531,7 +531,7 @@
     <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-2xl z-50 hidden cookie-banner border-t border-slate-700">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="text-sm text-slate-300 text-center md:text-left">
-		<span data-i18n="cookie_txt">Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.</span>            
+        <span data-i18n="cookie_txt">Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.</span>            
 </div>
             <button onclick="acceptCookies()" class="bg-brand-blue hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition shadow-lg text-sm whitespace-nowrap" data-i18n="cookie_btn">
                 Aceptar y Cerrar
@@ -589,7 +589,10 @@
                 faq_q2: "¿Y si hay multas de tráfico?", faq_a2: "CarSitter se encarga de la gestión. Identificamos al conductor responsable en el momento de la infracción y tramitamos la denuncia para que no te afecte.", faq_cta2: "Hablar con un experto &rarr;",
                 faq_q3: "¿Cuándo recibo mis pagos?", faq_a3: "Recibes un informe detallado y el pago de tus beneficios mensualmente, directamente en tu cuenta bancaria.", faq_cta3: "Empezar ahora &rarr;",
 
-                ctc_title: "Contacto Directo", ctc_subtitle: "Rellena este formulario y te responderé directamente por WhatsApp.", ctc_btn: "Enviar a WhatsApp",
+                /* Ajouts pour le formulaire */
+                form_name: "Nombre", form_phone: "Teléfono", form_project: "Estoy interesado en", form_msg: "Mensaje (Opcional)",
+
+                ctc_title: "Contacto Directo", ctc_subtitle: "Rellena este formulario y te responderé directamente por WhatsApp.", ctc_btn: "Enviar por WhatsApp",
                 cookie_txt: "Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.", cookie_btn: "Aceptar y Cerrar"
             },
             fr: {
@@ -632,6 +635,9 @@
                 faq_q1: "Comment fonctionne l'assurance ?", faq_a1: "Toutes les locations sont couvertes tous risques. En cas de dommage, la franchise est à la charge du conducteur, jamais du propriétaire.", faq_cta1: "Je veux plus de détails &rarr;",
                 faq_q2: "Et s'il y a des amendes ?", faq_a2: "CarSitter gère tout. Nous identifions le conducteur responsable et traitons l'amende pour qu'elle ne vous affecte pas.", faq_cta2: "Parler à un expert &rarr;",
                 faq_q3: "Quand suis-je payé ?", faq_a3: "Vous recevez un rapport détaillé et le paiement de vos bénéfices mensuellement, directement sur votre compte.", faq_cta3: "Commencer maintenant &rarr;",
+
+                /* Ajouts pour le formulaire */
+                form_name: "Nom", form_phone: "Téléphone", form_project: "Je suis intéressé par", form_msg: "Message (Optionnel)",
 
                 ctc_title: "Contact Direct", ctc_subtitle: "Remplissez ce formulaire, je vous réponds directement sur WhatsApp.", ctc_btn: "Envoyer sur WhatsApp",
                 cookie_txt: "Nous utilisons des cookies pour améliorer votre expérience. En naviguant, vous acceptez notre <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>politique de cookies</a>.", cookie_btn: "Accepter et Fermer"
@@ -677,6 +683,9 @@
                 faq_q2: "What about traffic fines?", faq_a2: "CarSitter handles it. We identify the driver responsible at the time of the infraction and process the fine so it doesn't affect you.", faq_cta2: "Talk to an expert &rarr;",
                 faq_q3: "When do I get paid?", faq_a3: "You receive a detailed report and payment of your earnings monthly, directly to your bank account.", faq_cta3: "Start now &rarr;",
 
+                /* Ajouts pour le formulaire */
+                form_name: "Name", form_phone: "Phone", form_project: "I am interested in", form_msg: "Message (Optional)",
+
                 ctc_title: "Direct Contact", ctc_subtitle: "Fill this form, I'll reply directly on WhatsApp.", ctc_btn: "Send to WhatsApp",
                 cookie_txt: "We use cookies to improve your experience. By browsing, you accept our <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>cookie policy</a>.", cookie_btn: "Accept and Close"
             }
@@ -708,9 +717,9 @@ function changeLang(lang) {
     });
 }
 
-// --- NOUVEAU : Détection automatique au chargement ---
+// Nettoyé : On rassemble le code exécuté au chargement
 window.addEventListener('load', function() {
-    // On regarde si l'URL contient ?lang=fr ou ?lang=en
+    // 1. Détection automatique au chargement
     const urlParams = new URLSearchParams(window.location.search);
     const langParam = urlParams.get('lang');
 
@@ -718,19 +727,21 @@ window.addEventListener('load', function() {
         changeLang(langParam);
     }
     
-    // Vérification des cookies (ton code existant)
+    // 2. Vérification des cookies
     if (!localStorage.getItem('cookiesAccepted')) {
         document.getElementById('cookieBanner').classList.remove('hidden');
     }
 });
-        function selectSubject(val) {
-            const select = document.getElementById('proyecto');
-            if(select) {
-                select.value = val;
-                document.getElementById('contacto').scrollIntoView({behavior: 'smooth'});
-            }
-        }
-        function sendToWhatsApp(e) {
+
+function selectSubject(val) {
+    const select = document.getElementById('proyecto');
+    if(select) {
+        select.value = val;
+        document.getElementById('contacto').scrollIntoView({behavior: 'smooth'});
+    }
+}
+
+function sendToWhatsApp(e) {
     e.preventDefault();
     // On récupère les valeurs OU on met un texte par défaut si c'est vide
     const nombre = document.getElementById('nombre').value || "un contacto web";
@@ -746,35 +757,27 @@ window.addEventListener('load', function() {
     window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
 }
 
-        // Logic Cookie Banner
-        function acceptCookies() {
-            document.getElementById('cookieBanner').style.display = 'none';
-            localStorage.setItem('cookiesAccepted', 'true');
-        }
+// Logic Cookie Banner
+function acceptCookies() {
+    document.getElementById('cookieBanner').classList.add('hidden'); // Modifié pour utiliser la classe Tailwind
+    localStorage.setItem('cookiesAccepted', 'true');
+}
+
 function toggleMobileMenu() {
     const menu = document.getElementById('mobile-menu');
     menu.classList.toggle('hidden');
 }
-        // Init checks
-        window.addEventListener('load', function() {
-            // Check Cookies
-            if (!localStorage.getItem('cookiesAccepted')) {
-                document.getElementById('cookieBanner').classList.remove('hidden');
-            }
-        });
 
-        const btnTop = document.getElementById("btnTop");
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btnTop.style.display = "flex";
-                setTimeout(() => btnTop.style.opacity = "1", 10);
-            } else {
-                btnTop.style.opacity = "0";
-                setTimeout(() => btnTop.style.display = "none", 300);
-            }
-        };
+const btnTop = document.getElementById("btnTop");
+window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btnTop.style.display = "flex";
+        setTimeout(() => btnTop.style.opacity = "1", 10);
+    } else {
+        btnTop.style.opacity = "0";
+        setTimeout(() => btnTop.style.display = "none", 300);
+    }
+};
     </script>
 </body>
-
 </html>
-
