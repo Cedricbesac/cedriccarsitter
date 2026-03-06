@@ -13,7 +13,7 @@ This repository hosts the code and documentation for **Cedric CarSitter**, a fle
 
 **Our Mission:** Empower vehicle owners to generate passive income via car-sharing platforms (Getaround, Amovens) without handling the operational complexity.
 
-This project is not just a showcase; it is the digital interface of 17 years of field expertise (Ex-Leaseway, Automotive Expert).
+This project is not just a showcase; it is the digital interface of 30 years of field expertise (Ex-Leaseway, Automotive Expert).
 
 ---
 
