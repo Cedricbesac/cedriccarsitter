@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKZGBQHDDB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BKZGBQHDDB');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Cedric CarSitter | Servicios Digitales y Google Business</title>
+    <meta name="description" content="Optimización de Google Business en 24h. Mejora tu presencia online en Barcelona con Cedric Ducornet.">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1C75BC">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#1E293B' } },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .lang-btn { opacity: 0.5; transition: all 0.3s ease; filter: grayscale(100%); cursor: pointer; }
+        .lang-btn.active { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
+        .lang-btn:hover { opacity: 1; filter: grayscale(0%); }
+        
+        /* Bouton WhatsApp Flottant */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; left: 30px;
+            background-color: #25d366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
+            transition: transform 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* Animation Cookie */
+        .cookie-banner { animation: slideUp 0.5s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen font-montserrat">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="block hover:opacity-90 transition">
+                    <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                        </g>
+                    </svg>
+                </a>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 bg-slate-50 rounded-full px-3 py-1 border border-slate-100">
+                        <button onclick="changeLang('es')" class="lang-btn active"><img src="https://flagcdn.com/w40/es.png" width="24" alt="ES"></button>
+                        <button onclick="changeLang('fr')" class="lang-btn"><img src="https://flagcdn.com/w40/fr.png" width="24" alt="FR"></button>
+                        <button onclick="changeLang('en')" class="lang-btn"><img src="https://flagcdn.com/w40/gb.png" width="24" alt="EN"></button>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                    
+                    <div class="hidden md:flex space-x-5 lg:space-x-6 items-center">
+                        <a href="index.html#experiencia" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_exp">Experiencia</a>
+                        <a href="index.html#modelos" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_inv">Inversión</a>
+                        <a href="index.html#rentabilidad" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide" data-i18n="nav_results">Resultados</a>
+                        <a href="#" class="text-brand-orange font-bold uppercase text-xs tracking-wide" data-i18n="nav_digital">Digital</a>
+                        <a href="index.html#faq" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">FAQ</a>
+                        <a href="#contacto" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide" data-i18n="nav_contact">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-4 z-40">
+            <a href="index.html#experiencia" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_exp">Experiencia</a>
+            <a href="index.html#modelos" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_inv">Inversión</a>
+            <a href="index.html#rentabilidad" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_results">Resultados</a>
+            <a href="#" onclick="toggleMobileMenu()" class="text-brand-orange font-bold uppercase text-sm py-2 border-b border-slate-50" data-i18n="nav_digital">Digital</a>
+            <a href="index.html#faq" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">FAQ</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md" data-i18n="nav_contact">WhatsApp</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-brand-dark">
+        <div class="absolute bottom-[-100px] right-[-100px] w-96 h-96 rounded-full border-[40px] border-brand-orange/10 pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="text-white">
+                    <p class="text-xs text-brand-orange font-bold uppercase tracking-[3px] mb-4" data-i18n="dig_hero_pre">Presencia online profesional</p>
+                    <h1 class="text-4xl lg:text-6xl font-black leading-[1.1] mb-6">
+                        <span data-i18n="dig_hero_t1">Tu Google Business,</span><br>
+                        <span class="text-brand-orange" data-i18n="dig_hero_t2">optimizado.</span><br>
+                        <span data-i18n="dig_hero_t3">En 24h.</span>
+                    </h1>
+                    <p class="text-slate-300 mb-8 leading-relaxed max-w-md font-medium text-sm md:text-base" data-i18n="dig_hero_desc">
+                        ¿Aparece tu negocio en Google Maps? ¿Captura clientes reales cada día? Me encargo de optimizar tu ficha al máximo para que <strong class="text-white">destaques por encima de tu competencia.</strong>
+                    </p>
+                    
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="bg-brand-orange rounded-2xl px-6 py-4 inline-flex items-baseline gap-2 shadow-xl shadow-orange-500/20">
+                            <span class="text-2xl font-extrabold">€</span>
+                            <span class="text-5xl font-black tracking-tighter">50</span>
+                            <span class="text-xs font-bold leading-tight ml-2" data-i18n="dig_price_sub">Tarifa plana<br>todo incluido</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <div class="flex text-brand-orange text-lg">★★★★★</div>
+                        <span class="text-xs text-slate-400 font-medium uppercase tracking-wide ml-2" data-i18n="dig_g_lbl">Resultado visible garantizado</span>
+                    </div>
+                </div>
+                
+                <div class="relative hidden lg:block h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-slate-700">
+                    <img src="cedricvis.png" alt="Cédric Ducornet" class="w-full h-full object-cover object-top grayscale-[15%] contrast-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-8 left-0 right-0 text-center">
+                        <p class="text-white font-extrabold text-xl shadow-black drop-shadow-md">Cédric Ducornet</p>
+                        <p class="text-brand-orange font-bold text-xs uppercase tracking-widest mt-1" data-i18n="dig_role">Experto Digital · Barcelona</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-brand-orange py-4 shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6">
+            <span class="text-white font-bold uppercase tracking-widest text-sm whitespace-nowrap" data-i18n="dig_sect_title">Lo que optimizo para ti</span>
+            <div class="h-px bg-white/30 flex-1"></div>
+        </div>
+    </div>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">📍</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s1_t">Ficha Google completa</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s1_d">Dirección, horarios, categorías y atributos configurados correctamente.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">📸</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s2_t">Fotos optimizadas</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s2_d">Selección y carga de imágenes que captan la atención al instante.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">✍️</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s3_t">Descripción SEO Local</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s3_d">Texto pensado para aparecer primero en búsquedas de Barcelona.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">⭐</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s4_t">Gestión de reseñas</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s4_d">Estrategia para conseguir más reseñas 5 estrellas de forma orgánica.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">🏷️</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s5_t">Palabras clave & Servicios</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s5_d">Integración de los términos exactos que buscan tus clientes.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 border-t-4 border-t-brand-blue hover:shadow-lg transition">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2" data-i18n="dig_s6_t">Informe + Consejos</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-i18n="dig_s6_d">PDF con todo lo realizado y 3 recomendaciones personalizadas.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-white pb-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-orange-50 border border-orange-200 border-l-8 border-l-brand-orange rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-8 shadow-sm">
+                <div class="text-6xl">🛡️</div>
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2" data-i18n="dig_g_title">Garantía de satisfacción — Resultado visible o te devuelvo el dinero</h3>
+                    <p class="text-slate-600 leading-relaxed" data-i18n="dig_g_desc">Si tu ficha de Google no mejora de forma visible tras mi intervención, te reembolso íntegramente. Sin discusión. Pago después de la entrega.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900" data-i18n="dig_form_head">¿Empezamos a optimizar tu negocio?</h2>
+            </div>
+            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                
+                <div class="bg-brand-blue p-8 md:p-10 md:w-2/5 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4" data-i18n="ctc_title">Contacto Directo</h3>
+                         <p class="text-blue-100 mb-8 text-sm font-medium" data-i18n="ctc_subtitle">Rellena este formulario y te responderé directamente por WhatsApp.</p>
+                        <div class="space-y-6 mb-8">
+                            <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">WhatsApp</p><p class="text-xl font-bold">+34 744 76 76 29</p></div>
+                            <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">Email</p><p class="text-lg font-bold">cedric@cedriccarsitter.com</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10 md:w-3/5">
+                    <form class="space-y-4" onsubmit="sendToWhatsApp(event)">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_name">Nombre / Empresa</label>
+                            <input type="text" id="nombre" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_phone">Teléfono</label>
+                            <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+34...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_project">Servicio deseado</label>
+                            <div class="relative">
+                                <select id="proyecto" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50 appearance-none text-slate-600 font-medium">
+                                    <option value="Optimización Google Business" selected data-i18n="dig_opt1">Optimización Google Business (50€)</option> 
+                                    <option value="Creación Ficha desde cero" data-i18n="dig_opt2">Creación de Ficha desde cero</option>
+                                    <option value="Otros servicios web/digitales" data-i18n="dig_opt3">Otros servicios web / digitales</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1" data-i18n="form_msg">Enlace a tu negocio actual (Opcional)</label>
+                            <textarea id="mensaje" rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="https://... o el nombre de tu local"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group mt-2">
+                            <span data-i18n="ctc_btn">Enviar por WhatsApp</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <a href="index.html" class="block hover:opacity-90 transition mb-4">
+                        <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                            <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                                .logo-text { font-family: 'Montserrat', sans-serif; }
+                            </style>
+                            <g class="logo-text">
+                                <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                                <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                                <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                                <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                                <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                                <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                            </g>
+                        </svg>
+                    </a>
+                    <p class="text-sm text-slate-500 font-medium">© 2026 Cedric CarSitter. Todos los derechos reservados.</p>
+                    <p class="text-xs text-slate-500 mt-2 font-medium italic" data-i18n="slogan">
+                        "Transformamos tu vehículo en un activo rentable."
+                    </p>
+                </div>
+
+                <div class="flex gap-6 items-center">
+                    <a href="https://maps.app.goo.gl/XbTyLkHh9hD2Ze5u6" target="_blank" rel="noopener noreferrer" aria-label="Google Maps" class="text-slate-400 hover:text-brand-orange transition transform hover:scale-110" title="Encuéntranos en Google Maps">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/c%C3%A9dricducornet/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-slate-400 hover:text-brand-blue transition transform hover:scale-110" title="Perfil de LinkedIn">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="aviso-legal.html" class="hover:text-brand-blue transition hover:underline">Aviso Legal</a>
+                    <a href="politica-privacidad.html" class="hover:text-brand-blue transition hover:underline">Privacidad</a>
+                    <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-2xl z-50 hidden cookie-banner border-t border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-slate-300 text-center md:text-left">
+                <span data-i18n="cookie_txt">Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.</span>            
+            </div>
+            <button onclick="acceptCookies()" class="bg-brand-blue hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition shadow-lg text-sm whitespace-nowrap" data-i18n="cookie_btn">Aceptar y Cerrar</button>
+        </div>
+    </div>
+
+    <a href="#contacto" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
+    </a>
+
+    <script>
+        const translations = {
+            es: {
+                nav_exp: "Experiencia", nav_inv: "Inversión", nav_results: "Resultados", nav_digital: "Digital", nav_contact: "WhatsApp",
+                slogan: "\"Transformamos tu vehículo en un activo rentable.\"",
+                
+                dig_hero_pre: "Presencia online profesional",
+                dig_hero_t1: "Tu Google Business,",
+                dig_hero_t2: "optimizado.",
+                dig_hero_t3: "En 24h.",
+                dig_hero_desc: "¿Aparece tu negocio en Google Maps? ¿Captura clientes reales cada día? Me encargo de optimizar tu ficha al máximo para que <strong class='text-white'>destaques por encima de tu competencia.</strong>",
+                dig_price_sub: "Tarifa plana<br>todo incluido",
+                dig_g_lbl: "Resultado visible garantizado",
+                dig_role: "Experto Digital · Barcelona",
+                dig_sect_title: "Lo que optimizo para ti",
+                
+                dig_s1_t: "Ficha Google completa", dig_s1_d: "Dirección, horarios, categorías y atributos configurados correctamente.",
+                dig_s2_t: "Fotos optimizadas", dig_s2_d: "Selección y carga de imágenes que captan la atención al instante.",
+                dig_s3_t: "Descripción SEO Local", dig_s3_d: "Texto pensado para aparecer primero en búsquedas de Barcelona.",
+                dig_s4_t: "Gestión de reseñas", dig_s4_d: "Estrategia para conseguir más reseñas 5 estrellas de forma orgánica.",
+                dig_s5_t: "Palabras clave & Servicios", dig_s5_d: "Integración de los términos exactos que buscan tus clientes.",
+                dig_s6_t: "Informe + Consejos", dig_s6_d: "PDF con todo lo realizado y 3 recomendaciones personalizadas.",
+                
+                dig_g_title: "Garantía de satisfacción — Resultado visible o te devuelvo el dinero",
+                dig_g_desc: "Si tu ficha de Google no mejora de forma visible tras mi intervención, te reembolso íntegramente. Sin discusión. Pago después de la entrega.",
+                
+                dig_form_head: "¿Empezamos a optimizar tu negocio?",
+                form_name: "Nombre / Empresa", form_phone: "Teléfono", form_project: "Servicio deseado", form_msg: "Enlace a tu negocio actual (Opcional)",
+                dig_opt1: "Optimización Google Business (50€)", dig_opt2: "Creación de Ficha desde cero", dig_opt3: "Otros servicios web / digitales",
+                ctc_title: "Contacto Directo", ctc_subtitle: "Rellena este formulario y te responderé directamente por WhatsApp.", ctc_btn: "Enviar por WhatsApp", ctc_btn_loading: "Abriendo WhatsApp...",
+                cookie_txt: "Usamos cookies para mejorar tu experiencia. Al navegar, aceptas nuestra <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>política de cookies</a>.", cookie_btn: "Aceptar y Cerrar"
+            },
+            fr: {
+                nav_exp: "Expérience", nav_inv: "Investissement", nav_results: "Résultats", nav_digital: "Digital", nav_contact: "WhatsApp",
+                slogan: "\"Nous transformons votre véhicule en un actif rentable.\"",
+                
+                dig_hero_pre: "Présence en ligne pro",
+                dig_hero_t1: "Votre Google Business,",
+                dig_hero_t2: "optimisé.",
+                dig_hero_t3: "En 24h.",
+                dig_hero_desc: "Votre entreprise apparaît-elle sur Google Maps ? Attire-t-elle des clients tous les jours ? J'optimise votre fiche au maximum pour que vous <strong class='text-white'>démarquiez de la concurrence.</strong>",
+                dig_price_sub: "Tarif unique<br>tout compris",
+                dig_g_lbl: "Résultat visible garanti",
+                dig_role: "Expert Digital · Barcelone",
+                dig_sect_title: "Ce que j'optimise pour vous",
+                
+                dig_s1_t: "Fiche Google complète", dig_s1_d: "Adresse, horaires, catégories et attributs configurés correctement.",
+                dig_s2_t: "Photos optimisées", dig_s2_d: "Sélection et ajout d'images qui captent l'attention instantanément.",
+                dig_s3_t: "Description SEO Local", dig_s3_d: "Texte conçu pour apparaître en premier dans les recherches à Barcelone.",
+                dig_s4_t: "Gestion des avis", dig_s4_d: "Stratégie pour obtenir plus d'avis 5 étoiles de manière organique.",
+                dig_s5_t: "Mots-clés & Services", dig_s5_d: "Intégration des termes exacts recherchés par vos futurs clients.",
+                dig_s6_t: "Rapport + Conseils", dig_s6_d: "PDF avec le travail réalisé et 3 recommandations personnalisées.",
+                
+                dig_g_title: "Garantie de satisfaction — Résultat visible ou remboursé",
+                dig_g_desc: "Si votre fiche Google ne s'améliore pas de façon visible après mon intervention, je vous rembourse intégralement. Sans discussion. Paiement après livraison.",
+                
+                dig_form_head: "On commence à optimiser votre business ?",
+                form_name: "Nom / Entreprise", form_phone: "Téléphone", form_project: "Service souhaité", form_msg: "Lien de votre commerce actuel (Optionnel)",
+                dig_opt1: "Optimisation Google Business (50€)", dig_opt2: "Création de Fiche de A à Z", dig_opt3: "Autres services web / digitaux",
+                ctc_title: "Contact Direct", ctc_subtitle: "Remplissez ce formulaire, je vous réponds directement sur WhatsApp.", ctc_btn: "Envoyer sur WhatsApp", ctc_btn_loading: "Ouverture de WhatsApp...",
+                cookie_txt: "Nous utilisons des cookies pour améliorer votre expérience. En naviguant, vous acceptez notre <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>politique de cookies</a>.", cookie_btn: "Accepter et Fermer"
+            },
+            en: {
+                nav_exp: "Experience", nav_inv: "Investment", nav_results: "Results", nav_digital: "Digital", nav_contact: "WhatsApp",
+                slogan: "\"Transforming your vehicle into a profitable asset.\"",
+                
+                dig_hero_pre: "Professional online presence",
+                dig_hero_t1: "Your Google Business,",
+                dig_hero_t2: "optimized.",
+                dig_hero_t3: "In 24h.",
+                dig_hero_desc: "Does your business appear on Google Maps? Is it getting real customers every day? I will optimize your profile so you <strong class='text-white'>stand out from your competition.</strong>",
+                dig_price_sub: "Flat rate<br>all included",
+                dig_g_lbl: "Visible result guaranteed",
+                dig_role: "Digital Expert · Barcelona",
+                dig_sect_title: "What I optimize for you",
+                
+                dig_s1_t: "Complete Google Profile", dig_s1_d: "Address, hours, categories, and attributes configured correctly.",
+                dig_s2_t: "Optimized Photos", dig_s2_d: "Selection and upload of images that instantly catch attention.",
+                dig_s3_t: "Local SEO Description", dig_s3_d: "Text designed to appear first in Barcelona searches.",
+                dig_s4_t: "Reviews Management", dig_s4_d: "Strategy to get more 5-star reviews organically.",
+                dig_s5_t: "Keywords & Services", dig_s5_d: "Integration of the exact terms your clients are searching for.",
+                dig_s6_t: "Report + Tips", dig_s6_d: "PDF with everything done and 3 personalized recommendations.",
+                
+                dig_g_title: "Satisfaction Guarantee — Visible result or money back",
+                dig_g_desc: "If your Google profile doesn't visibly improve after my work, I refund you fully. No questions asked. Payment after delivery.",
+                
+                dig_form_head: "Ready to optimize your business?",
+                form_name: "Name / Company", form_phone: "Phone", form_project: "Desired service", form_msg: "Link to your current business (Optional)",
+                dig_opt1: "Google Business Optimization (50€)", dig_opt2: "Create Profile from scratch", dig_opt3: "Other web / digital services",
+                ctc_title: "Direct Contact", ctc_subtitle: "Fill this form, I'll reply directly on WhatsApp.", ctc_btn: "Send to WhatsApp", ctc_btn_loading: "Opening WhatsApp...",
+                cookie_txt: "We use cookies to improve your experience. By browsing, you accept our <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>cookie policy</a>.", cookie_btn: "Accept and Close"
+            }
+        };
+
+        // Fonction pour changer la langue
+        function changeLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(`'${lang}'`)) btn.classList.add('active');
+            });
+            localStorage.setItem('preferredLang', lang); 
+        }
+
+        window.addEventListener('load', function() {
+            const savedLang = localStorage.getItem('preferredLang') || 'es';
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang') || savedLang;
+            
+            if (langParam && translations[langParam]) {
+                changeLang(langParam);
+            }
+            
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookieBanner').classList.remove('hidden');
+            }
+        });
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function acceptCookies() {
+            document.getElementById('cookieBanner').classList.add('hidden');
+            localStorage.setItem('cookiesAccepted', 'true');
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const btnSpan = e.target.querySelector('button[type="submit"] span');
+            const originalText = btnSpan.innerHTML;
+            const currentLang = document.documentElement.lang || 'es';
+            
+            btnSpan.innerHTML = translations[currentLang].ctc_btn_loading || "Abriendo WhatsApp...";
+            
+            const nombre = document.getElementById('nombre').value || "un profesional";
+            const proyecto = document.getElementById('proyecto').options[document.getElementById('proyecto').selectedIndex].text;
+            const mensaje = document.getElementById('mensaje').value;
+            const telefono = document.getElementById('telefono').value || "";
+            const phone = "34744767629";
+
+            let text = `Hola Cedric, soy ${nombre} (${telefono}).\n\nEstoy interesado en: *${proyecto}*.\n`;
+            if(mensaje) text += `\nEnlace/Info de mi negocio: ${mensaje}`;
+
+            const encodedText = encodeURIComponent(text);
+            window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+
+            setTimeout(() => { btnSpan.innerHTML = originalText; }, 3000);
+        }
+
+        // Activation de la PWA (Service Worker)
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+              console.log('App CarSitter prête à être installée !');
+            }, function(err) {
+              console.log('Erreur PWA: ', err);
+            });
+          });
+        }
+    </script>
+</body>
+</html>
