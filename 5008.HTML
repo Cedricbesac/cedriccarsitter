@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi Flotte - Peugeot 5008 (EE-715-CK)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #0F172A; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nuit: '#1E293B',
+                        bleu: '#1C75BC',
+                        orange: '#F7941D',
+                        SombreArriere: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col">
+
+    <header class="bg-[#1E293B] border-b border-slate-700 p-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-[#1C75BC] text-white p-2.5 rounded-lg shadow-lg">
+                    <i class="fa-solid fa-car-side text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide text-white">PEUGEOT 5008</h1>
+                    <p class="text-xs text-[#F7941D] font-semibold tracking-widest">EE-715-CK • INTEGRALITÉ DES DONNÉES</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold">
+                    <i class="fa-solid fa-circle text-[8px] mr-1.5 align-middle animate-pulse"></i>Base de Données Auditée
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:p-6 space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-700 shadow-md">
+                <div class="flex justify-between items-start text-slate-400">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Kilométrage Actuel</span>
+                    <i class="fa-solid fa-gauge-high text-[#1C75BC]"></i>
+                </div>
+                <div class="mt-2 flex items-baseline space-x-1">
+                    <span id="kpi-km" class="text-2xl font-bold text-white">221 575</span>
+                    <span class="text-xs text-slate-400">KM</span>
+                </div>
+            </div>
+            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-700 shadow-md">
+                <div class="flex justify-between items-start text-slate-400">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Coût Réel d'Entretien</span>
+                    <i class="fa-solid fa-wallet text-emerald-400"></i>
+                </div>
+                <div class="mt-2 flex items-baseline space-x-1">
+                    <span id="kpi-cost" class="text-2xl font-bold text-white">11 673,45</span>
+                    <span class="text-xs text-slate-400">€ TTC</span>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">*Exclut les sinistres MAIF (7 511,71 €)</p>
+            </div>
+            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-700 shadow-md">
+                <div class="flex justify-between items-start text-slate-400">
+                    <span class="text-xs font-semibold uppercase tracking-wider">PRK Moyen Global</span>
+                    <i class="fa-solid fa-chart-line text-purple-400"></i>
+                </div>
+                <div class="mt-2 flex items-baseline space-x-1">
+                    <span id="kpi-prk" class="text-2xl font-bold text-white">0.060</span>
+                    <span class="text-xs text-slate-400">€ / KM</span>
+                </div>
+            </div>
+            <div class="bg-[#1E293B] p-5 rounded-xl border border-[#F7941D]/30 bg-gradient-to-br from-[#1E293B] to-[#F7941D]/5 shadow-md">
+                <div class="flex justify-between items-start text-slate-400">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Alerte Diagnostic</span>
+                    <i class="fa-solid fa-triangle-exclamation text-[#F7941D]"></i>
+                </div>
+                <div class="mt-2">
+                    <span class="text-sm font-bold text-[#F7941D]">FAP Colmaté à 100%</span>
+                </div>
+                <p class="text-[10px] text-slate-300 mt-1">Dépense curative majeure imminente</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-700 shadow-md">
+                <h3 class="text-base font-bold text-white mb-4 border-b border-slate-700 pb-2 flex items-center">
+                    <i class="fa-solid fa-circle-plus text-[#F7941D] mr-2"></i>Ajouter une Entrée
+                </h3>
+                <form id="log-form" class="space-y-4" onsubmit="event.preventDefault(); addEntry();">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Catégorie</label>
+                        <select id="form-type" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]" required>
+                            <option value="Préventif">Entretien Régulier / Vidange</option>
+                            <option value="Curatif">Réparation / Incident Panne</option>
+                            <option value="Usure">Pièces d'Usure (Pneus/Freins)</option>
+                            <option value="Sinistre">Carrosserie / Assurance</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Date</label>
+                            <input type="date" id="form-date" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Kilométrage</label>
+                            <input type="number" id="form-km" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Montant TTC (€)</label>
+                            <input type="number" step="0.01" id="form-price" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Page PDF</label>
+                            <input type="number" id="form-page" value="1" min="1" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Description</label>
+                        <textarea id="form-desc" rows="2" class="w-full bg-[#0F172A] border border-slate-600 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#1C75BC]" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-[#1C75BC] hover:bg-[#155a91] text-white font-semibold py-2.5 rounded-lg text-sm transition duration-200 cursor-pointer">
+                        Sauvegarder l'opération
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-2 bg-[#1E293B] p-5 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between">
+                <h3 class="text-base font-bold text-white mb-2 border-b border-slate-700 pb-2">
+                    <i class="fa-solid fa-chart-pie text-[#1C75BC] mr-2"></i>Répartition Financière par Type de Charge
+                </h3>
+                <div class="flex-grow flex items-center justify-center min-h-[260px] relative">
+                    <canvas id="chart-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#1E293B] rounded-xl border border-slate-700 shadow-md overflow-hidden">
+            <div class="p-5 border-b border-slate-700 flex justify-between items-center bg-[#1E293B]">
+                <h3 class="text-base font-bold text-white">
+                    <i class="fa-solid fa-clock-rotate-left text-slate-400 mr-2"></i>Registre Complet d'Entretien (41 Opérations PDF Indexées)
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="entry-count">0 entrées</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-[#0F172A] text-slate-400 text-xs font-semibold uppercase tracking-wider border-b border-slate-700">
+                            <th class="p-4">Date</th>
+                            <th class="p-4">Kilométrage</th>
+                            <th class="p-4">Catégorie</th>
+                            <th class="p-4">Description des travaux</th>
+                            <th class="p-4 text-right">Montant TTC</th>
+                            <th class="p-4 text-center">Source PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-700/50">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#1E293B] text-center p-4 border-t border-slate-700 text-xs text-slate-400 mt-6">
+        Filtre Stratégique • Peugeot 5008 (EE-715-CK) • Données Globales Indexées
+    </footer>
+
+    <script>
+        // LE REGISTRE COMPLET DES 41 OPERATIONS DU PDF
+        let database = [
+            { date: "2016-12-02", km: 28445, type: "Usure", desc: "Dépose/pose de 4 roues", price: 15.00, page: 37 },
+            { date: "2017-03-29", km: 33955, type: "Usure", desc: "Dépose/pose de 4 roues", price: 15.00, page: 36 },
+            { date: "2017-05-23", km: 36879, type: "Sinistre", desc: "Carrosserie Suite Choc : Peinture pare-chocs AV, antibrouillards, capteurs stationnement, biellette direction", price: 1175.03, page: 34 },
+            { date: "2017-09-01", km: 43416, type: "Préventif", desc: "Révision Vidange huile 0W30, filtres (habitacle, air, gasoil), plaquettes de frein AV", price: 555.12, page: 32 },
+            { date: "2017-11-29", km: 47244, type: "Préventif", desc: "Contrôle éclairage sécurité et permutation roues", price: 31.85, page: 31 },
+            { date: "2018-03-30", km: 53066, type: "Curatif", desc: "Remplacement lampe projecteur", price: 31.85, page: 30 },
+            { date: "2018-11-07", km: 67134, type: "Usure", desc: "Dépose/pose de 4 roues", price: 15.00, page: 29 },
+            { date: "2018-11-28", km: 68268, type: "Préventif", desc: "Contrôle Technique Périodique", price: 70.60, page: 28 },
+            { date: "2018-12-12", km: 69232, type: "Préventif", desc: "Révision Vidange 0W30, purge liquide de frein, filtre habitacle, géométrie", price: 517.13, page: 26 },
+            { date: "2019-05-22", km: 80522, type: "Usure", desc: "Remplacement complet de 4 pneumatiques (Hankook)", price: 399.19, page: 25 },
+            { date: "2019-12-04", km: 91597, type: "Usure", desc: "Pose pneus hiver Continental", price: 302.94, page: 24 },
+            { date: "2019-12-26", km: 92669, type: "Curatif", desc: "Remplacement lampe feu de croisement", price: 45.02, page: 23 },
+            { date: "2020-02-24", km: 95761, type: "Préventif", desc: "Révision Vidange complète (Huile 5W30) et filtres", price: 320.26, page: 21 },
+            { date: "2020-03-11", km: 96662, type: "Curatif", desc: "Diagnostic / Recherche de panne moteur", price: 43.80, page: 20 },
+            { date: "2020-04-29", km: 97036, type: "Curatif", desc: "Remplacement du doseur d'air et de ses raccords de suralimentation", price: 197.80, page: 19 },
+            { date: "2020-10-30", km: 109316, type: "Usure", desc: "Permutation roues hiver et balais essuie-glace AV/AR", price: 399.29, page: 18 },
+            { date: "2021-01-21", km: 110441, type: "Usure", desc: "Freinage complet : Disques ventilés, plaquettes AV/AR, butée suspension AR, purge freins, Batterie 12V", price: 999.26, page: 15 },
+            { date: "2021-01-29", km: 110441, type: "Sinistre", desc: "Carrosserie Choc AVD : Réparation pare-chocs AV, triangle train AV, pivot fusée, amortisseur, géométrie", price: 3392.90, page: 12 },
+            { date: "2021-04-07", km: 114867, type: "Usure", desc: "Remplacement des balais d'essuie-glace AV", price: 123.00, page: 11 },
+            { date: "2021-07-20", km: 121816, type: "Curatif", desc: "Défaut voyants ASR/ESP : Contacteur et pédale d'embrayage, boitier GMV. Révision huile 0W30", price: 815.70, page: 9 },
+            { date: "2021-11-12", km: 130941, type: "Usure", desc: "Pose de roues", price: 15.00, page: 8 },
+            { date: "2022-06-01", km: 143216, type: "Usure", desc: "Dépose/pose de 4 roues", price: 15.00, page: 7 },
+            { date: "2022-09-07", km: 150184, type: "Préventif", desc: "Révision Vidange 0W30, liquide de frein, filtres (habitacle, air, gasoil), traitement injection", price: 203.56, page: 5 },
+            { date: "2022-11-03", km: 153220, type: "Curatif", desc: "Remplacement Batterie principale, Remplissage additif FAP (Eolys cérine)", price: 437.40, page: 4 },
+            { date: "2022-11-26", km: 154426, type: "Préventif", desc: "Contrôle Technique Périodique Réglementaire", price: 70.60, page: 3 },
+            { date: "2023-01-11", km: 157924, type: "Usure", desc: "Réparation d'un pneumatique", price: 29.00, page: 2 },
+            { date: "2023-02-07", km: 158994, type: "Usure", desc: "2 pneus AV hiver (Michelin)", price: 374.92, page: 2 },
+            { date: "2023-05-10", km: 164639, type: "Usure", desc: "4 pneus été (Kleber) + Géométrie complète", price: 643.36, page: 1 },
+            { date: "2023-06-28", km: 158995, type: "Usure", desc: "Disques et plaquettes de frein AR (Note: anomalie km de saisie)", price: 625.70, page: 1 },
+            { date: "2023-07-07", km: 167557, type: "Sinistre", desc: "Carrosserie Suite Choc AR : Feu brouillard, volet AR, armature et pare-chocs AR", price: 2943.78, page: 1 },
+            { date: "2023-08-28", km: 172825, type: "Curatif", desc: "Lampe de projecteur avant", price: 83.17, page: 1 },
+            { date: "2023-10-16", km: 174533, type: "Préventif", desc: "ÉCHÉANCE LOURDE : Remplacement Kit de Distribution + Pompe à eau, courroie d'accessoire. Révision 0W30", price: 1254.89, page: 1 },
+            { date: "2024-05-15", km: 184909, type: "Préventif", desc: "Balais essuie-glace AV, Assainissement système clim", price: 140.98, page: 1 },
+            { date: "2024-06-28", km: 185695, type: "Curatif", desc: "PANNE LOURDE : Kit Volant Moteur bi-masse, Kit Embrayage, butée hydraulique, joint vilebrequin. Disques et plaquettes AV", price: 2664.23, page: 1 },
+            { date: "2024-11-13", km: 196040, type: "Curatif", desc: "Révision Vidange 0W30, filtres. ALERTE FORMELLE : FAP COLMATÉ À 100% À PRÉVOIR", price: 503.89, page: 1 },
+            { date: "2024-11-30", km: 196329, type: "Préventif", desc: "Contrôle Technique Périodique", price: 70.60, page: 1 },
+            { date: "2025-03-25", km: 202399, type: "Curatif", desc: "Diagnostic technique défaut prétensionneur/airbag (faisceau sous siège), ampoules stop", price: 167.92, page: 1 },
+            { date: "2025-04-18", km: 203028, type: "Usure", desc: "Réparation de pneumatique", price: 29.00, page: 1 },
+            { date: "2025-06-18", km: 207504, type: "Curatif", desc: "Ampoule de feu 21W (Note: facture indique par erreur 507 504 km)", price: 2.46, page: 1 },
+            { date: "2025-11-26", km: 216064, type: "Préventif", desc: "Révision Vidange 0W30, filtre habitacle, traitement préventif injection", price: 373.56, page: 1 },
+            { date: "2026-03-18", km: 221575, type: "Curatif", desc: "Bilan Diagnostic Pré-CT : Faisceau électrique AR HS (radar recul), biellettes de barre stabilisatrice, 4 pneus à prévoir", price: 89.40, page: 1 }
+        ];
+
+        let records = JSON.parse(localStorage.getItem('fleet_5008_full_records')) || database;
+        let chartInstance = null;
+
+        function updateDashboard() {
+            // Tri chronologique décroissant (plus récent en premier)
+            records.sort((a, b) => new Date(b.date) - new Date(a.date));
+            localStorage.setItem('fleet_5008_full_records', JSON.stringify(records));
+
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            let totalCostOperational = 0;
+            let maxKm = 0;
+            let categoriesCost = { "Préventif": 0, "Curatif": 0, "Usure": 0, "Sinistre": 0 };
+
+            records.forEach(r => {
+                if (r.type !== 'Sinistre') {
+                    totalCostOperational += parseFloat(r.price);
+                }
+                categoriesCost[r.type] += parseFloat(r.price);
+                
+                if (parseInt(r.km) > maxKm && parseInt(r.km) < 300000) { // Ignorer l'erreur d'écriture des 507k pour le max KPI
+                    maxKm = parseInt(r.km);
+                }
+
+                let badgeColor = "";
+                if(r.type === 'Préventif') badgeColor = "bg-[#1C75BC]/10 text-[#1C75BC] border border-[#1C75BC]/20";
+                else if(r.type === 'Curatif') badgeColor = "bg-[#F7941D]/10 text-[#F7941D] border border-[#F7941D]/20";
+                else if(r.type === 'Usure') badgeColor = "bg-purple-500/10 text-purple-400 border border-purple-500/20";
+                else badgeColor = "bg-slate-500/10 text-slate-400 border border-slate-500/20";
+
+                let formattedDate = new Date(r.date).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'});
+
+                // NOM EXACT DU FICHIER REQUIS DANS LE MÊME DOSSIER : "Factures ancien propriétaire.pdf"
+                const pdfLink = `Factures ancien propriétaire.pdf#page=${r.page}`;
+
+                const row = `
+                    <tr class="hover:bg-slate-800/40 transition duration-150 border-b border-slate-700/40">
+                        <td class="p-4 font-semibold text-slate-300 whitespace-nowrap">${formattedDate}</td>
+                        <td class="p-4 font-mono whitespace-nowrap">${parseInt(r.km).toLocaleString('fr-FR')} km</td>
+                        <td class="p-4"><span class="text-xs px-2.5 py-1 rounded-full font-semibold ${badgeColor}">${r.type}</span></td>
+                        <td class="p-4 text-slate-400 max-w-xs md:max-w-md lg:max-w-xl truncate" title="${r.desc}">${r.desc}</td>
+                        <td class="p-4 text-right font-mono font-bold text-white whitespace-nowrap">${parseFloat(r.price).toLocaleString('fr-FR', {minimumFractionDigits: 2})} €</td>
+                        <td class="p-4 text-center">
+                            <a href="${pdfLink}" target="_blank" class="inline-flex items-center space-x-1 text-xs bg-slate-700 hover:bg-[#1C75BC] text-slate-200 hover:text-white px-2.5 py-1.5 rounded transition duration-150 font-medium cursor-pointer">
+                                <i class="fa-solid fa-file-pdf text-red-400 text-sm"></i>
+                                <span>p. ${r.page}</span>
+                            </a>
+                        </td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            document.getElementById('kpi-km').innerText = maxKm.toLocaleString('fr-FR');
+            document.getElementById('kpi-cost').innerText = totalCostOperational.toLocaleString('fr-FR', {minimumFractionDigits: 2});
+            document.getElementById('entry-count').innerText = `${records.length} entrées enregistrées`;
+            
+            let deltaKm = maxKm - 28445;
+            let prk = deltaKm > 0 ? (totalCostOperational / deltaKm) : 0;
+            document.getElementById('kpi-prk').innerText = prk.toFixed(3);
+
+            renderChart(categoriesCost);
+        }
+
+        function renderChart(dataValues) {
+            const ctx = document.getElementById('chart-canvas').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(dataValues),
+                    datasets: [{
+                        data: Object.values(dataValues),
+                        backgroundColor: ['#1C75BC', '#F7941D', '#A855F7', '#64748B'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: '#334155' }, ticks: { color: '#94A3B8', font: { family: 'Montserrat' } } },
+                        x: { ticks: { color: '#94A3B8', font: { family: 'Montserrat', weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function addEntry() {
+            const type = document.getElementById('form-type').value;
+            const date = document.getElementById('form-date').value;
+            const km = document.getElementById('form-km').value;
+            const price = document.getElementById('form-price').value;
+            const desc = document.getElementById('form-desc').value;
+            const page = document.getElementById('form-page').value;
+
+            records.push({ date, km: parseInt(km), type, desc, price: parseFloat(price), page: parseInt(page) });
+            document.getElementById('log-form').reset();
+            document.getElementById('form-date').value = new Date().toISOString().split('T')[0];
+            updateDashboard();
+        }
+
+        window.onload = function() {
+            document.getElementById('form-date').value = new Date().toISOString().split('T')[0];
+            updateDashboard();
+        };
+    </script>
+</body>
+</html>
