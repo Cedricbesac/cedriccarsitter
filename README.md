@@ -2,67 +2,49 @@
 
 ![Cedric CarSitter Logo](https://cedriccarsitter.com/logo.svg)
 
-> **Automotive Asset Management & Revenue Optimization in Barcelona.**
-> *Transforming dormant vehicles into profitable assets.*
+> **Gestion d'Autopartage & Optimisation de Revenus à Besançon et Pontarlier.**
+> *Transformez votre véhicule dormant en un actif rentable.*
 
 ---
 
-## 📋 About the Project
+## 📋 À propos du projet
 
-This repository hosts the code and documentation for **Cedric CarSitter**, a fleet management solution for private owners and investors based in Barcelona, Catalonia.
+Ce dépôt héberge le code et la documentation de **Cedric CarSitter**, une conciergerie d'autopartage pour les propriétaires particuliers et investisseurs basés en Franche-Comté (Besançon, Pontarlier, Gares TGV).
 
-**Our Mission:** Empower vehicle owners to generate passive income via car-sharing platforms (Getaround, Amovens) without handling the operational complexity.
+**Notre Mission :** Permettre aux propriétaires de véhicules de générer des revenus passifs via les plateformes d'autopartage (Getaround, Amovens) sans en subir la complexité opérationnelle.
 
-This project is not just a showcase; it is the digital interface of 30 years of field expertise (Ex-Leaseway, Automotive Expert).
-
----
-
-## 🎯 Scope & Philosophy
-
-### Core Business (What we do)
-* **Yield Management:** Pricing and schedule optimization to maximize occupancy rates.
-* **Asset Management:** Preserving vehicle value through preventive maintenance and rigorous mechanical monitoring.
-* **Single Interface:** End-to-end management (Listing creation, tenant relations, claims handling).
-
-### 🚫 What we are NOT
-To clarify the technical and commercial positioning:
-* ❌ We are **NOT** a cleaning company (cleaning is a process, not the product).
-* ❌ We are **NOT** a convoy/transport service (moving cars is logistics, not the goal).
-* ❌ We are **NOT** a guarded parking lot.
+Ce projet n'est pas qu'une simple vitrine ; c'est l'interface numérique de 30 ans d'expertise terrain (Ex-Leaseway, Expert Automobile).
 
 ---
 
-## 🌍 Technical & Local Specifics
+## 🎯 Périmètre & Philosophie
 
-* **Location:** Barcelona & surroundings (ZBE Zone).
-* **Website Languages:** French 🇫🇷, Spanish 🇪🇸, English 🇬🇧 (Strict trilingual scope).
-* **Target Integrations:** Getaround APIs, Amovens flows.
-
----
-
-## 💻 Tech Stack
-
-* **Frontend:** HTML5, Vanilla JavaScript.
-* **Styling:** Tailwind CSS (via CDN for rapid static deployment).
-* **Hosting:** Static Web Hosting ready.
+### Cœur de Métier (Ce que nous faisons)
+* **Yield Management :** Optimisation des prix et du calendrier pour maximiser le taux d'occupation.
+* **Gestion d'Actifs :** Préservation de la valeur du véhicule par un entretien préventif et un suivi mécanique rigoureux.
+* **Interface Unique :** Gestion de A à Z (Création d'annonces, relation locataires, remise des clés, gestion des sinistres).
 
 ---
 
-## 🛠 Key Features (Roadmap)
+## 🌍 Spécificités Techniques & Locales
 
-1.  **Expertise Showcase:** SEO content focused on "Car Profitability in Barcelona" and "Fleet Management".
-2.  **Owner Filtering:** Lead qualification system (Eligibility criteria: Vehicle Age, Mileage, Condition).
-3.  **Resources:** Deployment of "Expert Standard" Quality Control Checklists.
-
----
-
-## 👤 Author & Contact
-
-**Cédric Ducornet** - CEO & Automotive Expert
-* 📍 **Office:** Aticco Sants, Barcelona
-* 📧 **Email:** cedric@cedriccarsitter.com
-* 🌐 **Website:** [cedriccarsitter.com](https://cedriccarsitter.com)
+* **Localisation :** France (Besançon, Pontarlier, Arc-et-Senans, Gares TGV).
+* **Langue du Site :** Français 🇫🇷.
+* **Cibles d'intégration :** API Getaround.
 
 ---
 
-*This project is developed with a Total Quality requirement, reflecting 17 years of experience in automotive expertise and fleet logistics.*
+## 💻 Stack Technique
+
+* **Frontend :** HTML5, Vanilla JavaScript.
+* **Styling :** Tailwind CSS (via CDN pour un déploiement statique rapide).
+* **Hébergement :** GitHub Pages avec DNS Cloudflare.
+
+---
+
+## 👤 Auteur & Contact
+
+**Cédric DUCORNET EI** - Fondateur & Expert Automobile
+* 📍 **Siège :** 14 ter Rue de Salins, 25300 Pontarlier, France
+* 📧 **Email :** cedric@cedriccarsitter.com
+* 🌐 **Site Web :** [cedriccarsitter.com](https://cedriccarsitter.com)
