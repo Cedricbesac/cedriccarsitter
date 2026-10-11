@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Cedric CarSitter | Gestion de Carsharing Besançon & Pontarlier</title>
+    <meta name="description" content="Gestion de Carsharing, Logistique & Livraison. Rentabilisez votre véhicule sur Besançon, Pontarlier et aux Gares TGV avec Cédric Ducornet EI.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:url" content="https://cedriccarsitter.com/">
+    <meta property="og:title" content="Cedric CarSitter | Gestion de Carsharing Besançon & Pontarlier">
+    <meta property="og:description" content="Gestion intégrale, remise des clés et logistique. Transformez votre véhicule en un actif rentable.">
+    <meta property="og:image" content="https://cedriccarsitter.com/whatsapp.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cedric CarSitter | Gestion de Carsharing Besançon & Pontarlier">
+    <meta name="twitter:description" content="Gestion intégrale, remise des clés et logistique. Transformez votre véhicule en un actif rentable.">
+    <meta name="twitter:image" content="https://cedriccarsitter.com/whatsapp.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1C75BC">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#0f172a' } },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* Bouton WhatsApp Flottant */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; left: 30px;
+            background-color: #25d366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
+            transition: transform 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        .back-to-top-floating {
+            position: fixed; bottom: 30px; right: 30px;
+            background-color: #333; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999;
+            text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
+        }
+
+        /* Animation Cookie */
+        .cookie-banner { animation: slideUp 0.5s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        /* Animation Défilé de Texte (Text Spinner) */
+        .slogan-container {
+            height: 1.5em;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            padding-right: 0.3em;
+        }
+        .slogan-slider {
+            display: flex;
+            flex-direction: column;
+            animation: slide-slogan 6s ease-in-out infinite;
+        }
+        .slogan-slider span {
+            display: block;
+            height: 1.5em;
+            line-height: 1.5em;
+        }
+        @keyframes slide-slogan {
+            0%, 45% { transform: translateY(0); }
+            50%, 95% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Cedric CarSitter",
+  "image": "https://cedriccarsitter.com/logo.svg",
+  "@id": "https://cedriccarsitter.com/",
+  "url": "https://cedriccarsitter.com/",
+  "telephone": "+33651625709",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "14 ter Rue de Salins",
+    "addressLocality": "Pontarlier",
+    "postalCode": "25300",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Besançon"
+    },
+    {
+      "@type": "City",
+      "name": "Pontarlier"
+    }
+  ],
+  "description": "Votre conciergerie d'autopartage à Besançon, Pontarlier & alentours. Gestion intégrale, remise des clés et logistique.",
+  "priceRange": "€€"
+}
+</script>
+</head>
+<body id="top" class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen font-montserrat">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="block hover:opacity-90 transition">
+                    <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                        </g>
+                    </svg>
+                </a>
+
+                <div class="flex items-center gap-6">
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-brand-blue focus:outline-none p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                    <div class="hidden md:flex space-x-5 lg:space-x-6 items-center">
+                        <a href="#experience" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Expérience</a>
+                        <a href="#modeles" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Investissement</a>
+                        <a href="#rentabilite" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Résultats</a>
+                        <a href="#faq" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">FAQ</a>
+                        
+                        <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-slate-800 font-bold uppercase text-xs tracking-wide flex items-center gap-1 border-l border-slate-200 pl-5 lg:pl-6 ml-1 lg:ml-2">
+                            Vendre via CapCar
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+
+                        <a href="#contact" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-4 z-40">
+            <a href="#experience" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Expérience</a>
+            <a href="#modeles" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Investissement</a>
+            <a href="#rentabilite" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Résultats</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">FAQ</a>
+            
+            <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-slate-500 font-bold uppercase text-sm py-2 border-b border-slate-50 flex justify-between items-center">
+                Vendre via CapCar
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+
+            <a href="#contact" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md">WhatsApp</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div>
+                    <div class="text-xl md:text-2xl font-extrabold text-slate-800 mb-5 italic flex flex-wrap items-center gap-2">
+                        <span>Votre voiture</span>
+                        <div class="slogan-container">
+                            <div class="slogan-slider">
+                                <span class="text-brand-blue">dort au parking ?</span>
+                                <span class="text-brand-orange">travaille pour vous ?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-brand-orange rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-orange-100">
+                        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                        <span>Gestion de Location & Carsharing • Besançon, Pontarlier & Gares TGV</span>
+                    </div>
+                    
+                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                        <span>Votre voiture travaille,</span><br> 
+                        <span class="text-brand-blue">vous encaissez.</span>
+                    </h1>
+                    
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg font-medium">
+                        Leader par l'Innovation. Le seul service intégral sur Besançon et Pontarlier qui transforme votre véhicule en actif rentable. Gestion 360°, zéro souci.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contact" class="flex items-center justify-center gap-2 bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-orange-500/20 transform hover:-translate-y-1">
+                            Demander une Étude Gratuite
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative hidden lg:block">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2rem] transform rotate-3"></div>
+                    <img src="watermarked_img_15395046678399062228.jpg" alt="Peugeot 2008 à la Gare TGV de Besançon" class="relative rounded-[2rem] shadow-2xl border-4 border-white object-cover h-[500px] w-full transform -rotate-2 hover:rotate-0 transition duration-500">
+                    <div class="absolute bottom-8 left-8 bg-white/95 backdrop-blur px-6 py-4 rounded-xl shadow-lg border border-slate-100">
+                        <p class="text-slate-500 text-xs font-bold uppercase mb-1">Revenu Moyen Mensuel</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-bold text-slate-900">~620€</span>
+                            <span class="text-sm text-green-600 font-bold">(Peugeot 2008)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative order-2 md:order-1">
+                    <div class="absolute -inset-4 bg-brand-orange/10 rounded-3xl transform -rotate-3"></div>
+                    <img src="watermarked_img_6025165163796284207.jpg" alt="Cédric Ducornet" class="relative rounded-3xl shadow-xl w-full object-cover h-[500px]">
+                     <div class="absolute bottom-6 right-6 bg-white p-4 rounded-xl shadow-lg border border-slate-100 flex items-center gap-3">
+                        <div class="bg-green-100 p-2 rounded-full text-green-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-bold uppercase">Statut</p>
+                            <p class="text-sm font-bold text-slate-900">Opérationnel 24/7</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Plus qu'un gestionnaire,<br>votre partenaire.</h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Je suis <strong>Cédric Ducornet</strong>. 30 années d'expérience automobile. J'offre une présence physique, un contrôle total et une rentabilité réelle.
+                    </p>
+                    <div class="space-y-6 mb-8">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">1</div>
+                            <div><h4 class="font-bold text-slate-900 text-lg">Livraison & Logistique</h4><p class="text-slate-500">Gestion directe sur Besançon, Pontarlier ou Gares TGV. Remise des clés. Je prends soin de votre voiture.</p></div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">2</div>
+                            <div><h4 class="font-bold text-slate-900 text-lg">Entretien Impeccable</h4><p class="text-slate-500">Nettoyage professionnel, niveaux et pression des pneus vérifiés avant chaque location.</p></div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue font-bold shrink-0 text-xl">3</div>
+                            <div><h4 class="font-bold text-slate-900 text-lg">Transparence Totale</h4><p class="text-slate-500">Accès total aux données. Vous savez quand la voiture est louée et combien elle génère.</p></div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-blue transition shadow-lg transform hover:-translate-y-1">
+                        Parler avec Cédric
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temoignages" class="py-16 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-4">
+                    Objectif : Satisfaction <span class="text-brand-orange">5 Étoiles</span>
+                </h2>
+                <p class="text-slate-500 text-sm md:text-base">
+                    Transparence totale. Voici les captures réelles de ce que pensent nos clients :
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena1.jpg" alt="Avis 1" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena2.jpg" alt="Avis 2" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena3.jpg" alt="Avis 3" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena4.jpg" alt="Avis 4" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena5.jpg" alt="Avis 5" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="h-64 rounded-xl border border-slate-200 bg-white p-2 flex items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                    <img src="resena6.jpg" alt="Avis 6" class="max-h-full max-w-full object-contain">
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-slate-300 text-[10px] font-bold uppercase tracking-widest">
+                    Captures d'écran vérifiées
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="modeles" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Le Modèle "Gagnant-Gagnant"</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mb-16 text-lg font-medium">
+                Vous recevez 70% du bénéfice net. Les frais de fonctionnement (30%) couvrent la gestion intégrale.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mx-auto mb-4 text-2xl">🔑</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Propriétaire</h3>
+                        <p class="text-slate-500 text-sm h-10">Vous avez une voiture peu utilisée.</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100 text-left">
+                         <div class="flex justify-between text-sm text-slate-600 mb-2"><span>Revenu Brut</span><span class="font-bold">100%</span></div>
+                        <div class="flex justify-between text-sm text-red-400 mb-2"><span>Frais de gestion</span><span>-30%</span></div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                            <span class="font-bold text-slate-900">Votre Net</span><span class="font-bold text-brand-blue text-xl">70%</span>
+                        </div>
+                    </div>
+                    <a href="#contact" onclick="selectSubject('Gestion de mon véhicule actuel')" class="w-full block text-center bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-brand-blue transition mt-auto shadow-md">Estimer pour ma voiture</a>
+                </div>
+
+                <div class="relative bg-white rounded-3xl p-8 border-2 border-brand-orange shadow-xl flex flex-col transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Top Rentabilité</div>
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-brand-orange mx-auto mb-4 text-2xl">📈</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Investissement Cash</h3>
+                        <p class="text-slate-500 text-sm h-10">Achat de véhicule d'occasion pour louer.</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-5 mb-6 border border-orange-100 text-left">
+                          <div class="flex justify-between items-center mb-2"><span class="text-sm text-slate-600">Ticket d'entrée</span><span class="font-bold text-slate-900">8k€ - 12k€</span></div>
+                        <div class="flex justify-between items-center mb-2"><span class="text-sm text-slate-600">ROI Annuel Net</span><span class="font-bold text-green-600">+15-25%</span></div>
+                    </div>
+                    <a href="#contact" onclick="selectSubject('Investissement Cash')" class="w-full block text-center bg-brand-orange text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition shadow-lg mt-auto">Voir opportunités</a>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mx-auto mb-4 text-2xl">🔄</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Leasing Neuf</h3>
+                        <p class="text-slate-500 text-sm h-10">Autofinancement voiture neuve (48 mois).</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 mb-6 border border-slate-100 text-left">
+                        <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Revenu Net (après 30%)</span><span class="font-bold text-green-600">+500€</span></div>
+                        <div class="flex justify-between text-sm text-slate-600 mb-3"><span>Mensualité Leasing</span><span class="font-bold text-red-400">-300€</span></div>
+                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center"><span class="font-bold text-slate-900">Cashflow / mois</span><span class="font-bold text-brand-blue text-xl">+200€</span></div>
+                        </div>
+                        <a href="#contact" onclick="selectSubject('Leasing')" class="w-full block text-center bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-brand-blue transition mt-auto shadow-md">Étude personnalisée</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rentabilite" class="py-20 bg-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">Résultats Réels</h2>
+                    <p class="text-slate-400 mb-6 text-lg font-light">
+                        Ces graphiques montrent le rendement moyen obtenu par notre flotte actuelle.
+                    </p>
+                    <div class="bg-white/5 border-l-4 border-brand-orange p-4 mb-8 rounded-r-lg">
+                        <p class="text-xs text-slate-300 leading-relaxed italic">
+                            * Note légale : Les chiffres sont des exemples basés sur des données historiques réelles de la flotte.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-6 font-semibold">
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm tracking-wide"><span>Peugeot 2008</span><span class="text-brand-orange font-bold">~620 € /mois</span></div>
+                            <div class="w-full bg-slate-700 rounded-full h-3"><div class="bg-brand-orange h-3 rounded-full" style="width: 100%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm tracking-wide"><span>Renault Clio</span><span class="text-blue-300">~585 € /mois</span></div>
+                            <div class="w-full bg-slate-700 rounded-full h-3"><div class="bg-brand-blue h-3 rounded-full" style="width: 94%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm tracking-wide"><span>Citroën C3</span><span class="text-blue-300">~561 € /mois</span></div>
+                            <div class="w-full bg-slate-700 rounded-full h-3"><div class="bg-brand-blue h-3 rounded-full" style="width: 90%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <div class="bg-brand-blue/20 p-8 rounded-2xl border border-brand-blue/30 text-center backdrop-blur-sm">
+                        <p class="text-2xl font-bold text-white mb-2">Transparence Totale</p>
+                        <p class="text-blue-200 mb-6 font-medium">Les 30 % de frais couvrent sécurité, nettoyage et gestion 24/7. Ce n'est pas une commission, c'est le moteur de votre tranquillité.</p>
+                        <div class="flex justify-center gap-8 border-t border-white/10 pt-6">
+                            <div class="text-center"><span class="block text-4xl font-extrabold text-white">70 %</span><span class="text-xs font-bold uppercase text-slate-400 tracking-wider">Pour Vous</span></div>
+                            <div class="text-center"><span class="block text-4xl font-extrabold text-white opacity-50">30%</span><span class="text-xs font-bold uppercase text-slate-400 tracking-wider">Frais Op.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="criteres" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-12">Véhicules Éligibles</h2>
+            <div class="grid md:grid-cols-2 gap-12 text-left">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xl mb-4">1. Obligatoire (Légal)</h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li>📅 Max 15 ans / 300.000 km</li>
+                        <li>📄 Immatriculation Française</li>
+                        <li>✅ CT + Assurance à jour</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xl mb-4">2. CarSitter Standard (Qualité)</h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li>📲 Fermeture centralisée (Compatible Keyless)</li>
+                        <li>🍃 Vignette Crit'Air acceptable</li>
+                        <li>⭐ État correct (Sans gros dégâts carrosserie)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 flex flex-col items-center">
+                <a href="#contact" onclick="selectSubject('Gestion de mon véhicule actuel')" class="inline-flex items-center justify-center gap-2 bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-blue transition shadow-md group">
+                    <span>Vérifier l'éligibilité maintenant</span>
+                    <svg class="w-6 h-6 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
+                <p class="mt-4 text-sm text-slate-400">Réponse directe sans engagement</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-blue-100 border-t border-blue-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Questions Fréquentes</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Comment fonctionne l'assurance ?</h3>
+                    <p class="text-slate-600 mb-4">
+                        Toutes les locations sont couvertes tous risques via la plateforme partenaire. En cas de dommage, la franchise est à la charge du conducteur ou de la plateforme, jamais du propriétaire.
+                    </p>
+                    <a href="#contact" class="text-brand-blue font-bold text-sm hover:underline">Je veux plus de détails &rarr;</a>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Et s'il y a des amendes de circulation ?</h3>
+                    <p class="text-slate-600 mb-4">
+                        CarSitter se charge de la gestion. Nous identifions le conducteur responsable au moment de l'infraction et traitons la dénonciation légale pour que cela ne vous affecte pas.
+                    </p>
+                    <a href="#contact" class="text-brand-blue font-bold text-sm hover:underline">Parler avec un expert &rarr;</a>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Quand vais-je recevoir mes paiements ?</h3>
+                    <p class="text-slate-600 mb-4">
+                        Vous recevez un rapport détaillé et le paiement de vos bénéfices mensuellement, directement sur votre compte bancaire.
+                    </p>
+                    <a href="#contact" class="text-brand-blue font-bold text-sm hover:underline">Commencer maintenant &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                
+                <div class="bg-brand-blue p-8 md:p-10 md:w-2/5 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Contact Direct</h3>
+                         <p class="text-blue-100 mb-8 text-sm font-medium">Remplissez ce formulaire, je vous réponds directement sur WhatsApp.</p>
+                        <div class="space-y-6 mb-8">
+                            <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">WhatsApp</p><p class="text-xl font-bold">+33 6 51 62 57 09</p></div>
+                            <div><p class="text-xs text-blue-200 uppercase font-bold tracking-wider mb-1">Email</p><p class="text-lg font-bold">cedric@cedriccarsitter.com</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-xl overflow-hidden shadow-inner h-48 w-full border-2 border-white/20">
+                        <iframe src="https://maps.google.com/maps?q=Besancon%20Pontarlier&t=&z=9&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10 md:w-3/5">
+                    <form class="space-y-4" onsubmit="sendToWhatsApp(event)">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Nom</label>
+                            <input type="text" id="nom" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="Votre nom">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Téléphone</label>
+                            <input type="tel" id="telephone" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="+33...">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Je suis intéressé(e) par</label>
+                            <div class="relative">
+                                <select id="projet" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50 appearance-none text-slate-600">
+                                    <option value="Informations" selected>Sélectionner...</option> 
+                                    <option value="Gestion de mon véhicule actuel">Gestion de ma voiture actuelle</option>
+                                    <option value="Investissement Cash">Investissement (Achat pour louer)</option>
+                                    <option value="Leasing">Leasing (Autofinancement)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Message (Optionnel)</label>
+                            <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition bg-slate-50" placeholder="..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group">
+                            <span>Envoyer sur WhatsApp</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                <a href="https://cedriccarsitter.com" class="block hover:opacity-90 transition mb-4">
+                    <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                        </g>
+                    </svg>
+                </a>
+                <p class="text-sm text-slate-400 font-bold mb-1">Cédric DUCORNET EI</p>
+                <p class="text-sm text-slate-400 font-medium">SIRET : 13107161500010</p>
+                
+                <div class="mt-3 bg-slate-50 border border-slate-100 rounded-lg p-3 inline-block">
+                    <p class="text-xs text-slate-500 font-medium mb-1">Également mandataire automobile :</p>
+                    <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-slate-700 hover:text-brand-blue flex items-center justify-center md:justify-start gap-1 transition">
+                        Agent Indépendant CapCar
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+
+                <p class="text-xs text-slate-400 mt-3 font-medium">© 2026 Cedric CarSitter. Tous droits réservés.</p>
+                <p class="text-xs text-slate-500 mt-2 font-medium italic">
+                    "Votre conciergerie d'autopartage à Besançon, Pontarlier & alentours."
+                </p>
+            </div>
+
+            <div class="flex gap-6 items-center">
+                <a href="https://www.instagram.com/cedriccarsitter/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-slate-400 hover:text-brand-orange transition transform hover:scale-110">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://www.facebook.com/cedriccarsitter/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-slate-400 hover:text-brand-blue transition transform hover:scale-110">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/cédricducornet/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-slate-400 hover:text-brand-blue transition transform hover:scale-110">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
+                <a href="mentions-legales.html" class="hover:text-brand-blue transition hover:underline">Mentions Légales</a>
+                <a href="politique-confidentialite.html" class="hover:text-brand-blue transition hover:underline">Confidentialité</a>
+                <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-2xl z-50 hidden cookie-banner border-t border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-slate-300 text-center md:text-left">
+                Nous utilisons des cookies pour améliorer votre expérience. En naviguant, vous acceptez notre <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>politique de cookies</a>.
+            </div>
+            <button onclick="acceptCookies()" class="bg-brand-blue hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition shadow-lg text-sm whitespace-nowrap">
+                Accepter et Fermer
+            </button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/33651625709" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
+    </a>
+    <a href="#top" class="back-to-top-floating" id="btnTop">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
+    </a>
+
+    <script>
+        // --- GESTION DU CONSENTEMENT GOOGLE ANALYTICS (CNIL) ---
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-BKZGBQHDDB";
+            script.async = true;
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', 'G-BKZGBQHDDB');
+        }
+
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('cookiesAccepted') === 'true') {
+                loadGoogleAnalytics();
+            } else {
+                document.getElementById('cookieBanner').classList.remove('hidden');
+            }
+        });
+
+        function acceptCookies() {
+            document.getElementById('cookieBanner').classList.add('hidden');
+            localStorage.setItem('cookiesAccepted', 'true');
+            loadGoogleAnalytics();
+        }
+
+        // --- GESTION DU FORMULAIRE ET WHATSAPP ---
+        function selectSubject(val) {
+            const select = document.getElementById('projet');
+            if(select) {
+                select.value = val;
+                document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            
+            const btnSpan = e.target.querySelector('button[type="submit"] span');
+            const originalText = btnSpan.innerHTML; 
+            
+            btnSpan.innerHTML = "Ouverture de WhatsApp...";
+            
+            const nom = document.getElementById('nom').value || "un contact web";
+            const projet = document.getElementById('projet').value || "informations générales";
+            const message = document.getElementById('message').value;
+            const telephone = document.getElementById('telephone').value || "numéro non renseigné";
+            const phone = "33651625709";
+
+            let text = `Bonjour Cedric, je suis ${nom} (${telephone}).\n\nJe suis intéressé(e) par : ${projet}.\n`;
+            if(message) text += `\nMessage complémentaire : ${message}`;
+
+            const encodedText = encodeURIComponent(text);
+            
+            window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+
+            setTimeout(() => {
+                btnSpan.innerHTML = originalText;
+            }, 3000);
+        }
+
+        // --- GESTION DE L'INTERFACE (Menu Mobile & Bouton Top) ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        const btnTop = document.getElementById("btnTop");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnTop.style.display = "flex";
+                setTimeout(() => btnTop.style.opacity = "1", 10);
+            } else {
+                btnTop.style.opacity = "0";
+                setTimeout(() => btnTop.style.display = "none", 300);
+            }
+        };
+
+        // --- ACTIVATION PWA ---
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+              console.log('App CarSitter prête à être installée !');
+            }, function(err) {
+              console.log('Erreur PWA: ', err);
+            });
+          });
+        }
+    </script>
+</body>
+</html>
