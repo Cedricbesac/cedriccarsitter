@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cédric DUCORNET | Liens Officiels</title>
+    <meta name="description" content="Tous les liens officiels de Cédric DUCORNET : Agent CapCar et Conciergerie Cedric CarSitter sur Besançon, Pontarlier et alentours.">
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        capcar: '#1C75BC',
+                        carsitter: '#F7941D',
+                        night: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .btn-hover { transition: all 0.2s ease-in-out; }
+        .btn-hover:hover { transform: translateY(-2px); }
+        .btn-hover:active { transform: translateY(1px); }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen py-10 px-4 md:px-0">
+
+    <main class="max-w-lg mx-auto w-full space-y-8">
+        
+        <!-- ========================================== -->
+        <!-- 1. EN-TÊTE PERSO : Cédric DUCORNET         -->
+        <!-- ========================================== -->
+        <header class="flex flex-col items-center space-y-4">
+            <!-- Photo de Profil -->
+            <div class="relative w-32 h-32">
+                <div class="absolute inset-0 bg-capcar/20 rounded-full blur-md"></div>
+                <img src="https://cedriccarsitter.com/image.jpg" alt="Cédric DUCORNET" 
+                     class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-xl">
+            </div>
+            
+            <div class="text-center space-y-1">
+                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Cédric DUCORNET</h1>
+                <p class="text-sm font-semibold text-slate-600 flex items-center justify-center gap-1">
+                    <svg class="w-4 h-4 text-capcar" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                    Besançon, Pontarlier et alentours
+                </p>
+            </div>
+
+            <!-- Contacts Directs (Perso) & VCF -->
+            <div class="flex flex-wrap justify-center gap-2.5 w-full pt-1">
+                <!-- Bouton VCF (Enregistrer Contact) -->
+                <button onclick="downloadVCard()" 
+                        class="btn-hover w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-night text-white rounded-full font-bold text-sm shadow-md shadow-slate-900/20 border border-slate-700">
+                    <svg class="w-5 h-5 fill-current text-carsitter" viewBox="0 0 24 24"><path d="M19 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12h-12v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1z"/></svg>
+                    📇 Enregistrer le contact (.vcf)
+                </button>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer"
+                   class="btn-hover flex items-center gap-2 px-5 py-2.5 bg-[#25D366] text-white rounded-full font-bold text-sm shadow-md shadow-green-600/20">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                    WhatsApp
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/cedricducornet" target="_blank" rel="noopener noreferrer"
+                   class="btn-hover flex items-center gap-2 px-5 py-2.5 bg-[#0A66C2] text-white rounded-full font-bold text-sm shadow-md shadow-blue-600/20">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+
+                <!-- Email Perso -->
+                <a href="mailto:cedric.ducornet@gmail.com"
+                   class="btn-hover flex items-center gap-2 px-5 py-2.5 bg-white text-slate-700 rounded-full font-bold text-sm border border-slate-300 shadow-sm">
+                    <svg class="w-5 h-5 fill-current text-slate-500" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.89l5.624-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                    Email
+                </a>
+            </div>
+        </header>
+
+        <!-- ========================================== -->
+        <!-- 2. AMBIANCE CAPCAR (BLEU LUMINEUX)         -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-[2rem] p-6 shadow-xl border border-slate-200 space-y-5">
+            <!-- LOGO OFFICIEL CAPCAR (SVG) -->
+            <div class="py-2 px-6 flex items-center justify-center max-w-[240px] mx-auto border-b border-slate-100 pb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498 200" class="w-full h-auto max-h-12">
+                    <g transform="translate(-657 -198.929)">
+                      <g transform="translate(657.461 198.929)">
+                        <g transform="translate(0 0)">
+                          <path d="M512.379,272.231l31.4,6.3C588.842,287.5,604.975,290.058,620,295.76c1.557.591,5.911,11.308,6.751,19.419h19.084c-1.493-13.894-6.074-27.751-9.936-32.512-4.352-5.369-46.278-14.111-88.468-22.5-8.436-1.677-17.645-3.51-27.7-5.549-4.749-3.155-19.682-12.988-35.916-22.707-36.739-21.992-48.63-24.813-54.884-24.813h-134.3c-31.773,0-87.768,43.426-94.049,48.377l-3.566,2.813v4.542c0,8.305,2.727,16.436,5.364,24.3,2.217,6.606,4.31,12.847,4.31,17.864a61.114,61.114,0,0,1-3.778,15.542c-3.611,11.017-7.345,22.414.382,30.138,4.392,4.392,18.842,13.759,32.84,19.116a63.4,63.4,0,0,1-3.231-19.988c0-.635.03-1.266.047-1.9a86.944,86.944,0,0,1-15.448-9.591,67.955,67.955,0,0,1,3.2-11.943c2.315-7.064,4.709-14.369,4.709-21.374,0-8.076-2.685-16.081-5.281-23.823a98.281,98.281,0,0,1-4-14.039c22.529-17.158,60.51-41.3,78.5-41.3h134.3c.842,0,9.286.621,45.2,22.116Z" transform="translate(-197.021 -207.093)" fill="#1C75BC"/>
+                        </g>
+                        <g transform="translate(460.232 118.051)">
+                          <path d="M650.23,314.348a18.032,18.032,0,0,0-15.672,7.835v-6.4h-19.5v58.532H634.43V343.8a12.921,12.921,0,0,1,13.655-13.547,16.468,16.468,0,0,1,4.276.542V314.43c-.694-.049-1.4-.081-2.13-.081Z" transform="translate(-615.058 -314.331)" fill="#1C75BC"/>
+                        </g>
+                        <g transform="translate(47.31 90.489)">
+                          <path d="M292.246,375.367a33.869,33.869,0,1,1,28.271-52.487l15.3-10.079a52.2,52.2,0,1,0-4.948,63.773l-13.566-12.315a33.788,33.788,0,0,1-25.059,11.108Z" transform="translate(-240.01 -289.291)" fill="#1C75BC"/>
+                        </g>
+                        <g transform="translate(294.486 90.489)">
+                          <path d="M516.757,375.367A33.869,33.869,0,1,1,545.03,322.88l15.3-10.079a52.2,52.2,0,1,0-4.948,63.773l-13.567-12.315a33.788,33.788,0,0,1-25.061,11.108Z" transform="translate(-464.523 -289.291)" fill="#1C75BC"/>
+                        </g>
+                        <g transform="translate(135.46 118.174)">
+                          <path d="M368.315,344.731a15.155,15.155,0,1,0-15.156,15.158,15.155,15.155,0,0,0,15.156-15.158Zm-1.384-28.99h19.1v58.62h-19.1v-6.825a22.542,22.542,0,0,1-18.328,8.01c-17.389-.407-28.544-12.276-28.544-30.5,0-18.392,12.4-30.554,29.606-30.613,7.83-.027,14.182,2.85,17.268,7.832Z" transform="translate(-320.059 -314.431)" fill="#1C75BC"/>
+                          <path d="M423.2,359.891a15.155,15.155,0,1,0-15.157-15.157A15.154,15.154,0,0,0,423.2,359.891Zm-13.771-37.623c3.084-4.983,9.438-7.86,17.268-7.832,17.2.059,29.606,12.222,29.606,30.613,0,18.227-11.158,30.089-28.544,30.5a22.541,22.541,0,0,1-18.328-8.01v28.409h-19.1v-80.2h19.1Z" transform="translate(-312.964 -314.435)" fill="#1C75BC"/>
+                        </g>
+                        <path d="M593.04,344.731a15.155,15.155,0,1,0-15.156,15.158,15.155,15.155,0,0,0,15.156-15.158Zm-1.387-28.99h19.1v58.62h-19.1v-6.825a22.54,22.54,0,0,1-18.328,8.01c-17.387-.406-28.544-12.276-28.544-30.495,0-18.392,12.406-30.554,29.606-30.613,7.83-.027,14.182,2.85,17.266,7.832Z" transform="translate(-161.917 -196.256)" fill="#1C75BC"/>
+                      </g>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- CTA PRINCIPAL : MA PAGE VITRINE CAPCAR -->
+            <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" 
+               class="btn-hover block w-full p-4 rounded-xl bg-gradient-to-r from-capcar to-blue-600 text-white font-bold text-center shadow-lg shadow-capcar/20 border border-blue-400/30">
+                <div class="flex items-center justify-between">
+                    <span class="text-2xl">👤</span>
+                    <div class="flex-1 px-3">
+                        <span class="block text-sm font-extrabold">Ma Page Vitrine Agent CapCar</span>
+                        <span class="block text-[11px] font-medium text-blue-100 mt-0.5">Présentation officielle & engagements</span>
+                    </div>
+                    <span class="text-xl">→</span>
+                </div>
+            </a>
+
+            <!-- GRILLE SERVICES CAPCAR -->
+            <div class="grid grid-cols-1 gap-3">
+                <a href="https://www.capcar.fr/lien/apporteur/cedric.ducornet" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-capcar text-slate-800 text-sm font-semibold">
+                    <span class="flex items-center gap-3"><span class="text-xl">🤝</span> Programme Recommandation (Apporteur)</span>
+                    <span class="text-slate-400">→</span>
+                </a>
+
+                <a href="https://www.capcar.fr/cedric.ducornet" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-capcar text-slate-800 text-sm font-semibold">
+                    <span class="flex items-center gap-3"><span class="text-xl">📊</span> Demander une Cotation</span>
+                    <span class="text-slate-400">→</span>
+                </a>
+
+                <a href="https://www.capcar.fr/lien/catalogue/cedric.ducornet" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-capcar text-slate-800 text-sm font-semibold">
+                    <span class="flex items-center gap-3"><span class="text-xl">🚘</span> Catalogue Véhicules</span>
+                    <span class="text-slate-400">→</span>
+                </a>
+            </div>
+
+            <!-- BLOC GOOGLE BUSINESS -->
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
+                <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 text-center mb-1">Avis & Visibilité Google</h3>
+                
+                <a href="https://share.google/DRrkbnjxoHyBPzBKC" target="_blank" rel="noopener noreferrer"
+                   class="btn-hover flex items-center gap-3 p-3 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 text-xs font-bold shadow-sm">
+                    <svg class="w-5 h-5 bg-white rounded-full p-0.5 shrink-0" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                    Fiche Google Business CapCar
+                </a>
+                
+                <a href="https://g.page/r/CXpAJmRW3PDeEBM/review" target="_blank" rel="noopener noreferrer"
+                   class="btn-hover flex items-center justify-center gap-2 p-3 rounded-lg bg-amber-50 border border-amber-300 hover:bg-amber-100 text-amber-800 text-xs font-bold text-center">
+                    ⭐⭐⭐⭐⭐ Déposer un avis sur Google
+                </a>
+            </div>
+
+            <!-- RÉSEAUX & RECRUTEMENT -->
+            <div class="grid grid-cols-2 gap-3 pt-1">
+                <a href="https://www.facebook.com/cedricducornet.agentcapcar" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-center gap-2 p-2.5 rounded-lg bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/20 hover:bg-[#1877F2] hover:text-white text-[11px] font-bold transition-colors">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook CapCar
+                </a>
+                <a href="https://instagram.com/cedricducornet.agentcapcar" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-center gap-2 p-2.5 rounded-lg bg-[#E1306C]/10 text-[#E1306C] border border-[#E1306C]/20 hover:bg-[#E1306C] hover:text-white text-[11px] font-bold transition-colors">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram CapCar
+                </a>
+                <a href="https://www.capcar.fr/lien/devenir-agent/cedric.ducornet" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover col-span-2 p-2 rounded-lg bg-slate-100 text-slate-700 text-[11px] text-center border border-slate-200 hover:bg-slate-200">
+                    💼 Devenir Agent Auto & Réunions
+                </a>
+                <a href="https://pro.capcar.fr/inscription?utm_source=agentCDU23092026&utm_campaign=mlm&utm_medium=mlm" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover col-span-2 p-2 rounded-lg bg-slate-100 text-slate-700 text-[11px] text-center border border-slate-200 hover:bg-slate-200">
+                    🏷️ Plateforme d'Enchères Pro
+                </a>
+            </div>
+
+            <!-- E-MAIL CAPCAR -->
+            <a href="mailto:cedric.ducornet.agent@capcar.fr" 
+               class="btn-hover flex items-center justify-center gap-2 mt-2 p-3 rounded-xl bg-capcar/10 text-capcar border border-capcar/20 hover:bg-capcar hover:text-white text-xs font-bold transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.89l5.624-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                cedric.ducornet.agent@capcar.fr
+            </a>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. AMBIANCE CEDRIC CARSITTER (ORANGE)      -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-[2rem] p-6 shadow-xl border border-slate-200 space-y-5">
+            <!-- LOGO OFFICIEL CEDRIC CARSITTER (SVG) -->
+            <div class="py-2 px-6 flex items-center justify-center max-w-[260px] mx-auto border-b border-slate-100 pb-4">
+                <svg viewBox="280 230 220 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto max-h-14">
+                  <g transform="translate(260, 242.5)">
+                    <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" 
+                          fill="none" 
+                          stroke="#F7941D" 
+                          stroke-width="7" 
+                          stroke-linecap="round" />
+                    <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                    <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                    <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                    <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                    <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                  </g>
+                </svg>
+            </div>
+
+            <!-- CTA PRINCIPAL CARSITTER -->
+            <a href="https://cedriccarsitter.com" target="_blank" rel="noopener noreferrer" 
+               class="btn-hover block w-full p-4 rounded-xl bg-gradient-to-r from-carsitter to-orange-500 text-slate-900 font-extrabold text-center shadow-lg shadow-carsitter/20 border border-orange-300">
+                <div class="flex items-center justify-between">
+                    <span class="text-2xl">🔑</span>
+                    <span class="flex-1 px-3 text-sm">Visiter cedriccarsitter.com</span>
+                    <span class="text-xl">→</span>
+                </div>
+            </a>
+
+            <!-- RÉSEAUX CARSITTER -->
+            <div class="grid grid-cols-2 gap-3 pt-1">
+                <a href="https://www.facebook.com/cedriccarsitter" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-50 text-slate-700 border border-slate-200 hover:border-carsitter hover:bg-slate-100 text-[11px] font-bold transition-all">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook CarSitter
+                </a>
+                <a href="https://instagram.com/cedriccarsitter" target="_blank" rel="noopener noreferrer" 
+                   class="btn-hover flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-50 text-slate-700 border border-slate-200 hover:border-carsitter hover:bg-slate-100 text-[11px] font-bold transition-all">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram CarSitter
+                </a>
+            </div>
+
+            <!-- E-MAIL CARSITTER -->
+            <a href="mailto:cedric@cedriccarsitter.com" 
+               class="btn-hover flex items-center justify-center gap-2 mt-2 p-3 rounded-xl bg-carsitter/10 text-amber-700 border border-carsitter/20 hover:bg-carsitter hover:text-slate-900 text-xs font-bold transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.89l5.624-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                cedric@cedriccarsitter.com
+            </a>
+        </section>
+
+    </main>
+
+    <!-- PIED DE PAGE -->
+    <footer class="mt-12 mb-6 text-center text-xs text-slate-500 space-y-1">
+        <p class="font-bold text-slate-700">© 2026 Cédric DUCORNET</p>
+        <p>Secteur : Besançon, Pontarlier et alentours</p>
+    </footer>
+
+    <!-- SCRIPT DE GÉNÉRATION DYNAMIQUE DE FICHIER VCF (VCARD) -->
+    <script>
+        function downloadVCard() {
+            const vcardContent = `BEGIN:VCARD
+VERSION:3.0
+N:DUCORNET;Cédric;;;
+FN:Cédric DUCORNET
+ORG:CapCar / Cedric CarSitter
+TITLE:Agent Commercial Automobile & Conciergerie Autopartage
+TEL;TYPE=CELL,VOICE,MSG:+33651625709
+EMAIL;TYPE=CapCar:cedric.ducornet.agent@capcar.fr
+EMAIL;TYPE=CarSitter:cedric@cedriccarsitter.com
+EMAIL;TYPE=Perso:cedric.ducornet@gmail.com
+URL;TYPE=PageLiens:https://cedriccarsitter.com/liens
+URL;TYPE=CapCar:https://www.capcar.fr/lien/vitrine/cedric.ducornet
+URL;TYPE=CarSitter:https://cedriccarsitter.com
+ADR;TYPE=WORK:;;Besançon - Pontarlier;Doubs;;;France
+NOTE:Agent Commercial CapCar & Conciergerie Cedric CarSitter (Secteur : Besançon, Pontarlier et alentours)
+END:VCARD`;
+
+            const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Cedric_DUCORNET.vcf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
