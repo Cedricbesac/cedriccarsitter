@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Référentiel Frappe à Froid VIN — Cedric CarSitter</title>
+    <meta name="description" content="Référentiel technique des emplacements de frappe à froid du numéro de châssis (VIN) par marque et modèle — CedricCarSitter.">
+    <title>Référentiel Frappe à Froid VIN — CedricCarSitter</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Font Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -33,23 +35,34 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        @keyframes fadeZoomIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-animate { animation: fadeZoomIn 0.16s ease-out forwards; }
+        .toast-animate { animation: slideUpFade 0.2s ease-out forwards; }
     </style>
 </head>
 <body class="min-h-full flex flex-col text-slate-800 bg-slate-50">
 
     <!-- Header Principal -->
     <header class="bg-brandNight text-white border-b-4 border-brandOrange shadow-lg sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brandBlue to-blue-500 flex items-center justify-center text-white text-xl font-bold shadow-md">
-                    <i class="fa-solid font-bold fa-car-rear text-brandOrange"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
-                        <span>Cedric CarSitter</span>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-brandOrange text-white font-semibold uppercase tracking-wider">VIN Pro</span>
-                    </h1>
-                    <p class="text-xs text-slate-300 font-medium">Référentiel Technique Exclusif Frappe à Froid Châssis (VIN)</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="#" class="shrink-0 flex items-center" title="Accueil Référentiel VIN">
+                    <img src="logo.svg" alt="Cedric CarSitter" class="h-11 sm:h-12 w-auto object-contain">
+                </a>
+                <div class="border-l border-slate-700 pl-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-brandOrange text-white font-bold uppercase tracking-wider">VIN Pro</span>
+                        <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Référentiel Frappe à Froid</h1>
+                    </div>
+                    <p class="text-xs text-slate-300 font-medium mt-0.5">Localisation technique de la gravure châssis (VIN)</p>
                 </div>
             </div>
 
@@ -62,20 +75,20 @@
                 </div>
                 <div id="sourceStatusBadge" class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse" id="sourceDot"></span>
-                    <span id="sourceStatusText" class="text-slate-300 font-medium">Chargement CSV...</span>
+                    <span id="sourceStatusText" class="text-slate-300 font-medium">Chargement...</span>
                 </div>
             </div>
         </div>
 
         <!-- Navigation Tabs -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto gap-2 border-t border-slate-800 pt-2 text-sm">
-            <button onclick="switchTab('tab-database')" id="nav-database" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-brandOrange border-b-2 border-brandOrange bg-slate-800/60">
+            <button onclick="switchTab('tab-database')" id="nav-database" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-brandOrange border-b-2 border-brandOrange bg-slate-800/60 whitespace-nowrap">
                 <i class="fa-solid fa-list-check"></i> Base VIN
             </button>
-            <button onclick="switchTab('tab-guide')" id="nav-guide" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40">
+            <button onclick="switchTab('tab-guide')" id="nav-guide" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40 whitespace-nowrap">
                 <i class="fa-solid fa-bullseye"></i> Guide 6 Zones Terrain
             </button>
-            <button onclick="switchTab('tab-add')" id="nav-add" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40">
+            <button onclick="switchTab('tab-add')" id="nav-add" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40 whitespace-nowrap">
                 <i class="fa-solid fa-plus-circle"></i> Proposer / Ajouter un VIN
             </button>
         </div>
@@ -125,17 +138,17 @@
 
                 <!-- Info Compteur de Résultats -->
                 <div class="flex justify-between items-center text-xs text-slate-500 pt-1 border-t border-slate-100">
-                    <span id="resultsCount">Chargement des données depuis GitHub...</span>
-                    <span class="text-slate-400 hidden sm:inline">Source : <code class="text-brandBlue font-mono">base_emplacements_vin_cedric_carsitter.csv</code></span>
+                    <span id="resultsCount">Chargement des données...</span>
+                    <span class="text-slate-400 hidden sm:inline">Source : <strong class="text-brandBlue font-semibold">CedricCarSitter</strong></span>
                 </div>
             </div>
 
-            <!-- Message d'erreur si le CSV n'est pas encore sur GitHub -->
+            <!-- Message d'erreur si le CSV est introuvable -->
             <div id="csvErrorBanner" class="hidden bg-red-50 border border-red-200 text-red-800 p-5 rounded-2xl flex items-start gap-3 text-sm">
                 <i class="fa-solid fa-triangle-exclamation text-red-600 text-xl mt-0.5"></i>
                 <div>
-                    <h3 class="font-bold">Fichier CSV introuvable sur le serveur</h3>
-                    <p class="text-xs mt-1 text-red-700">Assurez-vous que le fichier <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">Base_Emplacements_VIN_Cedric_CarSitter.csv</code> est bien placé dans le même dossier que <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">index.html</code> sur votre dépôt GitHub.</p>
+                    <h3 class="font-bold">Fichier de données introuvable sur le serveur</h3>
+                    <p class="text-xs mt-1 text-red-700">Assurez-vous que le fichier <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">Base_Emplacements_VIN_Cedric_CarSitter.csv</code> est bien placé dans le même répertoire que cette page sur le serveur.</p>
                 </div>
             </div>
 
@@ -156,7 +169,7 @@
 
         </section>
 
-        <!-- ================= ONGLET 2 : GUIDE METHODOLOGIQUE 6 ZONES ================= -->
+        <!-- ================= ONGLET 2 : GUIDE MÉTHODOLOGIQUE 6 ZONES ================= -->
         <section id="tab-guide" class="tab-content hidden space-y-6">
             
             <div class="bg-gradient-to-r from-brandNight to-slate-800 text-white p-6 rounded-2xl shadow-sm border border-slate-700">
@@ -224,7 +237,7 @@
                     <p class="text-xs text-slate-500 mt-1">Gravure directe dans la tôle du montant de porte passager (entre les charnières ou pilier B).</p>
                     <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
                         <p class="font-semibold text-slate-700"><i class="fa-solid fa-stamp text-brandOrange"></i> Vigilance lecture :</p>
-                        <p class="text-slate-600">Lecture souvent verticale (ex: Mégane IV, Tesla Model 3/Y sous garniture).</p>
+                        <p class="text-slate-600">Lecture souvent verticale (ex : Mégane IV, Tesla Model 3/Y sous garniture).</p>
                     </div>
                 </div>
 
@@ -270,7 +283,7 @@
                         Proposer une Frappe à Froid VIN
                     </h2>
                     <p class="text-xs text-slate-500 mt-1">
-                        Renseignez l'emplacement exact de la <strong>frappe à froid gravée sur le châssis</strong>. Le formulaire génère automatiquement l'e-mail avec la ligne CSV prête à être ajoutée sur GitHub (<strong class="text-brandBlue">cedric@cedriccarsitter.com</strong>).
+                        Renseignez l'emplacement exact de la <strong>frappe à froid gravée sur le châssis</strong>. Le formulaire prépare automatiquement votre e-mail à destination de <strong class="text-brandBlue">cedric@cedriccarsitter.com</strong>.
                     </p>
                 </div>
 
@@ -286,7 +299,7 @@
                         </div>
                         <div>
                             <label class="block font-semibold text-slate-700 mb-1">Année Début</label>
-                            <input type="number" id="formAnneeDebut" placeholder="2019" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                            <input type="number" id="formAnneeDebut" min="1950" max="2035" placeholder="2019" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
                         </div>
                         <div>
                             <label class="block font-semibold text-slate-700 mb-1">Année Fin</label>
@@ -307,7 +320,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-700 mb-1">Emplacement Précis Frappe à Froid *</label>
+                            <label class="block font-semibold text-slate-700 mb-1">Emplacement Précis de la Frappe à Froid *</label>
                             <input type="text" id="formEmplacementFrappe" required placeholder="ex: Traverse de plancher sous le siège passager avant droit" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
                         </div>
                     </div>
@@ -328,13 +341,10 @@
                         <textarea id="formRemarques" rows="2" placeholder="ex: Présence fréquente de blaxon épais masquant les 2 derniers chiffres du VIN." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none"></textarea>
                     </div>
 
-                    <!-- Boutons d'actions du Formulaire -->
-                    <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
-                        <button type="submit" class="flex-1 py-3 bg-brandOrange hover:bg-amber-600 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Envoyer par Email pour Mise à Jour GitHub
-                        </button>
-                        <button type="button" onclick="copyFormAsCSV()" class="py-3 px-5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-copy"></i> Copier la ligne CSV
+                    <!-- Bouton d'action du Formulaire -->
+                    <div class="pt-4 border-t border-slate-100">
+                        <button type="submit" class="w-full py-3 bg-brandOrange hover:bg-amber-600 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Envoyer par Email pour Mise à Jour
                         </button>
                     </div>
                 </form>
@@ -345,24 +355,24 @@
     </main>
 
     <!-- Modal Fiche Détaillée -->
-    <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden border border-slate-200 animate-in fade-in zoom-in duration-150">
+    <div id="detailModal" onclick="handleBackdropClick(event)" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden border border-slate-200 modal-animate">
             <div class="bg-brandNight text-white p-5 flex justify-between items-start border-b-2 border-brandOrange">
                 <div>
                     <span id="modalMarque" class="text-xs font-extrabold uppercase tracking-widest text-brandOrange">MARQUE</span>
                     <h3 id="modalModele" class="text-xl font-bold">Modèle Véhicule</h3>
                     <p id="modalAnnees" class="text-xs text-slate-300">Années d'application</p>
                 </div>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1">
+                <button onclick="closeModal()" aria-label="Fermer" class="text-slate-400 hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
             <div class="p-6 space-y-4 text-sm max-h-[75vh] overflow-y-auto custom-scrollbar">
                 
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between gap-2">
                         <span class="font-bold text-slate-700 uppercase text-xs tracking-wider">Frappe à Froid du Châssis (VIN)</span>
-                        <span id="modalZoneBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brandBlue text-white">Zone X</span>
+                        <span id="modalZoneBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brandBlue text-white shrink-0">Zone X</span>
                     </div>
                     <p id="modalEmplacementFrappe" class="text-slate-800 font-medium leading-relaxed"></p>
                 </div>
@@ -387,81 +397,131 @@
 
                 <div class="flex justify-between items-center text-xs text-slate-400 pt-2">
                     <span>Mise à jour : <strong id="modalDate" class="text-slate-600">--</strong></span>
-                    <span>Source : <strong id="modalSource" class="text-slate-600">Cedric CarSitter</strong></span>
+                    <span>Source : <strong id="modalSource" class="text-slate-600">CedricCarSitter</strong></span>
                 </div>
             </div>
-            <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-end gap-2">
-                <button id="modalEmailBtn" class="px-4 py-2 bg-brandOrange hover:bg-amber-600 text-white font-semibold text-xs rounded-xl transition-colors">
-                    <i class="fa-solid fa-envelope mr-1"></i> Proposer une correction
-                </button>
-                <button onclick="closeModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition-colors">
-                    Fermer
-                </button>
+            <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex flex-wrap justify-between items-center gap-2">
+                <a id="modalYoutubeBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-youtube text-sm"></i> Rechercher la vidéo sur YouTube
+                </a>
+                <div class="flex items-center gap-2 ml-auto">
+                    <button id="modalEmailBtn" class="px-4 py-2 bg-brandOrange hover:bg-amber-600 text-white font-semibold text-xs rounded-xl transition-colors">
+                        <i class="fa-solid fa-envelope mr-1"></i> Proposer une correction
+                    </button>
+                    <button onclick="closeModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition-colors">
+                        Fermer
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-brandNight text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
-            <p>© <span id="yearSpan"></span> <strong>Cedric CarSitter</strong> — Tous droits réservés. Outil d'inspection frappe à froid VIN.</p>
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2.5">
+            <img src="logo.svg" alt="Cedric CarSitter" class="h-8 w-auto mx-auto object-contain">
+            <p>© <span id="yearSpan"></span> — Tous droits réservés. Outil d'inspection frappe à froid VIN.</p>
             <p class="text-slate-500">Contact : <a href="mailto:cedric@cedriccarsitter.com" class="text-brandOrange hover:underline">cedric@cedriccarsitter.com</a></p>
         </div>
     </footer>
 
-    <!-- Logiciel JS principal -->
+    <!-- Logique JS principale -->
     <script>
         let rawDataset = [];
         let filteredDataset = [];
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('yearSpan').textContent = new Date().getFullYear();
-            loadGitHubCSV();
+            loadCSVData();
         });
 
-        async function loadGitHubCSV() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        async function loadCSVData() {
             const statusDot = document.getElementById('sourceDot');
             const statusText = document.getElementById('sourceStatusText');
             const errorBanner = document.getElementById('csvErrorBanner');
 
-            try {
-                const response = await fetch('./Base_Emplacements_VIN_Cedric_CarSitter.csv', { cache: "no-store" });
-                if (!response.ok) throw new Error("Fichier CSV introuvable sur GitHub");
-                
-                const csvText = await response.text();
-                rawDataset = parseCSV(csvText);
+            const candidates = [
+                './Base_Emplacements_VIN_Cedric_CarSitter.csv',
+                './base_emplacements_vin_cedric_carsitter.csv'
+            ];
 
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
-                statusText.textContent = "Base GitHub Connectée";
+            let csvText = null;
+
+            for (const url of candidates) {
+                try {
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (response.ok) {
+                        csvText = await response.text();
+                        break;
+                    }
+                } catch (_) {
+                    // Tentative suivante
+                }
+            }
+
+            if (csvText !== null) {
+                rawDataset = parseCSV(csvText);
+                statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
+                statusText.textContent = 'Base Connectée';
                 errorBanner.classList.add('hidden');
 
                 populateMarqueFilter();
                 populateModeleFilter();
                 applyFilters();
-            } catch (err) {
-                console.error("Erreur chargement CSV GitHub:", err);
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-red-500";
-                statusText.textContent = "CSV Introuvable";
+            } else {
+                console.error('Erreur chargement CSV : fichier introuvable sur le serveur.');
+                statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+                statusText.textContent = 'Base Indisponible';
                 errorBanner.classList.remove('hidden');
-                document.getElementById('resultsCount').textContent = "0 résultat (fichier CSV non chargé)";
+                document.getElementById('resultsCount').textContent = '0 résultat (fichier de données non chargé)';
             }
         }
 
+        function splitCsvLine(line, delimiter) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                const nextChar = line[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === delimiter && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
         function parseCSV(text) {
-            const lines = text.split(/\r\n|\n/).filter(l => l.trim() !== '');
+            const cleanText = text.replace(/^\uFEFF/, '');
+            const lines = cleanText.split(/\r\n|\n/).filter(l => l.trim() !== '');
             if (lines.length < 2) return [];
 
             const firstLine = lines[0];
             const delimiter = firstLine.includes(';') ? ';' : ',';
-            
-            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const headers = splitCsvLine(firstLine, delimiter).map(h => h.replace(/^"|"$/g, '').trim());
             const data = [];
 
             for (let i = 1; i < lines.length; i++) {
-                const rowRaw = lines[i];
-                const values = rowRaw.split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
+                const values = splitCsvLine(lines[i], delimiter).map(v => v.replace(/^"|"$/g, '').trim());
                 if (values.length >= 2) {
-                    let obj = {};
+                    const obj = {};
                     headers.forEach((h, idx) => {
                         obj[h] = values[idx] !== undefined ? values[idx] : '';
                     });
@@ -471,9 +531,21 @@
             return data;
         }
 
+        function normalizeText(str) {
+            return String(str || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase();
+        }
+
+        function getYoutubeSearchUrl(marque, modele) {
+            const query = `emplacement frappe a froid numero chassis VIN ${marque || ''} ${modele || ''}`.trim();
+            return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+        }
+
         function populateMarqueFilter() {
             const select = document.getElementById('filterMarque');
-            const marques = [...new Set(rawDataset.map(item => item.Marque).filter(Boolean))].sort();
+            const marques = [...new Set(rawDataset.map(item => item.Marque).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
             
             select.innerHTML = '<option value="">Toutes les Marques</option>';
             marques.forEach(m => {
@@ -492,7 +564,7 @@
                 ? rawDataset.filter(item => item.Marque === selectedMarque)
                 : rawDataset;
 
-            const modeles = [...new Set(relevantItems.map(item => item.Modele).filter(Boolean))].sort();
+            const modeles = [...new Set(relevantItems.map(item => item.Modele).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
             
             select.innerHTML = '<option value="">Tous les Modèles</option>';
             modeles.forEach(mod => {
@@ -509,7 +581,7 @@
         }
 
         function applyFilters() {
-            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            const search = normalizeText(document.getElementById('searchInput').value.trim());
             const selectedMarque = document.getElementById('filterMarque').value;
             const selectedModele = document.getElementById('filterModele').value;
 
@@ -517,7 +589,9 @@
                 const matchMarque = !selectedMarque || item.Marque === selectedMarque;
                 const matchModele = !selectedModele || item.Modele === selectedModele;
                 
-                const searchStr = `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Precise_Frappe} ${item.Remarques_Pieges}`.toLowerCase();
+                const searchStr = normalizeText(
+                    `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Precise_Frappe} ${item.Methode_Acces} ${item.Outillage_Necessaire} ${item.Remarques_Pieges}`
+                );
                 const matchSearch = !search || searchStr.includes(search);
 
                 return matchMarque && matchModele && matchSearch;
@@ -551,18 +625,18 @@
             noRes.classList.add('hidden');
             grid.innerHTML = filteredDataset.map((item, index) => {
                 const zoneBadgeColor = getZoneBadgeColor(item.Zone_Frappe);
-                const csvLine = buildCsvLine(item);
+                const youtubeUrl = getYoutubeSearchUrl(item.Marque, item.Modele);
 
                 return `
                 <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                     <div class="space-y-3">
-                        <div class="flex justify-between items-start">
+                        <div class="flex justify-between items-start gap-2">
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-wider text-brandOrange">${escapeHtml(item.Marque || '')}</span>
                                 <h3 class="text-lg font-extrabold text-slate-800">${escapeHtml(item.Modele || '')}</h3>
                                 <p class="text-xs text-slate-400 font-medium">${escapeHtml(item.Annee_Debut || '')} - ${escapeHtml(item.Annee_Fin || 'Présent')}</p>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${zoneBadgeColor}">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold shrink-0 ${zoneBadgeColor}">
                                 ${escapeHtml(item.Zone_Frappe || 'Zone N/A')}
                             </span>
                         </div>
@@ -578,14 +652,15 @@
                     </div>
 
                     <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
-                        <button onclick="openModal(${index})" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors flex items-center gap-1">
+                        <button onclick="openModal(${index})" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors flex items-center gap-1.5">
                             <i class="fa-solid fa-eye"></i> Détails
                         </button>
                         
-                        <div class="flex gap-1">
-                            <button onclick="copySingleCsv('${escapeJsString(csvLine)}')" title="Copier la ligne CSV exacte" class="p-1.5 text-slate-500 hover:text-brandBlue hover:bg-slate-100 rounded-lg transition-colors">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
+                        <div class="flex items-center gap-1.5">
+                            <a href="${youtubeUrl}" target="_blank" rel="noopener noreferrer" title="Rechercher une vidéo YouTube pour ${escapeHtml(item.Marque || '')} ${escapeHtml(item.Modele || '')}" class="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-brands fa-youtube text-sm"></i>
+                                <span>Vidéo</span>
+                            </a>
                             <button onclick="sendCorrectionMail('${escapeJsString(item.Marque)}', '${escapeJsString(item.Modele)}')" title="Proposer une modification par email" class="p-1.5 text-slate-500 hover:text-brandOrange hover:bg-slate-100 rounded-lg transition-colors">
                                 <i class="fa-solid fa-envelope"></i>
                             </button>
@@ -619,7 +694,9 @@
             document.getElementById('modalOutillage').textContent = item.Outillage_Necessaire || 'Lampe torche recommandée.';
             document.getElementById('modalRemarques').textContent = item.Remarques_Pieges || 'Aucun piège spécifique signalé.';
             document.getElementById('modalDate').textContent = item.Derniere_Mise_A_Jour || '2026-11';
-            document.getElementById('modalSource').textContent = item.Source_Validation || 'Cedric CarSitter';
+            document.getElementById('modalSource').textContent = 'CedricCarSitter';
+
+            document.getElementById('modalYoutubeBtn').href = getYoutubeSearchUrl(item.Marque, item.Modele);
 
             document.getElementById('modalEmailBtn').onclick = () => {
                 sendCorrectionMail(item.Marque, item.Modele);
@@ -632,13 +709,19 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
+        function handleBackdropClick(event) {
+            if (event.target.id === 'detailModal') {
+                closeModal();
+            }
+        }
+
         function handleFormSubmit(e) {
             e.preventDefault();
             
             const marque = document.getElementById('formMarque').value.trim();
             const modele = document.getElementById('formModele').value.trim();
             if (!marque || !modele) {
-                showToast("Veuillez renseigner au moins la Marque et le Modèle.", "warning");
+                showToast('Veuillez renseigner au moins la Marque et le Modèle.', 'warning');
                 return;
             }
 
@@ -653,20 +736,17 @@
                 Outillage_Necessaire: document.getElementById('formOutillage').value.trim(),
                 Remarques_Pieges: document.getElementById('formRemarques').value.trim(),
                 Derniere_Mise_A_Jour: new Date().toISOString().split('T')[0],
-                Source_Validation: "Cedric CarSitter"
+                Source_Validation: 'CedricCarSitter'
             };
 
             const csvLine = buildCsvLine(item);
-            const recipient = "cedric@cedriccarsitter.com";
-            const subject = encodeURIComponent(`[VIN Frappe à Froid] Ajout GitHub : ${marque} ${modele}`);
+            const recipient = 'cedric@cedriccarsitter.com';
+            const subject = encodeURIComponent(`[VIN Frappe à Froid] Nouvel Ajout : ${marque} ${modele}`);
             const body = encodeURIComponent(
 `Bonjour Cédric,
 
-Voici la ligne CSV à copier-coller dans Base_Emplacements_VIN_Cedric_CarSitter.csv sur GitHub :
+Voici une nouvelle fiche de frappe à froid VIN proposée pour la base CedricCarSitter :
 
-${csvLine}
-
-Détails de la frappe à froid :
 - Marque : ${item.Marque}
 - Modèle : ${item.Modele} (${item.Annee_Debut} - ${item.Annee_Fin})
 - Zone Frappe : ${item.Zone_Frappe}
@@ -675,16 +755,19 @@ Détails de la frappe à froid :
 - Outillage : ${item.Outillage_Necessaire}
 - Remarques : ${item.Remarques_Pieges}
 
+Ligne formatée pour intégration :
+${csvLine}
+
 Cordialement,`
             );
 
             window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-            showToast("Application e-mail ouverte avec la ligne CSV prête !", "success");
+            showToast('Application e-mail ouverte avec votre proposition !', 'success');
         }
 
         function sendCorrectionMail(marque, modele) {
-            const recipient = "cedric@cedriccarsitter.com";
-            const subject = encodeURIComponent(`[VIN CarSitter] Correction sur : ${marque} ${modele}`);
+            const recipient = 'cedric@cedriccarsitter.com';
+            const subject = encodeURIComponent(`[VIN CedricCarSitter] Correction sur : ${marque} ${modele}`);
             const body = encodeURIComponent(
 `Bonjour Cédric,
 
@@ -705,34 +788,9 @@ Cordialement,`
                 item.Marque || '', item.Modele || '', item.Annee_Debut || '', item.Annee_Fin || '',
                 item.Zone_Frappe || '', item.Emplacement_Precise_Frappe || '',
                 item.Methode_Acces || '', item.Outillage_Necessaire || '',
-                item.Remarques_Pieges || '', item.Derniere_Mise_A_Jour || '', item.Source_Validation || 'Cedric CarSitter'
+                item.Remarques_Pieges || '', item.Derniere_Mise_A_Jour || '', 'CedricCarSitter'
             ];
             return fields.map(f => `"${String(f).replace(/"/g, '""')}"`).join(';');
-        }
-
-        function copySingleCsv(csvText) {
-            copyToClipboard(csvText);
-            showToast("Ligne CSV copiée au presse-papier !", "success");
-        }
-
-        function copyFormAsCSV() {
-            const item = {
-                Marque: document.getElementById('formMarque').value.trim(),
-                Modele: document.getElementById('formModele').value.trim(),
-                Annee_Debut: document.getElementById('formAnneeDebut').value.trim(),
-                Annee_Fin: document.getElementById('formAnneeFin').value.trim() || 'Présent',
-                Zone_Frappe: document.getElementById('formZoneFrappe').value,
-                Emplacement_Precise_Frappe: document.getElementById('formEmplacementFrappe').value.trim(),
-                Methode_Acces: document.getElementById('formMethodeAcces').value.trim(),
-                Outillage_Necessaire: document.getElementById('formOutillage').value.trim(),
-                Remarques_Pieges: document.getElementById('formRemarques').value.trim(),
-                Derniere_Mise_A_Jour: new Date().toISOString().split('T')[0],
-                Source_Validation: "Cedric CarSitter"
-            };
-
-            const csvLine = buildCsvLine(item);
-            copyToClipboard(csvLine);
-            showToast("Ligne CSV copiée au presse-papier !", "success");
         }
 
         function switchTab(tabId) {
@@ -751,41 +809,25 @@ Cordialement,`
             }
         }
 
-        function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-            }
-        }
-
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             
-            let bgBg = 'bg-slate-800 text-white';
+            let bgClass = 'bg-slate-800 text-white';
             let icon = 'fa-info-circle text-brandBlue';
 
             if (type === 'success') {
-                bgBg = 'bg-slate-900 border-l-4 border-emerald-500 text-white';
+                bgClass = 'bg-slate-900 border-l-4 border-emerald-500 text-white';
                 icon = 'fa-circle-check text-emerald-400';
             } else if (type === 'warning') {
-                bgBg = 'bg-slate-900 border-l-4 border-brandOrange text-white';
+                bgClass = 'bg-slate-900 border-l-4 border-brandOrange text-white';
                 icon = 'fa-triangle-exclamation text-brandOrange';
             } else if (type === 'error') {
-                bgBg = 'bg-slate-900 border-l-4 border-red-500 text-white';
+                bgClass = 'bg-slate-900 border-l-4 border-red-500 text-white';
                 icon = 'fa-circle-xmark text-red-400';
             }
 
-            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl text-xs font-semibold ${bgBg} transition-all duration-300 animate-in fade-in slide-in-from-bottom-2`;
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl text-xs font-semibold ${bgClass} transition-all duration-300 toast-animate`;
             toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${escapeHtml(message)}</span>`;
 
             container.appendChild(toast);
