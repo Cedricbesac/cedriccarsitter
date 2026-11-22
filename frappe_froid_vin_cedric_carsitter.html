@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Référentiel Frappe à Froid VIN — Cedric CarSitter</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#1C75BC',
+                        brandOrange: '#F7941D',
+                        brandNight: '#1E293B',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-full flex flex-col text-slate-800 bg-slate-50">
+
+    <!-- Header Principal -->
+    <header class="bg-brandNight text-white border-b-4 border-brandOrange shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brandBlue to-blue-500 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                    <i class="fa-solid font-bold fa-car-rear text-brandOrange"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                        <span>Cedric CarSitter</span>
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-brandOrange text-white font-semibold uppercase tracking-wider">VIN Pro</span>
+                    </h1>
+                    <p class="text-xs text-slate-300 font-medium">Référentiel Technique Exclusif Frappe à Froid Châssis (VIN)</p>
+                </div>
+            </div>
+
+            <!-- Stats Rapides & Source Indicator -->
+            <div class="flex items-center gap-3 text-xs">
+                <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-database text-brandBlue"></i>
+                    <span id="statCount" class="font-bold text-white">0</span>
+                    <span class="text-slate-400">modèles</span>
+                </div>
+                <div id="sourceStatusBadge" class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse" id="sourceDot"></span>
+                    <span id="sourceStatusText" class="text-slate-300 font-medium">Chargement CSV...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto gap-2 border-t border-slate-800 pt-2 text-sm">
+            <button onclick="switchTab('tab-database')" id="nav-database" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-brandOrange border-b-2 border-brandOrange bg-slate-800/60">
+                <i class="fa-solid fa-list-check"></i> Base VIN
+            </button>
+            <button onclick="switchTab('tab-guide')" id="nav-guide" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40">
+                <i class="fa-solid fa-bullseye"></i> Guide 6 Zones Terrain
+            </button>
+            <button onclick="switchTab('tab-add')" id="nav-add" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40">
+                <i class="fa-solid fa-plus-circle"></i> Proposer / Ajouter un VIN
+            </button>
+        </div>
+    </header>
+
+    <!-- Zone de Notification Toast -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <!-- Contenu Principal -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= ONGLET 1 : BASE VIN (DATABASE) ================= -->
+        <section id="tab-database" class="tab-content space-y-6">
+            
+            <!-- Barre de Filtres & Recherche -->
+            <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                    
+                    <!-- Search Input -->
+                    <div class="md:col-span-5 relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Recherche libre (ex: tourelle, trappe, 308, coffre...)" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue focus:border-brandBlue text-sm transition-all outline-none">
+                    </div>
+
+                    <!-- Filter Marque -->
+                    <div class="md:col-span-3">
+                        <select id="filterMarque" onchange="onMarqueChange()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue text-sm transition-all outline-none text-slate-700 font-medium">
+                            <option value="">Toutes les Marques</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter Modèle -->
+                    <div class="md:col-span-3">
+                        <select id="filterModele" onchange="applyFilters()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue text-sm transition-all outline-none text-slate-700 font-medium">
+                            <option value="">Tous les Modèles</option>
+                        </select>
+                    </div>
+
+                    <!-- Reset Filter Button -->
+                    <div class="md:col-span-1 flex items-center">
+                        <button onclick="resetFilters()" title="Réinitialiser les filtres" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Info Compteur de Résultats -->
+                <div class="flex justify-between items-center text-xs text-slate-500 pt-1 border-t border-slate-100">
+                    <span id="resultsCount">Chargement des données depuis GitHub...</span>
+                    <span class="text-slate-400 hidden sm:inline">Source : <code class="text-brandBlue font-mono">Base_Emplacements_VIN_Cedric_CarSitter.csv</code></span>
+                </div>
+            </div>
+
+            <!-- Message d'erreur si le CSV n'est pas encore sur GitHub -->
+            <div id="csvErrorBanner" class="hidden bg-red-50 border border-red-200 text-red-800 p-5 rounded-2xl flex items-start gap-3 text-sm">
+                <i class="fa-solid fa-triangle-exclamation text-red-600 text-xl mt-0.5"></i>
+                <div>
+                    <h3 class="font-bold">Fichier CSV introuvable sur le serveur</h3>
+                    <p class="text-xs mt-1 text-red-700">Assurez-vous que le fichier <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">Base_Emplacements_VIN_Cedric_CarSitter.csv</code> est bien placé dans le même dossier que <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">index.html</code> sur votre dépôt GitHub.</p>
+                </div>
+            </div>
+
+            <!-- Grille d'affichage des modèles -->
+            <div id="vinGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Généré dynamiquement en JS -->
+            </div>
+
+            <!-- Message si aucun résultat -->
+            <div id="noResults" class="hidden bg-white p-12 text-center rounded-2xl border border-slate-200">
+                <i class="fa-solid fa-car-tunnel text-4xl text-slate-300 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-700">Aucun véhicule trouvé</h3>
+                <p class="text-sm text-slate-500 max-w-md mx-auto mt-1">Ajustez vos filtres Marque / Modèle ou proposez un nouvel emplacement pour enrichir la base.</p>
+                <button onclick="switchTab('tab-add')" class="mt-4 px-4 py-2 bg-brandBlue text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-plus-circle mr-1"></i> Proposer ce modèle
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ================= ONGLET 2 : GUIDE METHODOLOGIQUE 6 ZONES ================= -->
+        <section id="tab-guide" class="tab-content hidden space-y-6">
+            
+            <div class="bg-gradient-to-r from-brandNight to-slate-800 text-white p-6 rounded-2xl shadow-sm border border-slate-700">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-brandOrange"></i>
+                    Méthodologie des 6 Zones de Frappe à Froid sur le Terrain
+                </h2>
+                <p class="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
+                    Sur le terrain, la recherche de la gravure légale directe dans la tôle ou le châssis (frappe à froid) suit un contrôle systématique en 6 zones clés. Ce guide porte exclusivement sur l'empreinte châssis faisant foi au contrôle technique.
+                </p>
+            </div>
+
+            <!-- Cartes des 6 Zones -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                
+                <!-- Zone 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-brandBlue">ZONE 1</span>
+                        <i class="fa-solid fa-shield-halved text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Tablier & Auvent Moteur</h3>
+                    <p class="text-xs text-slate-500 mt-1">Gravée directement sur la paroi pare-feu centrale ou côté passager sous le capot.</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-magnifying-glass text-brandOrange"></i> Accès rapide :</p>
+                        <p class="text-slate-600">Soulever le joint d'auvent ou retirer le petit volet plastique prédécoupé.</p>
+                    </div>
+                </div>
+
+                <!-- Zone 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">ZONE 2</span>
+                        <i class="fa-solid fa-car-side text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Tourelle Amortisseur & Doublure d'Aile</h3>
+                    <p class="text-xs text-slate-500 mt-1">Sur la coupelle d'amortisseur ou la tôle d'aile avant droite (côté passager).</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-lightbulb text-brandOrange"></i> Éclairage terrain :</p>
+                        <p class="text-slate-600">Lampe torche LED en lumière rasante (gravure laser par points très fine sur BMW/VAG).</p>
+                    </div>
+                </div>
+
+                <!-- Zone 3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">ZONE 3</span>
+                        <i class="fa-solid fa-chair text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Plancher Passager & Sous Siège</h3>
+                    <p class="text-xs text-slate-500 mt-1">Frappée directement sur la traverse de plancher avant devant ou sous le siège passager.</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-triangle-exclamation text-brandOrange"></i> Piège courant :</p>
+                        <p class="text-slate-600">Trappe moquette prédécoupée masquée sous le tapis ou reculée sous le rail de siège.</p>
+                    </div>
+                </div>
+
+                <!-- Zone 4 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">ZONE 4</span>
+                        <i class="fa-solid fa-door-open text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Pied de Porte & Charnières</h3>
+                    <p class="text-xs text-slate-500 mt-1">Gravure directe dans la tôle du montant de porte passager (entre les charnières ou pilier B).</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-stamp text-brandOrange"></i> Vigilance lecture :</p>
+                        <p class="text-slate-600">Lecture souvent verticale (ex: Mégane IV, Tesla Model 3/Y sous garniture).</p>
+                    </div>
+                </div>
+
+                <!-- Zone 5 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800">ZONE 5</span>
+                        <i class="fa-solid fa-gears text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Longeron, Châssis & Passage de Roue</h3>
+                    <p class="text-xs text-slate-500 mt-1">Gravée sur le méplat du longeron avant droit, passage de roue ou marchepied (Utilitaires / 4x4).</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-spray-can text-brandOrange"></i> Attention corrosion :</p>
+                        <p class="text-slate-600">Braquer les roues à gauche pour dégager le passage de roue droit ; nettoyer sans abrasif.</p>
+                    </div>
+                </div>
+
+                <!-- Zone 6 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brandBlue transition-all">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-800">ZONE 6</span>
+                        <i class="fa-solid fa-box-archive text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">Coffre & Plancher Arrière</h3>
+                    <p class="text-xs text-slate-500 mt-1">Sur le longeron intérieur droit ou le bac de roue de secours sous le tapis de coffre.</p>
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <p class="font-semibold text-slate-700"><i class="fa-solid fa-lightbulb text-brandOrange"></i> Fréquence :</p>
+                        <p class="text-slate-600">Classique sur Fiat 500, coupés sport, hybrides et architectures spécifiques.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= ONGLET 3 : FORMULAIRE D'AJOUT & ENVOI EMAIL ================= -->
+        <section id="tab-add" class="tab-content hidden space-y-6">
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
+                <div class="border-b border-slate-200 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-brandBlue"></i>
+                        Proposer une Frappe à Froid VIN
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Renseignez l'emplacement exact de la <strong>frappe à froid gravée sur le châssis</strong>. Le formulaire génère automatiquement l'e-mail avec la ligne CSV prête à être ajoutée sur GitHub (<strong class="text-brandBlue">cedric@cedriccarsitter.com</strong>).
+                    </p>
+                </div>
+
+                <form id="vinForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-sm">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Marque *</label>
+                            <input type="text" id="formMarque" required placeholder="ex: Renault" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Modèle *</label>
+                            <input type="text" id="formModele" required placeholder="ex: Clio V" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Année Début</label>
+                            <input type="number" id="formAnneeDebut" placeholder="2019" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Année Fin</label>
+                            <input type="text" id="formAnneeFin" placeholder="Présent / 2024" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Zone de Frappe à Froid *</label>
+                            <select id="formZoneFrappe" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                                <option value="Zone 1">Zone 1 - Tablier / Auvent moteur</option>
+                                <option value="Zone 2">Zone 2 - Tourelle amortisseur / Doublure d'aile</option>
+                                <option value="Zone 3">Zone 3 - Plancher passager / Sous siège</option>
+                                <option value="Zone 4">Zone 4 - Pied de porte / Charnières</option>
+                                <option value="Zone 5">Zone 5 - Longeron / Châssis / Passage de roue</option>
+                                <option value="Zone 6">Zone 6 - Coffre / Plancher arrière</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Emplacement Précis Frappe à Froid *</label>
+                            <input type="text" id="formEmplacementFrappe" required placeholder="ex: Traverse de plancher sous le siège passager avant droit" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Méthode d'Accès</label>
+                            <input type="text" id="formMethodeAcces" placeholder="ex: Soulever la trappe prédécoupée dans la moquette" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Outillage Nécessaire</label>
+                            <input type="text" id="formOutillage" placeholder="ex: Torche LED en lumière rasante" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Remarques & Pièges Terrain</label>
+                        <textarea id="formRemarques" rows="2" placeholder="ex: Présence fréquente de blaxon épais masquant les 2 derniers chiffres du VIN." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none"></textarea>
+                    </div>
+
+                    <!-- Boutons d'actions du Formulaire -->
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
+                        <button type="submit" class="flex-1 py-3 bg-brandOrange hover:bg-amber-600 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Envoyer par Email pour Mise à Jour GitHub
+                        </button>
+                        <button type="button" onclick="copyFormAsCSV()" class="py-3 px-5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Copier la ligne CSV
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Modal Fiche Détaillée -->
+    <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden border border-slate-200 animate-in fade-in zoom-in duration-150">
+            <div class="bg-brandNight text-white p-5 flex justify-between items-start border-b-2 border-brandOrange">
+                <div>
+                    <span id="modalMarque" class="text-xs font-extrabold uppercase tracking-widest text-brandOrange">MARQUE</span>
+                    <h3 id="modalModele" class="text-xl font-bold">Modèle Véhicule</h3>
+                    <p id="modalAnnees" class="text-xs text-slate-300">Années d'application</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 text-sm max-h-[75vh] overflow-y-auto custom-scrollbar">
+                
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-700 uppercase text-xs tracking-wider">Frappe à Froid du Châssis (VIN)</span>
+                        <span id="modalZoneBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brandBlue text-white">Zone X</span>
+                    </div>
+                    <p id="modalEmplacementFrappe" class="text-slate-800 font-medium leading-relaxed"></p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-key text-brandBlue mr-1"></i> Méthode d'Accès</span>
+                        <span id="modalMethode" class="text-slate-700 text-xs"></span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-wrench text-brandOrange mr-1"></i> Outillage Requis</span>
+                        <span id="modalOutillage" class="text-slate-700 text-xs"></span>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-amber-900 space-y-1">
+                    <span class="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-amber-800">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Remarques & Pièges Terrain
+                    </span>
+                    <p id="modalRemarques" class="text-xs leading-relaxed"></p>
+                </div>
+
+                <div class="flex justify-between items-center text-xs text-slate-400 pt-2">
+                    <span>Mise à jour : <strong id="modalDate" class="text-slate-600">--</strong></span>
+                    <span>Source : <strong id="modalSource" class="text-slate-600">Cedric CarSitter</strong></span>
+                </div>
+            </div>
+            <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-end gap-2">
+                <button id="modalEmailBtn" class="px-4 py-2 bg-brandOrange hover:bg-amber-600 text-white font-semibold text-xs rounded-xl transition-colors">
+                    <i class="fa-solid fa-envelope mr-1"></i> Proposer une correction
+                </button>
+                <button onclick="closeModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition-colors">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brandNight text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>© <span id="yearSpan"></span> <strong>Cedric CarSitter</strong> — Tous droits réservés. Outil d'inspection frappe à froid VIN.</p>
+            <p class="text-slate-500">Contact : <a href="mailto:cedric@cedriccarsitter.com" class="text-brandOrange hover:underline">cedric@cedriccarsitter.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Logiciel JS principal -->
+    <script>
+        let rawDataset = [];
+        let filteredDataset = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('yearSpan').textContent = new Date().getFullYear();
+            loadGitHubCSV();
+        });
+
+        async function loadGitHubCSV() {
+            const statusDot = document.getElementById('sourceDot');
+            const statusText = document.getElementById('sourceStatusText');
+            const errorBanner = document.getElementById('csvErrorBanner');
+
+            try {
+                const response = await fetch('./Base_Emplacements_VIN_Cedric_CarSitter.csv', { cache: "no-store" });
+                if (!response.ok) throw new Error("Fichier CSV introuvable sur GitHub");
+                
+                const csvText = await response.text();
+                rawDataset = parseCSV(csvText);
+
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+                statusText.textContent = "Base GitHub Connectée";
+                errorBanner.classList.add('hidden');
+
+                populateMarqueFilter();
+                populateModeleFilter();
+                applyFilters();
+            } catch (err) {
+                console.error("Erreur chargement CSV GitHub:", err);
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-red-500";
+                statusText.textContent = "CSV Introuvable";
+                errorBanner.classList.remove('hidden');
+                document.getElementById('resultsCount').textContent = "0 résultat (fichier CSV non chargé)";
+            }
+        }
+
+        function parseCSV(text) {
+            const lines = text.split(/\r\n|\n/).filter(l => l.trim() !== '');
+            if (lines.length < 2) return [];
+
+            const firstLine = lines[0];
+            const delimiter = firstLine.includes(';') ? ';' : ',';
+            
+            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const rowRaw = lines[i];
+                const values = rowRaw.split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
+                if (values.length >= 2) {
+                    let obj = {};
+                    headers.forEach((h, idx) => {
+                        obj[h] = values[idx] !== undefined ? values[idx] : '';
+                    });
+                    data.push(obj);
+                }
+            }
+            return data;
+        }
+
+        function populateMarqueFilter() {
+            const select = document.getElementById('filterMarque');
+            const marques = [...new Set(rawDataset.map(item => item.Marque).filter(Boolean))].sort();
+            
+            select.innerHTML = '<option value="">Toutes les Marques</option>';
+            marques.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                select.appendChild(opt);
+            });
+        }
+
+        function populateModeleFilter() {
+            const selectedMarque = document.getElementById('filterMarque').value;
+            const select = document.getElementById('filterModele');
+            
+            const relevantItems = selectedMarque 
+                ? rawDataset.filter(item => item.Marque === selectedMarque)
+                : rawDataset;
+
+            const modeles = [...new Set(relevantItems.map(item => item.Modele).filter(Boolean))].sort();
+            
+            select.innerHTML = '<option value="">Tous les Modèles</option>';
+            modeles.forEach(mod => {
+                const opt = document.createElement('option');
+                opt.value = mod;
+                opt.textContent = mod;
+                select.appendChild(opt);
+            });
+        }
+
+        function onMarqueChange() {
+            populateModeleFilter();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            const selectedMarque = document.getElementById('filterMarque').value;
+            const selectedModele = document.getElementById('filterModele').value;
+
+            filteredDataset = rawDataset.filter(item => {
+                const matchMarque = !selectedMarque || item.Marque === selectedMarque;
+                const matchModele = !selectedModele || item.Modele === selectedModele;
+                
+                const searchStr = `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Precise_Frappe} ${item.Remarques_Pieges}`.toLowerCase();
+                const matchSearch = !search || searchStr.includes(search);
+
+                return matchMarque && matchModele && matchSearch;
+            });
+
+            renderGrid();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterMarque').value = '';
+            populateModeleFilter();
+            applyFilters();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('vinGrid');
+            const noRes = document.getElementById('noResults');
+            const countText = document.getElementById('resultsCount');
+            const statCount = document.getElementById('statCount');
+
+            statCount.textContent = rawDataset.length;
+            countText.textContent = `${filteredDataset.length} véhicule(s) affiché(s) sur ${rawDataset.length}`;
+
+            if (filteredDataset.length === 0) {
+                grid.innerHTML = '';
+                if (rawDataset.length > 0) noRes.classList.remove('hidden');
+                return;
+            }
+
+            noRes.classList.add('hidden');
+            grid.innerHTML = filteredDataset.map((item, index) => {
+                const zoneBadgeColor = getZoneBadgeColor(item.Zone_Frappe);
+                const csvLine = buildCsvLine(item);
+
+                return `
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-brandOrange">${escapeHtml(item.Marque || '')}</span>
+                                <h3 class="text-lg font-extrabold text-slate-800">${escapeHtml(item.Modele || '')}</h3>
+                                <p class="text-xs text-slate-400 font-medium">${escapeHtml(item.Annee_Debut || '')} - ${escapeHtml(item.Annee_Fin || 'Présent')}</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${zoneBadgeColor}">
+                                ${escapeHtml(item.Zone_Frappe || 'Zone N/A')}
+                            </span>
+                        </div>
+
+                        <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                            <div>
+                                <span class="font-semibold text-slate-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-crosshairs text-brandBlue"></i> Frappe à froid châssis :
+                                </span>
+                                <p class="text-slate-600 mt-0.5 line-clamp-2">${escapeHtml(item.Emplacement_Precise_Frappe || 'À compléter')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                        <button onclick="openModal(${index})" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> Détails
+                        </button>
+                        
+                        <div class="flex gap-1">
+                            <button onclick="copySingleCsv('${escapeJsString(csvLine)}')" title="Copier la ligne CSV exacte" class="p-1.5 text-slate-500 hover:text-brandBlue hover:bg-slate-100 rounded-lg transition-colors">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <button onclick="sendCorrectionMail('${escapeJsString(item.Marque)}', '${escapeJsString(item.Modele)}')" title="Proposer une modification par email" class="p-1.5 text-slate-500 hover:text-brandOrange hover:bg-slate-100 rounded-lg transition-colors">
+                                <i class="fa-solid fa-envelope"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function getZoneBadgeColor(zone) {
+            if (!zone) return 'bg-slate-100 text-slate-700';
+            if (zone.includes('Zone 1')) return 'bg-blue-100 text-brandBlue';
+            if (zone.includes('Zone 2')) return 'bg-amber-100 text-amber-800';
+            if (zone.includes('Zone 3')) return 'bg-emerald-100 text-emerald-800';
+            if (zone.includes('Zone 4')) return 'bg-purple-100 text-purple-800';
+            if (zone.includes('Zone 5')) return 'bg-red-100 text-red-800';
+            return 'bg-slate-200 text-slate-800';
+        }
+
+        function openModal(index) {
+            const item = filteredDataset[index];
+            if (!item) return;
+
+            document.getElementById('modalMarque').textContent = item.Marque || '';
+            document.getElementById('modalModele').textContent = item.Modele || '';
+            document.getElementById('modalAnnees').textContent = `Années : ${item.Annee_Debut || ''} - ${item.Annee_Fin || 'Présent'}`;
+            document.getElementById('modalZoneBadge').textContent = item.Zone_Frappe || 'Zone N/A';
+            document.getElementById('modalEmplacementFrappe').textContent = item.Emplacement_Precise_Frappe || 'Emplacement de frappe à froid à compléter.';
+            document.getElementById('modalMethode').textContent = item.Methode_Acces || 'Accès standard visualisable.';
+            document.getElementById('modalOutillage').textContent = item.Outillage_Necessaire || 'Lampe torche recommandée.';
+            document.getElementById('modalRemarques').textContent = item.Remarques_Pieges || 'Aucun piège spécifique signalé.';
+            document.getElementById('modalDate').textContent = item.Derniere_Mise_A_Jour || '2026-11';
+            document.getElementById('modalSource').textContent = item.Source_Validation || 'Cedric CarSitter';
+
+            document.getElementById('modalEmailBtn').onclick = () => {
+                sendCorrectionMail(item.Marque, item.Modele);
+            };
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const marque = document.getElementById('formMarque').value.trim();
+            const modele = document.getElementById('formModele').value.trim();
+            if (!marque || !modele) {
+                showToast("Veuillez renseigner au moins la Marque et le Modèle.", "warning");
+                return;
+            }
+
+            const item = {
+                Marque: marque,
+                Modele: modele,
+                Annee_Debut: document.getElementById('formAnneeDebut').value.trim(),
+                Annee_Fin: document.getElementById('formAnneeFin').value.trim() || 'Présent',
+                Zone_Frappe: document.getElementById('formZoneFrappe').value,
+                Emplacement_Precise_Frappe: document.getElementById('formEmplacementFrappe').value.trim(),
+                Methode_Acces: document.getElementById('formMethodeAcces').value.trim(),
+                Outillage_Necessaire: document.getElementById('formOutillage').value.trim(),
+                Remarques_Pieges: document.getElementById('formRemarques').value.trim(),
+                Derniere_Mise_A_Jour: new Date().toISOString().split('T')[0],
+                Source_Validation: "Cedric CarSitter"
+            };
+
+            const csvLine = buildCsvLine(item);
+            const recipient = "cedric@cedriccarsitter.com";
+            const subject = encodeURIComponent(`[VIN Frappe à Froid] Ajout GitHub : ${marque} ${modele}`);
+            const body = encodeURIComponent(
+`Bonjour Cédric,
+
+Voici la ligne CSV à copier-coller dans Base_Emplacements_VIN_Cedric_CarSitter.csv sur GitHub :
+
+${csvLine}
+
+Détails de la frappe à froid :
+- Marque : ${item.Marque}
+- Modèle : ${item.Modele} (${item.Annee_Debut} - ${item.Annee_Fin})
+- Zone Frappe : ${item.Zone_Frappe}
+- Emplacement Précis : ${item.Emplacement_Precise_Frappe}
+- Méthode d'accès : ${item.Methode_Acces}
+- Outillage : ${item.Outillage_Necessaire}
+- Remarques : ${item.Remarques_Pieges}
+
+Cordialement,`
+            );
+
+            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+            showToast("Application e-mail ouverte avec la ligne CSV prête !", "success");
+        }
+
+        function sendCorrectionMail(marque, modele) {
+            const recipient = "cedric@cedriccarsitter.com";
+            const subject = encodeURIComponent(`[VIN CarSitter] Correction sur : ${marque} ${modele}`);
+            const body = encodeURIComponent(
+`Bonjour Cédric,
+
+Je souhaite proposer une mise à jour pour la frappe à froid suivante :
+- Marque : ${marque}
+- Modèle : ${modele}
+
+Précisions ou pièges observés sur le terrain :
+[Insérer votre remarque ici]
+
+Cordialement,`
+            );
+            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        }
+
+        function buildCsvLine(item) {
+            const fields = [
+                item.Marque || '', item.Modele || '', item.Annee_Debut || '', item.Annee_Fin || '',
+                item.Zone_Frappe || '', item.Emplacement_Precise_Frappe || '',
+                item.Methode_Acces || '', item.Outillage_Necessaire || '',
+                item.Remarques_Pieges || '', item.Derniere_Mise_A_Jour || '', item.Source_Validation || 'Cedric CarSitter'
+            ];
+            return fields.map(f => `"${String(f).replace(/"/g, '""')}"`).join(';');
+        }
+
+        function copySingleCsv(csvText) {
+            copyToClipboard(csvText);
+            showToast("Ligne CSV copiée au presse-papier !", "success");
+        }
+
+        function copyFormAsCSV() {
+            const item = {
+                Marque: document.getElementById('formMarque').value.trim(),
+                Modele: document.getElementById('formModele').value.trim(),
+                Annee_Debut: document.getElementById('formAnneeDebut').value.trim(),
+                Annee_Fin: document.getElementById('formAnneeFin').value.trim() || 'Présent',
+                Zone_Frappe: document.getElementById('formZoneFrappe').value,
+                Emplacement_Precise_Frappe: document.getElementById('formEmplacementFrappe').value.trim(),
+                Methode_Acces: document.getElementById('formMethodeAcces').value.trim(),
+                Outillage_Necessaire: document.getElementById('formOutillage').value.trim(),
+                Remarques_Pieges: document.getElementById('formRemarques').value.trim(),
+                Derniere_Mise_A_Jour: new Date().toISOString().split('T')[0],
+                Source_Validation: "Cedric CarSitter"
+            };
+
+            const csvLine = buildCsvLine(item);
+            copyToClipboard(csvLine);
+            showToast("Ligne CSV copiée au presse-papier !", "success");
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-brandOrange', 'border-b-2', 'border-brandOrange', 'bg-slate-800/60');
+                btn.classList.add('text-slate-300');
+            });
+
+            const activeNav = document.getElementById(tabId.replace('tab-', 'nav-'));
+            if (activeNav) {
+                activeNav.classList.add('text-brandOrange', 'border-b-2', 'border-brandOrange', 'bg-slate-800/60');
+                activeNav.classList.remove('text-slate-300');
+            }
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            let bgBg = 'bg-slate-800 text-white';
+            let icon = 'fa-info-circle text-brandBlue';
+
+            if (type === 'success') {
+                bgBg = 'bg-slate-900 border-l-4 border-emerald-500 text-white';
+                icon = 'fa-circle-check text-emerald-400';
+            } else if (type === 'warning') {
+                bgBg = 'bg-slate-900 border-l-4 border-brandOrange text-white';
+                icon = 'fa-triangle-exclamation text-brandOrange';
+            } else if (type === 'error') {
+                bgBg = 'bg-slate-900 border-l-4 border-red-500 text-white';
+                icon = 'fa-circle-xmark text-red-400';
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl text-xs font-semibold ${bgBg} transition-all duration-300 animate-in fade-in slide-in-from-bottom-2`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${escapeHtml(message)}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeJsString(str) {
+            return String(str)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '\\"');
+        }
+    </script>
+</body>
+</html>
