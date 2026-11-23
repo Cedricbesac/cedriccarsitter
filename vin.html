@@ -268,10 +268,47 @@
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
 
     <!-- Contenu Principal -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
 
         <!-- ================= ONGLET 1 : BASE VIN (DATABASE) ================= -->
-        <section id="tab-database" class="tab-content space-y-6">
+        <section id="tab-database" class="tab-content space-y-4">
+
+            <!-- Explication rapide + 6 zones compactes (sans pousser la barre de recherche) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-3 space-y-2.5">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 text-xs">
+                    <p class="text-slate-600 leading-snug">
+                        <strong class="text-brandNight font-bold"><i class="fa-solid fa-stamp text-brandOrange mr-1"></i>À quoi sert cet outil ?</strong>
+                        Localisez rapidement la <strong>frappe à froid gravée dans le métal du châssis</strong> (17 caractères, faisant foi au contrôle technique et lors d'une inspection — distincte de l'étiquette porte ou du VIN pare-brise).
+                    </p>
+                    <button type="button" onclick="switchTab('tab-guide')" class="text-brandBlue hover:text-blue-800 font-semibold shrink-0 self-start lg:self-auto flex items-center gap-1">
+                        <span>Guide détaillé</span>
+                        <i class="fa-solid fa-arrow-right text-[11px]"></i>
+                    </button>
+                </div>
+
+                <!-- Bandeau compact des 6 zones terrain (cliquable pour filtrer / voir la zone) -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-[11px]" role="group" aria-label="Accès rapide aux 6 zones de frappe à froid">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 shrink-0 mr-1">6 Zones :</span>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 1')" data-quick-zone="Zone 1" title="Zone 1 : Tablier et auvent moteur" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-brandBlue hover:bg-blue-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-brandBlue font-extrabold">1.</span> Tablier / Auvent
+                    </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 2')" data-quick-zone="Zone 2" title="Zone 2 : Tourelle d'amortisseur et doublure d'aile" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-amber-500 hover:bg-amber-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-amber-700 font-extrabold">2.</span> Tourelle / Aile
+                    </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 3')" data-quick-zone="Zone 3" title="Zone 3 : Plancher passager avant et sous siège" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-emerald-600 hover:bg-emerald-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-emerald-700 font-extrabold">3.</span> Plancher / Siège
+                    </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 4')" data-quick-zone="Zone 4" title="Zone 4 : Pied de porte et montant passager" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-purple-600 hover:bg-purple-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-purple-700 font-extrabold">4.</span> Pied de porte
+                    </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 5')" data-quick-zone="Zone 5" title="Zone 5 : Longeron, châssis et passage de roue" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-red-600 hover:bg-red-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-red-700 font-extrabold">5.</span> Longeron / Châssis
+                    </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('Zone 6')" data-quick-zone="Zone 6" title="Zone 6 : Coffre et plancher arrière" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-slate-500 hover:bg-slate-100 text-slate-700 font-semibold transition-colors whitespace-nowrap">
+                        <span class="text-slate-700 font-extrabold">6.</span> Coffre / Arrière
+                    </button>
+                </div>
+            </div>
             
             <!-- Barre de Filtres & Recherche -->
             <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
@@ -317,8 +354,11 @@
                 </div>
 
                 <!-- Info Compteur de Résultats -->
-                <div class="flex justify-between items-center text-xs text-slate-500 pt-2 border-t border-slate-100">
-                    <span id="resultsCount">Chargement des données...</span>
+                <div class="flex flex-wrap justify-between items-center gap-2 text-xs text-slate-500 pt-2 border-t border-slate-100">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="resultsCount">Chargement des données...</span>
+                        <span id="activeZonePill" class="hidden px-2 py-0.5 rounded-full bg-brandOrange/15 text-brandOrange font-bold text-[11px]"></span>
+                    </div>
                     <span class="text-slate-400 hidden sm:inline">Source : <strong class="text-brandBlue font-semibold">Cedric CarSitter</strong></span>
                 </div>
             </div>
@@ -463,7 +503,7 @@
                         Proposer une Frappe à Froid VIN
                     </h2>
                     <p class="text-xs text-slate-500 mt-1">
-                        Renseignez l'emplacement exact de la <strong>frappe à froid gravée sur le châssis</strong>. Le formulaire prépare automatiquement votre e-mail à destination de <strong class="text-brandBlue">cedric@cedriccarsitter.com</strong>.
+                        Renseignez l'emplacement exact de la <strong>frappe à froid gravée sur le châssis</strong>. Le bouton copie automatiquement le message et vous laisse choisir entre <strong>Gmail (Web)</strong>, votre <strong>logiciel mail</strong> ou la <strong>copie manuelle</strong> vers <strong class="text-brandBlue">cedric@cedriccarsitter.com</strong>.
                     </p>
                 </div>
 
@@ -524,10 +564,41 @@
                     <!-- Bouton d'action du Formulaire -->
                     <div class="pt-4 border-t border-slate-100">
                         <button type="submit" class="w-full py-3 bg-brandOrange hover:bg-amber-600 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Envoyer par Email pour Mise à Jour
+                            <i class="fa-solid fa-paper-plane"></i> Préparer &amp; Copier l'envoi par Email
                         </button>
                     </div>
                 </form>
+
+                <!-- Panneau de choix d'envoi multi-canal (Option A sans ouverture auto mailto) -->
+                <div id="mailDispatchPanel" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3 text-xs">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <span id="dispatchBadge" class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px] mb-1">Prêt à envoyer</span>
+                            <h3 class="font-bold text-slate-800 text-sm">Envoi vers <span class="text-brandBlue">cedric@cedriccarsitter.com</span></h3>
+                            <p id="dispatchStatusNote" class="text-slate-600 mt-0.5">Choisissez votre méthode d'envoi ci-dessous :</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('mailDispatchPanel').classList.add('hidden')" aria-label="Masquer le panneau d'envoi" class="text-slate-400 hover:text-slate-700 p-1">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <a id="dispatchGmailLink" href="#" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-brandBlue hover:bg-blue-700 text-white font-bold rounded-xl transition-colors inline-flex items-center gap-1.5">
+                            <i class="fa-brands fa-google"></i> Ouvrir dans Gmail (Web)
+                        </a>
+                        <a id="dispatchMailtoLink" href="#" class="px-3.5 py-2 bg-brandNight hover:bg-slate-900 text-white font-bold rounded-xl transition-colors inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-envelope-open-text"></i> Logiciel mail (mailto)
+                        </a>
+                        <button type="button" id="dispatchCopyAllBtn" class="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold rounded-xl transition-colors inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy text-brandOrange"></i> Copier le message complet
+                        </button>
+                        <button type="button" id="dispatchCopyCsvBtn" class="hidden px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold rounded-xl transition-colors inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-csv text-emerald-600"></i> Copier la ligne CSV
+                        </button>
+                    </div>
+
+                    <textarea id="dispatchPreviewText" rows="5" readonly class="w-full p-3 bg-white border border-slate-200 rounded-xl font-mono text-[11px] text-slate-700 focus:outline-none"></textarea>
+                </div>
             </div>
 
         </section>
@@ -765,6 +836,7 @@
         let rawDataset = [];
         let filteredDataset = [];
         let currentVehicleZone = null;
+        let selectedQuickZone = '';
 
         const ZONE_DEFINITIONS = {
             'Zone 1': {
@@ -1038,6 +1110,33 @@
             return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
         }
 
+        function toggleQuickZoneFilter(zoneKey) {
+            selectedQuickZone = selectedQuickZone === zoneKey ? '' : zoneKey;
+            updateQuickZoneButtons();
+            applyFilters();
+        }
+
+        function updateQuickZoneButtons() {
+            document.querySelectorAll('.quick-zone-btn').forEach(btn => {
+                const z = btn.getAttribute('data-quick-zone');
+                const isActive = z === selectedQuickZone;
+                btn.classList.toggle('border-brandOrange', isActive);
+                btn.classList.toggle('bg-orange-50', isActive);
+                btn.classList.toggle('text-brandNight', isActive);
+                btn.classList.toggle('ring-1', isActive);
+                btn.classList.toggle('ring-brandOrange', isActive);
+            });
+
+            const pill = document.getElementById('activeZonePill');
+            if (selectedQuickZone && ZONE_DEFINITIONS[selectedQuickZone]) {
+                pill.textContent = `Filtre : ${selectedQuickZone} (${ZONE_DEFINITIONS[selectedQuickZone].title})`;
+                pill.classList.remove('hidden');
+            } else {
+                pill.textContent = '';
+                pill.classList.add('hidden');
+            }
+        }
+
         function populateMarqueFilter() {
             const select = document.getElementById('filterMarque');
             const marques = [...new Set(rawDataset.map(item => item.Marque).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
@@ -1134,13 +1233,14 @@
             filteredDataset = rawDataset.filter(item => {
                 const matchMarque = !selectedMarque || item.Marque === selectedMarque;
                 const matchModele = !selectedModele || item.Modele === selectedModele;
+                const matchZone = !selectedQuickZone || normalizeZoneKey(item.Zone_Frappe) === selectedQuickZone;
                 
                 const searchStr = normalizeText(
                     `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Precise_Frappe} ${item.Methode_Acces} ${item.Outillage_Necessaire} ${item.Remarques_Pieges}`
                 );
                 const matchSearch = !search || searchStr.includes(search);
 
-                return matchMarque && matchModele && matchSearch;
+                return matchMarque && matchModele && matchZone && matchSearch;
             });
 
             renderGrid();
@@ -1149,6 +1249,8 @@
         function resetFilters() {
             document.getElementById('searchInput').value = '';
             document.getElementById('filterMarque').value = '';
+            selectedQuickZone = '';
+            updateQuickZoneButtons();
             updateBrandStripActiveState('');
             populateModeleFilter();
             applyFilters();
@@ -1343,7 +1445,83 @@
             }
         }
 
-        function handleFormSubmit(e) {
+        async function copyTextToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (_) {
+                    // Repli ci-dessous
+                }
+            }
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                return ok;
+            } catch (_) {
+                document.body.removeChild(ta);
+                return false;
+            }
+        }
+
+        function openDispatchPanel({ subject, fullBody, compactBody, csvLine = '', copiedOk = false }) {
+            switchTab('tab-add');
+
+            const recipient = 'cedric@cedriccarsitter.com';
+            const panel = document.getElementById('mailDispatchPanel');
+            const badge = document.getElementById('dispatchBadge');
+            const note = document.getElementById('dispatchStatusNote');
+            const gmailLink = document.getElementById('dispatchGmailLink');
+            const mailtoLink = document.getElementById('dispatchMailtoLink');
+            const copyAllBtn = document.getElementById('dispatchCopyAllBtn');
+            const copyCsvBtn = document.getElementById('dispatchCopyCsvBtn');
+            const preview = document.getElementById('dispatchPreviewText');
+
+            const mailtoBody = compactBody || fullBody;
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
+            const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailtoBody)}`;
+
+            gmailLink.href = gmailUrl;
+            mailtoLink.href = mailtoUrl;
+            preview.value = `À : ${recipient}\nObjet : ${subject}\n\n${fullBody}`;
+
+            if (csvLine) {
+                copyCsvBtn.classList.remove('hidden');
+                copyCsvBtn.onclick = async () => {
+                    const ok = await copyTextToClipboard(csvLine);
+                    showToast(ok ? 'Ligne CSV copiée dans le presse-papiers !' : 'Sélectionnez la ligne CSV dans l’aperçu.', ok ? 'success' : 'warning');
+                };
+            } else {
+                copyCsvBtn.classList.add('hidden');
+                copyCsvBtn.onclick = null;
+            }
+
+            copyAllBtn.onclick = async () => {
+                const ok = await copyTextToClipboard(fullBody);
+                showToast(ok ? 'Message complet copié dans le presse-papiers !' : 'Copiez le texte depuis la zone ci-dessous.', ok ? 'success' : 'warning');
+            };
+
+            if (copiedOk) {
+                badge.textContent = 'Copié dans le presse-papiers';
+                badge.className = 'inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px] mb-1';
+                note.textContent = 'Le texte est copié : cliquez sur Gmail (Web) ou Logiciel mail (mailto), ou collez-le (Ctrl+V) dans votre messagerie.';
+            } else {
+                badge.textContent = 'Prêt à copier / envoyer';
+                badge.className = 'inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold text-[11px] mb-1';
+                note.textContent = 'Choisissez Gmail (Web), votre logiciel mail (mailto) ou copiez le texte ci-dessous.';
+            }
+
+            panel.classList.remove('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        async function handleFormSubmit(e) {
             e.preventDefault();
             
             const marque = document.getElementById('formMarque').value.trim();
@@ -1368,9 +1546,8 @@
             };
 
             const csvLine = buildCsvLine(item);
-            const recipient = 'cedric@cedriccarsitter.com';
-            const subject = encodeURIComponent(`[VIN Frappe à Froid] Nouvel Ajout : ${marque} ${modele}`);
-            const body = encodeURIComponent(
+            const subject = `[VIN Frappe à Froid] Nouvel Ajout : ${marque} ${modele}`;
+            const fullBody =
 `Bonjour Cédric,
 
 Voici une nouvelle fiche de frappe à froid VIN proposée pour la base Cedric CarSitter :
@@ -1386,17 +1563,34 @@ Voici une nouvelle fiche de frappe à froid VIN proposée pour la base Cedric Ca
 Ligne formatée pour intégration :
 ${csvLine}
 
-Cordialement,`
-            );
+Cordialement,`;
 
-            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-            showToast('Application e-mail ouverte avec votre proposition !', 'success');
+            const compactBody =
+`Bonjour Cédric,
+
+Nouvelle fiche VIN proposée :
+- ${item.Marque} ${item.Modele} (${item.Annee_Debut} - ${item.Annee_Fin})
+- ${item.Zone_Frappe} : ${item.Emplacement_Precise_Frappe}
+- Accès : ${item.Methode_Acces || '-'} | Outillage : ${item.Outillage_Necessaire || '-'}
+- Remarques : ${item.Remarques_Pieges || '-'}
+
+Cordialement,`;
+
+            const copiedOk = await copyTextToClipboard(fullBody);
+            openDispatchPanel({
+                subject,
+                fullBody,
+                compactBody,
+                csvLine,
+                copiedOk
+            });
+            showToast(copiedOk ? 'Message copié ! Choisissez Gmail (Web) ou votre logiciel mail.' : 'Panneau d’envoi prêt : choisissez votre méthode.', 'success');
         }
 
-        function sendCorrectionMail(marque, modele) {
-            const recipient = 'cedric@cedriccarsitter.com';
-            const subject = encodeURIComponent(`[VIN Cedric CarSitter] Correction sur : ${marque} ${modele}`);
-            const body = encodeURIComponent(
+        async function sendCorrectionMail(marque, modele) {
+            closeModal();
+            const subject = `[VIN Cedric CarSitter] Correction sur : ${marque} ${modele}`;
+            const fullBody =
 `Bonjour Cédric,
 
 Je souhaite proposer une mise à jour pour la frappe à froid suivante :
@@ -1406,9 +1600,17 @@ Je souhaite proposer une mise à jour pour la frappe à froid suivante :
 Précisions ou pièges observés sur le terrain :
 [Insérer votre remarque ici]
 
-Cordialement,`
-            );
-            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+Cordialement,`;
+
+            const copiedOk = await copyTextToClipboard(fullBody);
+            openDispatchPanel({
+                subject,
+                fullBody,
+                compactBody: fullBody,
+                csvLine: '',
+                copiedOk
+            });
+            showToast(copiedOk ? 'Modèle de correction copié ! Choisissez votre mode d’envoi.' : 'Modèle de correction prêt.', 'success');
         }
 
         function buildCsvLine(item) {
