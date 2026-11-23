@@ -6,9 +6,10 @@
     <title>Frappe à Froid VIN : Emplacement Numéro de Châssis par Marque &amp; Modèle | Cedric CarSitter</title>
     <meta name="description" content="Base technique gratuite des emplacements de frappe à froid du numéro de châssis (VIN) sur plus de 500 modèles et 51 marques automobiles. Guide des 6 zones terrain pour contrôle technique et inspection — Cedric CarSitter.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="author" content="Cedric CarSitter">
+    <meta name="author" content="Cédric DUCORNET — Cedric CarSitter">
     <link rel="canonical" href="https://cedriccarsitter.com/vin.html">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <meta name="theme-color" content="#1C75BC">
 
     <!-- Open Graph / Réseaux Sociaux -->
     <meta property="og:type" content="website">
@@ -166,15 +167,18 @@
                         brandBlue: '#1C75BC',
                         brandOrange: '#F7941D',
                         brandNight: '#1E293B',
+                        brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#1E293B' }
                     },
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
+        html { scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -189,12 +193,17 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
         @keyframes pulseHalo {
             0%, 100% { transform: scale(1); opacity: 0.45; }
             50% { transform: scale(1.32); opacity: 0.12; }
         }
         .modal-animate { animation: fadeZoomIn 0.16s ease-out forwards; }
         .toast-animate { animation: slideUpFade 0.2s ease-out forwards; }
+        .cookie-banner { animation: slideUp 0.4s ease-out forwards; }
         .vin-zone-node { cursor: pointer; transition: transform 0.15s ease; }
         .vin-zone-node:hover .zone-core { stroke: #F7941D; stroke-width: 3px; }
         .zone-halo-active {
@@ -204,14 +213,13 @@
         }
     </style>
 </head>
-<body class="min-h-full flex flex-col text-slate-800 bg-slate-50">
+<body id="top" class="min-h-full flex flex-col text-slate-800 bg-slate-50 font-montserrat antialiased">
 
     <!-- Header Principal -->
     <header class="bg-brandNight text-white border-b-4 border-brandOrange shadow-lg sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <!-- Logo officiel Cedric CarSitter (SVG vectoriel exact sur fond blanc contrasté) -->
-                <a href="https://cedriccarsitter.com" class="shrink-0 bg-white rounded-xl px-2.5 py-1 shadow-sm flex items-center hover:opacity-95 transition-opacity" title="Cedric CarSitter — Votre conciergerie d'autopartage" aria-label="Cedric CarSitter - Retour à l'accueil">
+                <a href="index.html" class="shrink-0 bg-white rounded-xl px-2.5 py-1 shadow-sm flex items-center hover:opacity-95 transition-opacity" title="Cedric CarSitter — Votre conciergerie d'autopartage" aria-label="Cedric CarSitter - Retour à l'accueil">
                     <svg viewBox="40 0 225 110" class="h-11 sm:h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
                         <g>
                             <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60"
@@ -236,8 +244,14 @@
                 </div>
             </div>
 
-            <!-- Stats Rapides & Source Indicator -->
-            <div class="flex items-center gap-3 text-xs">
+            <!-- Stats Rapides, Retour Site & Source Indicator -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 text-xs">
+                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 px-3 py-1.5 rounded-lg font-semibold transition-colors">
+                    ← Accueil
+                </a>
+                <a href="liens.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg font-semibold transition-colors">
+                    Tous mes liens
+                </a>
                 <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
                     <i class="fa-solid fa-database text-brandBlue"></i>
                     <span id="statCount" class="font-bold text-white">505</span>
@@ -265,7 +279,7 @@
     </header>
 
     <!-- Zone de Notification Toast -->
-    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+    <div id="toastContainer" class="fixed bottom-24 right-5 z-50 flex flex-col gap-2"></div>
 
     <!-- Contenu Principal -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
@@ -273,7 +287,7 @@
         <!-- ================= ONGLET 1 : BASE VIN (DATABASE) ================= -->
         <section id="tab-database" class="tab-content space-y-4">
 
-            <!-- Explication rapide + 6 zones compactes (sans pousser la barre de recherche) -->
+            <!-- Explication rapide + 6 zones compactes -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-3 space-y-2.5">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 text-xs">
                     <p class="text-slate-600 leading-snug">
@@ -286,7 +300,7 @@
                     </button>
                 </div>
 
-                <!-- Bandeau compact des 6 zones terrain (cliquable pour filtrer / voir la zone) -->
+                <!-- Bandeau compact des 6 zones terrain -->
                 <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-[11px]" role="group" aria-label="Accès rapide aux 6 zones de frappe à froid">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 shrink-0 mr-1">6 Zones :</span>
                     <button type="button" onclick="toggleQuickZoneFilter('Zone 1')" data-quick-zone="Zone 1" title="Zone 1 : Tablier et auvent moteur" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-brandBlue hover:bg-blue-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
@@ -561,15 +575,20 @@
                         <textarea id="formRemarques" rows="2" placeholder="ex : Présence fréquente de blaxon épais masquant les 2 derniers chiffres du VIN." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brandBlue outline-none"></textarea>
                     </div>
 
+                    <!-- Information RGPD sur la soumission -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600 leading-relaxed">
+                        <strong>Protection des données (RGPD) :</strong> aucune donnée n'est enregistrée automatiquement sur ce serveur par ce formulaire. Les informations saisies servent à préparer votre message ou votre ligne CSV à destination de <strong>Cédric DUCORNET EI</strong> (<code>cedric@cedriccarsitter.com</code>) afin d'enrichir la base VIN. Consultez la <a href="politique-confidentialite.html" class="text-brandBlue font-semibold hover:underline">Politique de confidentialité</a> et les <a href="mentions-legales.html" class="text-brandBlue font-semibold hover:underline">Mentions légales</a>.
+                    </div>
+
                     <!-- Bouton d'action du Formulaire -->
-                    <div class="pt-4 border-t border-slate-100">
+                    <div class="pt-2">
                         <button type="submit" class="w-full py-3 bg-brandOrange hover:bg-amber-600 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i> Préparer &amp; Copier l'envoi par Email
                         </button>
                     </div>
                 </form>
 
-                <!-- Panneau de choix d'envoi multi-canal (Option A sans ouverture auto mailto) -->
+                <!-- Panneau de choix d'envoi multi-canal -->
                 <div id="mailDispatchPanel" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3 text-xs">
                     <div class="flex items-start justify-between gap-2">
                         <div>
@@ -603,7 +622,7 @@
 
         </section>
 
-        <!-- Bloc Sémantique Indexable (SEO : contenu éditorial & FAQ accessible aux moteurs sans JS) -->
+        <!-- Bloc Sémantique Indexable (SEO & Avertissement Technique) -->
         <section aria-label="Guide technique et questions fréquentes sur la frappe à froid VIN" class="mt-10 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
@@ -614,6 +633,9 @@
             </div>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 La <strong>frappe à froid du numéro VIN</strong> (<em>Vehicle Identification Number</em> à 17 caractères) est l'identification gravée directement dans le métal du châssis ou de la coque du véhicule. Contrairement au numéro visible derrière le pare-brise ou sur l'étiquette constructeur de montant de porte, cette gravure inamovible est contrôlée systématiquement lors du <strong>contrôle technique périodique</strong> et des expertises automobiles.
+            </p>
+            <p class="text-[11px] sm:text-xs text-slate-500 bg-slate-50 border border-slate-200/80 rounded-xl p-3 leading-relaxed">
+                <strong>Avertissement technique :</strong> les emplacements indiqués dans ce référentiel sont donnés à titre indicatif selon les configurations les plus fréquentes. Selon le millésime, la motorisation, la provenance du véhicule ou une intervention antérieure, l'emplacement peut varier. Seule la gravure constatée physiquement sur le véhicule et le certificat d'immatriculation font foi.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 <details class="bg-slate-50 rounded-xl border border-slate-200 p-3.5" open>
@@ -673,76 +695,61 @@
 
                     <div class="bg-slate-900/70 rounded-xl p-2 border border-slate-800">
                         <svg id="vinCarSvg" viewBox="0 0 540 230" class="w-full h-auto select-none" role="img" aria-label="Schéma interactif des 6 zones de frappe à froid VIN sur véhicule">
-                            <!-- Repères d'orientation -->
                             <text x="270" y="16" text-anchor="middle" fill="#94A3B8" font-size="9" font-weight="700" letter-spacing="1.2">CÔTÉ CONDUCTEUR (GAUCHE)</text>
                             <text x="270" y="222" text-anchor="middle" fill="#F7941D" font-size="9" font-weight="700" letter-spacing="1.2">CÔTÉ PASSAGER (DROIT)</text>
                             <text x="16" y="118" text-anchor="middle" fill="#94A3B8" font-size="9" font-weight="700" letter-spacing="1.2" transform="rotate(-90 16 118)">ARRIÈRE</text>
                             <text x="524" y="118" text-anchor="middle" fill="#94A3B8" font-size="9" font-weight="700" letter-spacing="1.2" transform="rotate(90 524 118)">AVANT</text>
 
-                            <!-- Roues (4 passages de roues) -->
                             <rect x="98" y="42" width="58" height="12" rx="5" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
                             <rect x="384" y="42" width="58" height="12" rx="5" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
                             <rect x="98" y="182" width="58" height="12" rx="5" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
                             <rect x="384" y="182" width="58" height="12" rx="5" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
 
-                            <!-- Rétroviseurs -->
                             <path d="M 346 49 L 336 33 L 348 33 L 355 49 Z" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
                             <path d="M 346 187 L 336 203 L 348 203 L 355 187 Z" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
 
-                            <!-- Carrosserie principale (Silhouette vue de dessus) -->
                             <path d="M 52 72 Q 52 50 85 50 L 442 50 Q 488 50 492 85 L 492 151 Q 488 186 442 186 L 85 186 Q 52 186 52 164 Z" fill="#1E293B" stroke="#64748B" stroke-width="2"/>
 
-                            <!-- Pare-brise avant -->
                             <path d="M 318 60 L 364 66 Q 372 118 364 170 L 318 176 Q 326 118 318 60 Z" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
 
-                            <!-- Lunette arrière -->
                             <path d="M 94 66 L 138 62 Q 132 118 138 174 L 94 170 Q 88 118 94 66 Z" fill="#0F172A" stroke="#475569" stroke-width="1.5"/>
 
-                            <!-- Toit & Habitacle -->
                             <rect x="148" y="64" width="160" height="108" rx="12" fill="none" stroke="#334155" stroke-width="1.2" stroke-dasharray="4 3"/>
 
-                            <!-- Lignes de capot moteur -->
                             <path d="M 378 68 L 468 76 M 378 168 L 468 160" stroke="#334155" stroke-width="1.5" stroke-linecap="round"/>
 
-                            <!-- Axe central discret -->
                             <line x1="65" y1="118" x2="478" y2="118" stroke="#334155" stroke-width="1" stroke-dasharray="3 4"/>
 
-                            <!-- ZONE 1 : Tablier & Auvent Moteur -->
                             <g id="svgZone1" class="vin-zone-node" onclick="selectSvgZone('Zone 1')">
                                 <circle class="zone-halo hidden" cx="362" cy="130" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="362" cy="130" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
                                 <text x="362" y="134" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">1</text>
                             </g>
 
-                            <!-- ZONE 2 : Tourelle Amortisseur & Doublure d'Aile -->
                             <g id="svgZone2" class="vin-zone-node" onclick="selectSvgZone('Zone 2')">
                                 <circle class="zone-halo hidden" cx="415" cy="156" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="415" cy="156" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
                                 <text x="415" y="160" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">2</text>
                             </g>
 
-                            <!-- ZONE 3 : Plancher Passager & Sous Siège -->
                             <g id="svgZone3" class="vin-zone-node" onclick="selectSvgZone('Zone 3')">
                                 <circle class="zone-halo hidden" cx="288" cy="148" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="288" cy="148" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
                                 <text x="288" y="152" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">3</text>
                             </g>
 
-                            <!-- ZONE 4 : Pied de Porte & Charnières -->
                             <g id="svgZone4" class="vin-zone-node" onclick="selectSvgZone('Zone 4')">
                                 <circle class="zone-halo hidden" cx="328" cy="175" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="328" cy="175" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
                                 <text x="328" y="179" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">4</text>
                             </g>
 
-                            <!-- ZONE 5 : Longeron, Châssis & Passage de Roue -->
                             <g id="svgZone5" class="vin-zone-node" onclick="selectSvgZone('Zone 5')">
                                 <circle class="zone-halo hidden" cx="460" cy="154" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="460" cy="154" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
                                 <text x="460" y="158" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">5</text>
                             </g>
 
-                            <!-- ZONE 6 : Coffre & Plancher Arrière -->
                             <g id="svgZone6" class="vin-zone-node" onclick="selectSvgZone('Zone 6')">
                                 <circle class="zone-halo hidden" cx="106" cy="144" r="19" fill="#F7941D"/>
                                 <circle class="zone-core" cx="106" cy="144" r="13" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
@@ -751,7 +758,6 @@
                         </svg>
                     </div>
 
-                    <!-- Détail dynamique de la zone sélectionnée sur le SVG -->
                     <div class="bg-slate-800/90 border border-slate-700 rounded-xl px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                         <div class="space-y-0.5">
                             <div class="flex items-center gap-2">
@@ -807,29 +813,68 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-brandNight text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-2.5">
-            <a href="https://cedriccarsitter.com" class="inline-flex items-center bg-white rounded-xl px-2.5 py-1 shadow-sm hover:opacity-95 transition-opacity" title="Cedric CarSitter — Votre conciergerie d'autopartage" aria-label="Cedric CarSitter">
-                <svg viewBox="40 0 225 110" class="h-8 w-auto" role="img" aria-label="Logo Cedric CarSitter">
-                    <g>
-                        <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60"
-                              fill="none"
-                              stroke="#F7941D"
-                              stroke-width="7"
-                              stroke-linecap="round" />
-                        <text x="80" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                        <text x="91" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="18">edric</text>
-                        <text x="117" y="72" fill="#F7941D" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28">ar</text>
-                        <text x="147" y="72" fill="#1C75BC" font-family="'Montserrat', sans-serif" font-weight="600" font-size="28">Sitter</text>
-                        <text x="140" y="95" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
-                    </g>
-                </svg>
-            </a>
-            <p>&copy; <span id="yearSpan"></span> Cedric CarSitter — Votre conciergerie d'autopartage. Tous droits réservés.</p>
-            <p class="text-slate-500">Contact : <a href="mailto:cedric@cedriccarsitter.com" class="text-brandOrange hover:underline">cedric@cedriccarsitter.com</a></p>
+    <!-- Footer aligné avec Cedric CarSitter & obligations légales -->
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <a href="index.html" class="block hover:opacity-90 transition mb-4">
+                        <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                            <g>
+                                <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                                <text x="80" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                                <text x="91" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="18">edric</text>
+                                <text x="117" y="72" fill="#F7941D" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28">ar</text>
+                                <text x="147" y="72" fill="#1C75BC" font-family="'Montserrat', sans-serif" font-weight="600" font-size="28">Sitter</text>
+                                <text x="140" y="95" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                            </g>
+                        </svg>
+                    </a>
+                    <p class="text-sm text-slate-600 font-bold mb-1">Cédric DUCORNET EI</p>
+                    <p class="text-sm text-slate-500 font-medium">SIRET : 13107161500010 • 14 ter Rue de Salins, 25300 Pontarlier</p>
+                    <p class="text-xs text-slate-400 mt-2 font-medium">© <span id="yearSpan"></span> Cedric CarSitter. Tous droits réservés.</p>
+                    <p class="text-xs text-slate-500 mt-1 font-medium italic">
+                        "Votre conciergerie d'autopartage à Besançon, Pontarlier &amp; alentours."
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center gap-4">
+                    <a href="mailto:cedric@cedriccarsitter.com" class="bg-slate-50 border border-slate-200 text-slate-600 hover:text-brandBlue hover:border-brandBlue px-5 py-2 rounded-full text-xs font-bold tracking-wide transition flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-envelope text-brandOrange"></i> cedric@cedriccarsitter.com
+                    </a>
+                    <button type="button" onclick="reopenCookieBanner()" class="text-xs text-slate-500 hover:text-brandBlue underline font-medium">
+                        Gérer mes préférences cookies
+                    </button>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-600">
+                    <a href="index.html" class="hover:text-brandBlue transition hover:underline">Accueil</a>
+                    <a href="liens.html" class="hover:text-brandBlue transition hover:underline">Tous mes liens</a>
+                    <a href="mentions-legales.html" class="hover:text-brandBlue transition hover:underline">Mentions Légales</a>
+                    <a href="politique-confidentialite.html" class="hover:text-brandBlue transition hover:underline">Confidentialité</a>
+                    <a href="cookies.html" class="hover:text-brandBlue transition hover:underline">Cookies</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Bandeau Cookies CNIL (Accepter / Refuser au même niveau) -->
+    <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-2xl z-50 hidden cookie-banner border-t border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-xs sm:text-sm text-slate-300 text-center md:text-left">
+                Nous utilisons des cookies de mesure d'audience (Google Analytics) pour améliorer le service. Consultez notre <a href="cookies.html" class="underline font-bold text-brandOrange hover:text-amber-400">politique de cookies</a> et notre <a href="politique-confidentialite.html" class="underline font-bold hover:text-brandBlue">politique de confidentialité</a>.
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+                <button type="button" onclick="refuseCookies()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-5 rounded-full transition text-xs sm:text-sm whitespace-nowrap">
+                    Refuser
+                </button>
+                <button type="button" onclick="acceptCookies()" class="bg-brandBlue hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition shadow-lg text-xs sm:text-sm whitespace-nowrap">
+                    Accepter
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Logique JS principale -->
     <script>
@@ -837,6 +882,47 @@
         let filteredDataset = [];
         let currentVehicleZone = null;
         let selectedQuickZone = '';
+        let gaLoaded = false;
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        function loadGoogleAnalytics() {
+            if (gaLoaded) return;
+            gaLoaded = true;
+            const script = document.createElement('script');
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-BKZGBQHDDB';
+            script.async = true;
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', 'G-BKZGBQHDDB');
+        }
+
+        function initCookieConsent() {
+            const choice = localStorage.getItem('cookiesConsent');
+            if (choice === 'accepted') {
+                loadGoogleAnalytics();
+            } else if (!choice) {
+                document.getElementById('cookieBanner').classList.remove('hidden');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesConsent', 'accepted');
+            document.getElementById('cookieBanner').classList.add('hidden');
+            loadGoogleAnalytics();
+            showToast('Préférences enregistrées : mesure d’audience activée.', 'success');
+        }
+
+        function refuseCookies() {
+            localStorage.setItem('cookiesConsent', 'refused');
+            document.getElementById('cookieBanner').classList.add('hidden');
+            showToast('Préférences enregistrées : cookies analytiques refusés.', 'info');
+        }
+
+        function reopenCookieBanner() {
+            document.getElementById('cookieBanner').classList.remove('hidden');
+        }
 
         const ZONE_DEFINITIONS = {
             'Zone 1': {
@@ -927,7 +1013,6 @@
             volvo: `<svg viewBox="0 0 48 48" class="w-full h-full"><circle cx="24" cy="24" r="15" fill="none" stroke="#003057" stroke-width="2.8"/><path d="M34 14L41 7M34 7H41V14" fill="none" stroke="#003057" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="21" width="32" height="6" fill="#003057"/><text x="24" y="25.5" text-anchor="middle" fill="#FFFFFF" font-weight="800" font-size="5.5" letter-spacing="0.8">VOLVO</text></svg>`
         };
 
-        // Correspondance de secours pour d'éventuelles nouvelles marques ajoutées plus tard
         const REMOTE_ICON_SLUGS = {
             astonmartin: 'astonmartin',
             bentley: 'bentley',
@@ -952,6 +1037,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('yearSpan').textContent = new Date().getFullYear();
+            initCookieConsent();
             loadCSVData();
         });
 
