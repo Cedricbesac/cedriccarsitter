@@ -6,9 +6,12 @@
     <title>Frappe à Froid VIN : Emplacement Numéro de Châssis par Marque &amp; Modèle | Cedric CarSitter</title>
     <meta name="description" content="Base technique gratuite des emplacements de frappe à froid du numéro de châssis (VIN) sur plus de 500 modèles et 51 marques automobiles. Guide des 6 zones terrain pour contrôle technique et inspection — Cedric CarSitter.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="author" content="Cedric CarSitter">
+    <meta name="author" content="Cédric Ducornet">
     <link rel="canonical" href="https://cedriccarsitter.com/vin.html">
-    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Crect width='90' height='90' rx='18' fill='%231C75BC'/%3E%3Cpath d='M45,15 A30,30 0 1,0 45,75 A30,30 0 0,0 70,61' fill='none' stroke='%23F7941D' stroke-width='7' stroke-linecap='round'/%3E%3Ctext x='45' y='56' fill='black' font-family='sans-serif' font-weight='bold' font-size='36' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1C75BC">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
     <!-- Open Graph / Réseaux Sociaux -->
     <meta property="og:type" content="website">
@@ -17,11 +20,13 @@
     <meta property="og:title" content="Référentiel Frappe à Froid VIN — Emplacement Châssis par Modèle | Cedric CarSitter">
     <meta property="og:description" content="Localisez immédiatement la gravure légale du numéro de châssis (VIN) par marque et modèle : tourelle, plancher, tablier, pied de porte, longeron ou coffre.">
     <meta property="og:url" content="https://cedriccarsitter.com/vin.html">
+    <meta property="og:image" content="https://cedriccarsitter.com/whatsapp.jpg">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Référentiel Frappe à Froid VIN — Cedric CarSitter">
     <meta name="twitter:description" content="Base de localisation de la frappe à froid du numéro de châssis (VIN) sur 505 modèles et 51 marques pour inspection automobile et contrôle technique.">
+    <meta name="twitter:image" content="https://cedriccarsitter.com/whatsapp.jpg">
 
     <!-- Données Structurées Schema.org (JSON-LD) -->
     <script type="application/ld+json">
@@ -149,37 +154,58 @@
     }
     </script>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Font Montserrat -->
+    <!-- Tailwind CSS CDN & Police Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
+                        brand: { blue: '#1C75BC', orange: '#F7941D', dark: '#1E293B' },
                         brandBlue: '#1C75BC',
                         brandOrange: '#F7941D',
-                        brandNight: '#1E293B',
+                        brandNight: '#1E293B'
                     },
                     fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        sans: ['Montserrat', 'sans-serif']
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
+        html { scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .whatsapp-float {
+            position: fixed; bottom: 30px; left: 30px;
+            background-color: #25d366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
+            transition: transform 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        .back-to-top-floating {
+            position: fixed; bottom: 30px; right: 30px;
+            background-color: #333; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999;
+            text-decoration: none; display: none; opacity: 0; transition: opacity 0.3s;
+        }
+
+        .cookie-banner { animation: slideUp 0.5s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         @keyframes fadeZoomIn {
             from { opacity: 0; transform: scale(0.96); }
@@ -204,39 +230,71 @@
         }
     </style>
 </head>
-<body class="min-h-full flex flex-col text-slate-800 bg-slate-50">
+<body id="top" class="min-h-full flex flex-col text-slate-800 bg-slate-50 antialiased font-montserrat">
 
-    <!-- Header Principal -->
-    <header class="bg-brandNight text-white border-b-4 border-brandOrange shadow-lg sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-4">
-                <!-- Logo officiel Cedric CarSitter (SVG vectoriel exact sur fond blanc contrasté) -->
-                <a href="https://cedriccarsitter.com" class="shrink-0 bg-white rounded-xl px-2.5 py-1 shadow-sm flex items-center hover:opacity-95 transition-opacity" title="Cedric CarSitter — Votre conciergerie d'autopartage" aria-label="Cedric CarSitter - Retour à l'accueil">
-                    <svg viewBox="40 0 225 110" class="h-11 sm:h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
-                        <g>
-                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60"
-                                  fill="none"
-                                  stroke="#F7941D"
-                                  stroke-width="7"
-                                  stroke-linecap="round" />
-                            <text x="80" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                            <text x="91" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="18">edric</text>
-                            <text x="117" y="72" fill="#F7941D" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28">ar</text>
-                            <text x="147" y="72" fill="#1C75BC" font-family="'Montserrat', sans-serif" font-weight="600" font-size="28">Sitter</text>
-                            <text x="140" y="95" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+    <!-- HEADER UNIFIÉ -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="block hover:opacity-90 transition" title="Cedric CarSitter — Accueil">
+                    <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                            .logo-text { font-family: 'Montserrat', sans-serif; }
+                        </style>
+                        <g class="logo-text">
+                            <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                            <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                            <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                            <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                            <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                            <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
                         </g>
                     </svg>
                 </a>
-                <div class="border-l border-slate-700 pl-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-brandOrange text-white font-bold uppercase tracking-wider">VIN Pro</span>
-                        <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Référentiel Frappe à Froid VIN</h1>
+
+                <div class="flex items-center gap-6">
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-brand-blue focus:outline-none p-2" aria-label="Ouvrir le menu">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                    <div class="hidden md:flex space-x-4 lg:space-x-5 items-center">
+                        <a href="logistique.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Logistique</a>
+                        <a href="recherche-vehicule.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Recherche auto sur mesure</a>
+                        <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">CapCar</a>
+                        <a href="autopartage.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Autopartage</a>
+                        <a href="vin.html" class="text-brand-blue font-bold uppercase text-xs tracking-wide underline underline-offset-4">Outil VIN</a>
+                        <a href="liens.html" class="text-slate-600 hover:text-brand-orange font-bold uppercase text-xs tracking-wide border-l border-slate-200 pl-4">Liens</a>
+                        <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">WhatsApp</a>
                     </div>
-                    <p class="text-xs text-slate-300 font-medium mt-0.5">Emplacement de la gravure du numéro de châssis par marque et modèle</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Stats Rapides & Source Indicator -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-3 z-40">
+            <a href="logistique.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Prise en charge &amp; Logistique</a>
+            <a href="recherche-vehicule.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Recherche auto sur mesure</a>
+            <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">CapCar (Achat / Vente / Cotation)</a>
+            <a href="autopartage.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Autopartage (Cedric CarSitter)</a>
+            <a href="vin.html" onclick="toggleMobileMenu()" class="text-brand-blue font-bold uppercase text-sm py-2 border-b border-slate-50">Outil VIN (Frappe à froid)</a>
+            <a href="liens.html" onclick="toggleMobileMenu()" class="text-brand-orange font-bold uppercase text-sm py-2 border-b border-slate-50">Tous mes liens</a>
+            <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md">WhatsApp</a>
+        </div>
+    </nav>
+
+    <!-- Bandeau Outil VIN & Onglets -->
+    <div class="bg-brandNight text-white border-b-4 border-brandOrange shadow-sm pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-brandOrange text-white font-bold uppercase tracking-wider">VIN Pro</span>
+                    <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">Référentiel Frappe à Froid VIN</h1>
+                </div>
+                <p class="text-xs text-slate-300 font-medium mt-0.5">Emplacement de la gravure du numéro de châssis par marque et modèle</p>
+            </div>
+
             <div class="flex items-center gap-3 text-xs">
                 <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
                     <i class="fa-solid fa-database text-brandBlue"></i>
@@ -250,8 +308,7 @@
             </div>
         </div>
 
-        <!-- Navigation Tabs -->
-        <nav aria-label="Navigation du référentiel VIN" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto gap-2 border-t border-slate-800 pt-2 text-sm">
+        <div aria-label="Navigation du référentiel VIN" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto gap-2 border-t border-slate-800 pt-2 text-sm">
             <button type="button" onclick="switchTab('tab-database')" id="nav-database" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-brandOrange border-b-2 border-brandOrange bg-slate-800/60 whitespace-nowrap">
                 <i class="fa-solid fa-list-check"></i> Base VIN
             </button>
@@ -261,19 +318,19 @@
             <button type="button" onclick="switchTab('tab-add')" id="nav-add" class="tab-btn px-4 py-2 font-semibold rounded-t-lg transition-colors flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/40 whitespace-nowrap">
                 <i class="fa-solid fa-plus-circle"></i> Proposer / Ajouter un VIN
             </button>
-        </nav>
-    </header>
+        </div>
+    </div>
 
     <!-- Zone de Notification Toast -->
-    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+    <div id="toastContainer" class="fixed bottom-24 right-5 z-50 flex flex-col gap-2"></div>
 
     <!-- Contenu Principal -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- ================= ONGLET 1 : BASE VIN (DATABASE) ================= -->
         <section id="tab-database" class="tab-content space-y-4">
 
-            <!-- Explication rapide + 6 zones compactes (sans pousser la barre de recherche) -->
+            <!-- Explication rapide + 6 zones compactes -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-3 space-y-2.5">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 text-xs">
                     <p class="text-slate-600 leading-snug">
@@ -286,7 +343,7 @@
                     </button>
                 </div>
 
-                <!-- Bandeau compact des 6 zones terrain (cliquable pour filtrer / voir la zone) -->
+                <!-- Bandeau compact des 6 zones terrain -->
                 <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-[11px]" role="group" aria-label="Accès rapide aux 6 zones de frappe à froid">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 shrink-0 mr-1">6 Zones :</span>
                     <button type="button" onclick="toggleQuickZoneFilter('Zone 1')" data-quick-zone="Zone 1" title="Zone 1 : Tablier et auvent moteur" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-brandBlue hover:bg-blue-50 text-slate-700 font-semibold transition-colors whitespace-nowrap">
@@ -569,7 +626,7 @@
                     </div>
                 </form>
 
-                <!-- Panneau de choix d'envoi multi-canal (Option A sans ouverture auto mailto) -->
+                <!-- Panneau de choix d'envoi multi-canal -->
                 <div id="mailDispatchPanel" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3 text-xs">
                     <div class="flex items-start justify-between gap-2">
                         <div>
@@ -807,29 +864,84 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-brandNight text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-2.5">
-            <a href="https://cedriccarsitter.com" class="inline-flex items-center bg-white rounded-xl px-2.5 py-1 shadow-sm hover:opacity-95 transition-opacity" title="Cedric CarSitter — Votre conciergerie d'autopartage" aria-label="Cedric CarSitter">
-                <svg viewBox="40 0 225 110" class="h-8 w-auto" role="img" aria-label="Logo Cedric CarSitter">
-                    <g>
-                        <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60"
-                              fill="none"
-                              stroke="#F7941D"
-                              stroke-width="7"
-                              stroke-linecap="round" />
-                        <text x="80" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28" text-anchor="middle">C</text>
-                        <text x="91" y="52" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="18">edric</text>
-                        <text x="117" y="72" fill="#F7941D" font-family="'Montserrat', sans-serif" font-weight="700" font-size="28">ar</text>
-                        <text x="147" y="72" fill="#1C75BC" font-family="'Montserrat', sans-serif" font-weight="600" font-size="28">Sitter</text>
-                        <text x="140" y="95" fill="#1E293B" font-family="'Montserrat', sans-serif" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
-                    </g>
-                </svg>
-            </a>
-            <p>&copy; <span id="yearSpan"></span> Cedric CarSitter — Votre conciergerie d'autopartage. Tous droits réservés.</p>
-            <p class="text-slate-500">Contact : <a href="mailto:cedric@cedriccarsitter.com" class="text-brandOrange hover:underline">cedric@cedriccarsitter.com</a></p>
+    <!-- FOOTER ALLÉGÉ & UNIFIÉ -->
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <a href="index.html" class="block hover:opacity-90 transition mb-4">
+                        <svg viewBox="40 0 225 110" xmlns="http://www.w3.org/2000/svg" class="h-12 w-auto" role="img" aria-label="Logo Cedric CarSitter">
+                            <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+                                .logo-text { font-family: 'Montserrat', sans-serif; }
+                            </style>
+                            <g class="logo-text">
+                                <path d="M80,10 A32.5,32.5 0 1,0 80,75 A32.5,32.5 0 0,0 107.4,60" fill="none" stroke="#F7941D" stroke-width="7" stroke-linecap="round" />
+                                <text x="80" y="52" fill="#1E293B" font-weight="700" font-size="28" text-anchor="middle">C</text>
+                                <text x="91" y="52" fill="#1E293B" font-weight="500" font-size="18">edric</text>
+                                <text x="117" y="72" fill="#F7941D" font-weight="700" font-size="28">ar</text>
+                                <text x="147" y="72" fill="#1C75BC" font-weight="600" font-size="28">Sitter</text>
+                                <text x="140" y="95" fill="#1E293B" font-weight="500" font-size="11" text-anchor="middle" letter-spacing="1px">cedriccarsitter.com</text>
+                            </g>
+                        </svg>
+                    </a>
+                    <p class="text-sm text-slate-500 font-bold mb-1">Cédric DUCORNET EI</p>
+                    <p class="text-xs text-slate-400 font-medium">SIRET : 13107161500010</p>
+                    <p class="text-xs text-slate-500 mt-2 font-medium italic">
+                        Services automobiles sur Besançon, Pontarlier &amp; le Doubs.
+                    </p>
+                    <p class="text-xs text-slate-400 mt-3 font-medium">© <span id="yearSpan">2026</span> Cedric CarSitter. Tous droits réservés.</p>
+                </div>
+
+                <div class="flex flex-col items-center gap-5">
+                    <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="bg-slate-50 border border-slate-200 text-slate-600 hover:text-brand-blue hover:border-brand-blue px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 shadow-sm">
+                        Agent Indépendant CapCar
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+
+                    <div class="flex gap-6 items-center">
+                        <a href="https://www.instagram.com/cedriccarsitter/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-slate-400 hover:text-brand-orange transition transform hover:scale-110">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                        </a>
+                        <a href="https://www.facebook.com/cedriccarsitter/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-slate-400 hover:text-brand-blue transition transform hover:scale-110">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/cedricducornet" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-slate-400 hover:text-brand-blue transition transform hover:scale-110">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-600">
+                    <a href="liens.html" class="hover:text-brand-blue transition hover:underline">Liens</a>
+                    <a href="mentions-legales.html" class="hover:text-brand-blue transition hover:underline">Mentions Légales</a>
+                    <a href="politique-confidentialite.html" class="hover:text-brand-blue transition hover:underline">Confidentialité</a>
+                    <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Bannière Cookies -->
+    <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md text-white p-4 shadow-2xl z-50 hidden cookie-banner border-t border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-slate-300 text-center md:text-left">
+                Nous utilisons des cookies pour améliorer votre expérience. En naviguant, vous acceptez notre <a href='cookies.html' class='underline font-bold hover:text-brand-blue'>politique de cookies</a>.
+            </div>
+            <button type="button" onclick="acceptCookies()" class="bg-brand-blue hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition shadow-lg text-sm whitespace-nowrap">
+                Accepter et Fermer
+            </button>
+        </div>
+    </div>
+
+    <!-- Boutons Flottants WhatsApp & Retour Haut -->
+    <a href="https://wa.me/33651625709" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
+    </a>
+    <a href="#top" class="back-to-top-floating" id="btnTop" aria-label="Retour en haut">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="white"/></svg>
+    </a>
 
     <!-- Logique JS principale -->
     <script>
@@ -950,8 +1062,50 @@
             xpeng: 'xpeng'
         };
 
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-BKZGBQHDDB";
+            script.async = true;
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', 'G-BKZGBQHDDB');
+        }
+
+        function acceptCookies() {
+            document.getElementById('cookieBanner').classList.add('hidden');
+            localStorage.setItem('cookiesAccepted', 'true');
+            loadGoogleAnalytics();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        const btnTop = document.getElementById("btnTop");
+        window.addEventListener('scroll', function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnTop.style.display = "flex";
+                setTimeout(() => btnTop.style.opacity = "1", 10);
+            } else {
+                btnTop.style.opacity = "0";
+                setTimeout(() => btnTop.style.display = "none", 300);
+            }
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('yearSpan').textContent = new Date().getFullYear();
+            const yearEl = document.getElementById('yearSpan');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            if (localStorage.getItem('cookiesAccepted') === 'true') {
+                loadGoogleAnalytics();
+            } else {
+                document.getElementById('cookieBanner').classList.remove('hidden');
+            }
+
             loadCSVData();
         });
 

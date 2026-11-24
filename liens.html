@@ -232,11 +232,11 @@
 </head>
 <body class="bg-slate-100 text-slate-800 font-montserrat min-h-screen flex flex-col">
 
-    <!-- NAVIGATION HARMONISÉE AVEC LE SITE -->
+    <!-- HAUT DE PAGE UNIFIÉ -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="block hover:opacity-90 transition" title="Accueil Cedric CarSitter">
+                <a href="index.html" class="block hover:opacity-90 transition" title="Cedric CarSitter — Accueil">
                     <svg viewBox="40 0 225 110" class="h-12 md:h-16 w-auto -ml-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Cedric CarSitter">
                         <style>
                             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
@@ -253,19 +253,34 @@
                     </svg>
                 </a>
 
-                <div class="flex items-center gap-3 sm:gap-5">
-                    <a href="index.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide transition">
-                        Accueil CarSitter
-                    </a>
-                    <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1 text-slate-500 hover:text-brand-blue font-bold uppercase text-xs tracking-wide border-l border-slate-200 pl-4 transition">
-                        Vitrine CapCar
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
-                    <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" class="bg-brand-blue hover:bg-blue-700 text-white px-4 py-2 rounded-full font-bold transition shadow-md text-xs uppercase tracking-wide">
-                        WhatsApp
-                    </a>
+                <div class="flex items-center gap-6">
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-brand-blue focus:outline-none p-2" aria-label="Ouvrir le menu">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                    <div class="hidden md:flex space-x-4 lg:space-x-5 items-center">
+                        <a href="logistique.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Logistique</a>
+                        <a href="recherche-vehicule.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Recherche auto sur mesure</a>
+                        <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">CapCar</a>
+                        <a href="autopartage.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Autopartage</a>
+                        <a href="vin.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Outil VIN</a>
+                        <a href="liens.html" class="text-brand-orange font-bold uppercase text-xs tracking-wide border-l border-slate-200 pl-4 underline underline-offset-4">Liens</a>
+                        <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">WhatsApp</a>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-3 z-40">
+            <a href="logistique.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Prise en charge &amp; Logistique</a>
+            <a href="recherche-vehicule.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Recherche auto sur mesure</a>
+            <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">CapCar (Achat / Vente / Cotation)</a>
+            <a href="autopartage.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Autopartage (Cedric CarSitter)</a>
+            <a href="vin.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Outil VIN (Frappe à froid)</a>
+            <a href="liens.html" onclick="toggleMobileMenu()" class="text-brand-orange font-bold uppercase text-sm py-2 border-b border-slate-50">Tous mes liens</a>
+            <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md">WhatsApp</a>
         </div>
     </nav>
 
@@ -591,7 +606,7 @@
         </section>
     </main>
 
-    <!-- PIED DE PAGE UNIFIÉ AVEC LE SITE -->
+    <!-- BAS DE PAGE UNIFIÉ -->
     <footer class="bg-white border-t border-slate-200 py-12 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -613,12 +628,12 @@
                             </g>
                         </svg>
                     </a>
-                    <p class="text-sm text-slate-400 font-bold mb-1">Cédric DUCORNET EI</p>
-                    <p class="text-sm text-slate-400 font-medium">SIRET : 13107161500010</p>
-                    <p class="text-xs text-slate-400 mt-3 font-medium">© 2026 Cedric CarSitter. Tous droits réservés.</p>
+                    <p class="text-sm text-slate-500 font-bold mb-1">Cédric DUCORNET EI</p>
+                    <p class="text-xs text-slate-400 font-medium">SIRET : 13107161500010</p>
                     <p class="text-xs text-slate-500 mt-2 font-medium italic">
-                        "Votre conciergerie d'autopartage à Besançon, Pontarlier & alentours."
+                        Votre conciergerie d'autopartage sur Besançon, Pontarlier &amp; le Doubs.
                     </p>
+                    <p class="text-xs text-slate-400 mt-3 font-medium">© <span id="yearSpan">2026</span> Cedric CarSitter. Tous droits réservés.</p>
                 </div>
 
                 <div class="flex flex-col items-center gap-5">
@@ -642,7 +657,7 @@
 
                 <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-600">
                     <a href="index.html" class="hover:text-brand-blue transition hover:underline">Accueil</a>
-                    <a href="liens.html" class="font-bold text-brand-blue">Tous mes liens</a>
+                    <a href="liens.html" class="font-bold text-brand-blue">Liens</a>
                     <a href="mentions-legales.html" class="hover:text-brand-blue transition hover:underline">Mentions Légales</a>
                     <a href="politique-confidentialite.html" class="hover:text-brand-blue transition hover:underline">Confidentialité</a>
                     <a href="cookies.html" class="hover:text-brand-blue transition hover:underline">Cookies</a>
@@ -653,6 +668,14 @@
 
     <!-- SCRIPT DE PARTAGE ET VCARD (AVEC LIBELLÉS PERSONNALISÉS ET PHOTO) -->
     <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        const yearEl = document.getElementById('yearSpan');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
         function shareLink(title, url) {
             if (navigator.share) {
                 navigator.share({
