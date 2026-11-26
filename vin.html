@@ -265,7 +265,7 @@
                         <a href="recherche-vehicule.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Recherche auto sur mesure</a>
                         <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">CapCar</a>
                         <a href="autopartage.html" class="text-slate-600 hover:text-brand-blue font-bold uppercase text-xs tracking-wide">Autopartage</a>
-                        <a href="vin.html" class="text-brand-blue font-bold uppercase text-xs tracking-wide underline underline-offset-4">Outil VIN</a>
+                        <a href="vin.html" class="text-brand-blue font-extrabold uppercase text-xs tracking-wide border-b-2 border-brand-orange pb-1">Outil VIN</a>
                         <a href="liens.html" class="text-slate-600 hover:text-brand-orange font-bold uppercase text-xs tracking-wide border-l border-slate-200 pl-4">Liens</a>
                         <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" class="bg-brand-blue hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition shadow-lg text-xs uppercase tracking-wide">WhatsApp</a>
                     </div>
@@ -278,7 +278,7 @@
             <a href="recherche-vehicule.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Recherche auto sur mesure</a>
             <a href="https://www.capcar.fr/lien/vitrine/cedric.ducornet" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">CapCar (Achat / Vente / Cotation)</a>
             <a href="autopartage.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Autopartage (Cedric CarSitter)</a>
-            <a href="vin.html" onclick="toggleMobileMenu()" class="text-brand-blue font-bold uppercase text-sm py-2 border-b border-slate-50">Outil VIN (Frappe à froid)</a>
+            <a href="vin.html" onclick="toggleMobileMenu()" class="text-slate-600 font-bold uppercase text-sm py-2 border-b border-slate-50">Outil VIN (Frappe à froid)</a>
             <a href="liens.html" onclick="toggleMobileMenu()" class="text-brand-orange font-bold uppercase text-sm py-2 border-b border-slate-50">Tous mes liens</a>
             <a href="https://wa.me/33651625709" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="bg-brand-blue text-white text-center py-3 rounded-xl font-bold uppercase text-sm shadow-md">WhatsApp</a>
         </div>
@@ -853,7 +853,7 @@
             </div>
             <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex flex-wrap justify-between items-center gap-2">
                 <a id="modalYoutubeBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl transition-colors flex items-center gap-1.5">
-                    <i class="fa-brands fa-youtube text-sm"></i> Rechercher la vidéo sur YouTube
+                    <i class="fa-brands fa-youtube text-sm"></i> Rechercher sur Find That Vin (YouTube)
                 </a>
                 <div class="flex items-center gap-2 ml-auto">
                     <button type="button" id="modalEmailBtn" class="px-4 py-2 bg-brandOrange hover:bg-amber-600 text-white font-semibold text-xs rounded-xl transition-colors">
@@ -894,7 +894,7 @@
                     <p class="text-xs text-slate-500 mt-2 font-medium italic">
                         Services automobiles sur Besançon, Pontarlier &amp; le Doubs.
                     </p>
-                    <p class="text-xs text-slate-400 mt-3 font-medium">© <span id="yearSpan">2026</span> Cedric CarSitter. Tous droits réservés.</p>
+                    <p class="text-xs text-slate-400 mt-3 font-medium">© 2026 Cedric CarSitter. Tous droits réservés.</p>
                 </div>
 
                 <div class="flex flex-col items-center gap-5">
@@ -1295,8 +1295,16 @@
             return match ? `Zone ${match[1]}` : null;
         }
 
+        /**
+         * Génère une URL de recherche YouTube ciblée sur la chaîne Find That Vin (@findthatvin3817)
+         * en utilisant results?search_query= pour une compatibilité totale sur PC comme sur mobile (iOS/Android).
+         */
         function getYoutubeSearchUrl(marque, modele) {
-            const query = `${marque || ''} ${modele || ''} Chassis Vin Number Location`.trim();
+            const vehicle = [marque, modele]
+                .map(s => String(s || '').trim())
+                .filter(Boolean)
+                .join(' ');
+            const query = `@findthatvin3817 ${vehicle} Chassis Vin Number Location`.trim();
             return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
         }
 
@@ -1502,7 +1510,7 @@
                         </button>
                         
                         <div class="flex items-center gap-1.5">
-                            <a href="${youtubeUrl}" target="_blank" rel="noopener noreferrer" title="Rechercher sur YouTube : ${escapeHtml(item.Marque || '')} ${escapeHtml(item.Modele || '')} Chassis Vin Number Location" class="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+                            <a href="${youtubeUrl}" target="_blank" rel="noopener noreferrer" title="Rechercher sur la chaîne Find That Vin : @findthatvin3817 ${escapeHtml(item.Marque || '')} ${escapeHtml(item.Modele || '')} Chassis Vin Number Location" class="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg transition-colors flex items-center gap-1.5">
                                 <i class="fa-brands fa-youtube text-sm"></i>
                                 <span>Vidéo</span>
                             </a>
@@ -1883,6 +1891,11 @@ Cordialement,`;
                 .replace(/\\/g, '\\\\')
                 .replace(/'/g, "\\'")
                 .replace(/"/g, '\\"');
+        }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').catch(function() {});
+            });
         }
     </script>
 </body>
