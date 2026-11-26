@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frappe à Froid VIN : Emplacement Numéro de Châssis par Marque &amp; Modèle | Cedric CarSitter</title>
-    <meta name="description" content="Base technique gratuite des emplacements de frappe à froid du numéro de châssis (VIN) sur plus de 500 modèles et 51 marques automobiles. Guide des 6 zones terrain pour contrôle technique et inspection — Cedric CarSitter.">
+    <meta name="description" content="Base technique gratuite des emplacements de frappe à froid du numéro de châssis (VIN) sur 468 modèles et 36 marques automobiles. Guide des 6 zones terrain pour contrôle technique et inspection — Cedric CarSitter.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="author" content="Cédric Ducornet">
     <link rel="canonical" href="https://cedriccarsitter.com/vin.html">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Référentiel Frappe à Froid VIN — Cedric CarSitter">
-    <meta name="twitter:description" content="Base de localisation de la frappe à froid du numéro de châssis (VIN) sur 505 modèles et 51 marques pour inspection automobile et contrôle technique.">
+    <meta name="twitter:description" content="Base de localisation de la frappe à froid du numéro de châssis (VIN) sur 468 modèles et 36 marques pour inspection automobile et contrôle technique.">
     <meta name="twitter:image" content="https://cedriccarsitter.com/whatsapp.jpg">
 
     <!-- Données Structurées Schema.org (JSON-LD) -->
@@ -41,7 +41,7 @@
           "applicationCategory": "AutomotiveApplication",
           "operatingSystem": "Web",
           "inLanguage": "fr-FR",
-          "description": "Outil de recherche technique permettant d'identifier l'emplacement exact de la frappe à froid du numéro de châssis (VIN) par marque et modèle automobile (505 modèles, 51 marques).",
+          "description": "Outil de recherche technique permettant d'identifier l'emplacement exact de la frappe à froid du numéro de châssis (VIN) par marque et modèle automobile (468 modèles, 36 marques).",
           "offers": {
             "@type": "Offer",
             "price": "0",
@@ -298,7 +298,7 @@
             <div class="flex items-center gap-3 text-xs">
                 <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
                     <i class="fa-solid fa-database text-brandBlue"></i>
-                    <span id="statCount" class="font-bold text-white">505</span>
+                    <span id="statCount" class="font-bold text-white">468</span>
                     <span class="text-slate-400">modèles</span>
                 </div>
                 <div id="sourceStatusBadge" class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2">
@@ -364,6 +364,9 @@
                     <button type="button" onclick="toggleQuickZoneFilter('Zone 6')" data-quick-zone="Zone 6" title="Zone 6 : Coffre et plancher arrière" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:border-slate-500 hover:bg-slate-100 text-slate-700 font-semibold transition-colors whitespace-nowrap">
                         <span class="text-slate-700 font-extrabold">6.</span> Coffre / Arrière
                     </button>
+                    <button type="button" onclick="toggleQuickZoneFilter('A verifier')" data-quick-zone="A verifier" title="Modèles récents en cours de vérification terrain" class="quick-zone-btn shrink-0 px-2.5 py-1 rounded-lg border border-amber-200 bg-amber-50/70 hover:border-amber-500 hover:bg-amber-100 text-amber-800 font-semibold transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-hourglass-half text-amber-600 mr-1"></i> À vérifier
+                    </button>
                 </div>
             </div>
             
@@ -425,7 +428,7 @@
                 <i class="fa-solid fa-triangle-exclamation text-red-600 text-xl mt-0.5"></i>
                 <div>
                     <h2 class="font-bold">Fichier de données introuvable sur le serveur</h2>
-                    <p class="text-xs mt-1 text-red-700">Assurez-vous que le fichier <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">Base_Emplacements_VIN_Cedric_CarSitter.csv</code> est bien placé dans le même répertoire que cette page sur le serveur.</p>
+                    <p class="text-xs mt-1 text-red-700">Assurez-vous que le fichier <code class="bg-red-100 px-1.5 py-0.5 rounded font-mono">BASEVIN.csv</code> est bien placé dans le même répertoire que cette page sur le serveur.</p>
                 </div>
             </div>
 
@@ -667,7 +670,7 @@
                     <i class="fa-solid fa-book-open text-brandBlue"></i>
                     Comprendre et localiser la frappe à froid du numéro de châssis (VIN)
                 </h2>
-                <span class="text-xs text-slate-400 font-medium">51 marques &bull; 505 modèles référencés</span>
+                <span class="text-xs text-slate-400 font-medium">36 marques &bull; 468 modèles référencés</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 La <strong>frappe à froid du numéro VIN</strong> (<em>Vehicle Identification Number</em> à 17 caractères) est l'identification gravée directement dans le métal du châssis ou de la coque du véhicule. Contrairement au numéro visible derrière le pare-brise ou sur l'étiquette constructeur de montant de porte, cette gravure inamovible est contrôlée systématiquement lors du <strong>contrôle technique périodique</strong> et des expertises automobiles.
@@ -823,22 +826,22 @@
                     </div>
                 </div>
 
-                <!-- Méthode & Outillage -->
+                <!-- Repère rapide & Conseil contrôle -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-key text-brandBlue mr-1"></i> Méthode d'Accès</span>
-                        <span id="modalMethode" class="text-slate-700 text-xs"></span>
+                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-bullseye text-brandBlue mr-1"></i> Repère Rapide</span>
+                        <span id="modalMethode" class="text-slate-700 text-xs font-medium"></span>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-wrench text-brandOrange mr-1"></i> Outillage Requis</span>
+                        <span class="font-semibold text-slate-500 text-xs block mb-1"><i class="fa-solid fa-lightbulb text-brandOrange mr-1"></i> Conseil Terrain</span>
                         <span id="modalOutillage" class="text-slate-700 text-xs"></span>
                     </div>
                 </div>
 
-                <!-- Remarques & Pièges -->
+                <!-- Vigilance Contrôle Technique -->
                 <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-amber-900 space-y-1">
                     <span class="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-amber-800">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Remarques &amp; Pièges Terrain
+                        <i class="fa-solid fa-triangle-exclamation"></i> Vigilance Contrôle Technique
                     </span>
                     <p id="modalRemarques" class="text-xs leading-relaxed"></p>
                 </div>
@@ -980,10 +983,15 @@
                 label: 'ZONE 6',
                 title: 'Coffre & Plancher Arrière',
                 desc: 'Longeron intérieur droit ou bac de roue de secours sous le tapis de coffre.'
+            },
+            'A verifier': {
+                label: 'À VÉRIFIER',
+                title: 'Emplacement terrain en cours de validation',
+                desc: 'Modèle récent dont la frappe à froid exacte est à confirmer sur le véhicule (vérifier en priorité Zones 2, 3 et 4).'
             }
         };
 
-        // Emblèmes SVG natifs haute précision couvrant 100 % des 51 marques du référentiel CSV
+        // Emblèmes SVG natifs haute précision couvrant 100 % des 36 marques du référentiel CSV
         const BRAND_SVGS = {
             abarth: `<svg viewBox="0 0 48 48" class="w-full h-full"><path d="M11 7H37V23C37 33 24 42 24 42C24 42 11 33 11 23V7Z" fill="#DC2626" stroke="#1E293B" stroke-width="2"/><path d="M11 7H37V14H11Z" fill="#15803D"/><path d="M24 18V33M18 22L24 25L30 22M17 28L24 30L31 28" stroke="#FACC15" stroke-width="2.4" stroke-linecap="round"/></svg>`,
             alfaromeo: `<svg viewBox="0 0 48 48" class="w-full h-full"><circle cx="24" cy="24" r="18" fill="#FFFFFF" stroke="#003366" stroke-width="3.5"/><path d="M24 8A16 16 0 0 0 24 40V8Z" fill="#FFFFFF"/><path d="M24 8A16 16 0 0 1 24 40V8Z" fill="#E0F2FE"/><path d="M16 14V34M10 24H22" stroke="#DC2626" stroke-width="3.2"/><path d="M28 15C32 18 28 22 32 25C35 28 30 32 28 34" fill="none" stroke="#15803D" stroke-width="3" stroke-linecap="round"/></svg>`,
@@ -1165,9 +1173,10 @@
             const errorBanner = document.getElementById('csvErrorBanner');
 
             const candidates = [
-                './Base_Emplacements_VIN_Cedric_CarSitter.csv',
-                './Base_Emplacements_VIN_Cedric_CarSitter_V2.csv',
-                './base_emplacements_vin_cedric_carsitter.csv'
+                './BASEVIN.csv',
+                './basevin.csv',
+                './vin.csv',
+                './Base_Emplacements_VIN_Cedric_CarSitter.csv'
             ];
 
             let csvText = null;
@@ -1242,11 +1251,31 @@
             for (let i = 1; i < lines.length; i++) {
                 const values = splitCsvLine(lines[i], delimiter).map(v => v.replace(/^"|"$/g, '').trim());
                 if (values.length >= 2) {
-                    const obj = {};
+                    const rawObj = {};
                     headers.forEach((h, idx) => {
-                        obj[h] = values[idx] !== undefined ? values[idx] : '';
+                        rawObj[h] = values[idx] !== undefined ? values[idx] : '';
                     });
-                    data.push(obj);
+                    const zoneVal = rawObj.zone || rawObj.Zone_Frappe || 'A verifier';
+                    const courtVal = rawObj.court || rawObj.Emplacement_Precise_Frappe || '';
+                    const descVal = rawObj.Description_IA || rawObj.Emplacement_Precise_Frappe || courtVal;
+                    const isUnverified = /verif/i.test(normalizeText(zoneVal)) || /verif/i.test(normalizeText(courtVal));
+
+                    data.push({
+                        Marque: rawObj.Marque || '',
+                        Modele: rawObj.Modele || '',
+                        Annee_Debut: rawObj.Annee_Debut || '',
+                        Annee_Fin: rawObj.Annee_Fin || 'Présent',
+                        Zone_Frappe: isUnverified ? 'À vérifier' : zoneVal,
+                        Emplacement_Court: isUnverified ? 'Emplacement à confirmer sur véhicule' : courtVal,
+                        Description_IA: isUnverified
+                            ? 'Emplacement de frappe à froid en cours de vérification terrain pour ce modèle récent. Contrôlez en priorité la tourelle d’amortisseur avant droite (Zone 2), le plancher sous le siège passager avant (Zone 3) et le pied de porte passager (Zone 4).'
+                            : descVal,
+                        Methode_Acces: rawObj.Methode_Acces || '',
+                        Outillage_Necessaire: rawObj.Outillage_Necessaire || '',
+                        Remarques_Pieges: rawObj.Remarques_Pieges || '',
+                        Derniere_Mise_A_Jour: rawObj.Derniere_Mise_A_Jour || '2026-11',
+                        Source_Validation: rawObj.Source_Validation || 'Cedric CarSitter'
+                    });
                 }
             }
             return data;
@@ -1260,7 +1289,9 @@
         }
 
         function normalizeZoneKey(zoneStr) {
-            const match = String(zoneStr || '').match(/([1-6])/);
+            const raw = String(zoneStr || '').trim();
+            if (/verif/i.test(normalizeText(raw))) return 'A verifier';
+            const match = raw.match(/([1-6])/);
             return match ? `Zone ${match[1]}` : null;
         }
 
@@ -1395,7 +1426,7 @@
                 const matchZone = !selectedQuickZone || normalizeZoneKey(item.Zone_Frappe) === selectedQuickZone;
                 
                 const searchStr = normalizeText(
-                    `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Precise_Frappe} ${item.Methode_Acces} ${item.Outillage_Necessaire} ${item.Remarques_Pieges}`
+                    `${item.Marque} ${item.Modele} ${item.Zone_Frappe} ${item.Emplacement_Court} ${item.Description_IA} ${item.Methode_Acces} ${item.Outillage_Necessaire} ${item.Remarques_Pieges}`
                 );
                 const matchSearch = !search || searchStr.includes(search);
 
@@ -1460,7 +1491,7 @@
                                 <span class="font-semibold text-slate-700 flex items-center gap-1.5">
                                     <i class="fa-solid fa-crosshairs text-brandBlue"></i> Frappe à froid châssis :
                                 </span>
-                                <p class="text-slate-600 mt-0.5 line-clamp-2">${escapeHtml(item.Emplacement_Precise_Frappe || 'À compléter')}</p>
+                                <p class="text-slate-600 mt-0.5 line-clamp-2">${escapeHtml(item.Emplacement_Court || item.Description_IA || 'À compléter')}</p>
                             </div>
                         </div>
                     </div>
@@ -1487,6 +1518,7 @@
 
         function getZoneBadgeColor(zone) {
             if (!zone) return 'bg-slate-100 text-slate-700';
+            if (/verif/i.test(normalizeText(zone))) return 'bg-orange-100 text-brandOrange border border-orange-200';
             if (zone.includes('Zone 1')) return 'bg-blue-100 text-brandBlue';
             if (zone.includes('Zone 2')) return 'bg-amber-100 text-amber-800';
             if (zone.includes('Zone 3')) return 'bg-emerald-100 text-emerald-800';
@@ -1575,10 +1607,10 @@
             document.getElementById('modalModele').textContent = item.Modele || '';
             document.getElementById('modalAnnees').textContent = `Années : ${item.Annee_Debut || ''} - ${item.Annee_Fin || 'Présent'}`;
             document.getElementById('modalZoneBadge').textContent = item.Zone_Frappe || 'Zone N/A';
-            document.getElementById('modalEmplacementFrappe').textContent = item.Emplacement_Precise_Frappe || 'Emplacement de frappe à froid à compléter.';
-            document.getElementById('modalMethode').textContent = item.Methode_Acces || 'Accès standard visualisable.';
-            document.getElementById('modalOutillage').textContent = item.Outillage_Necessaire || 'Lampe torche recommandée.';
-            document.getElementById('modalRemarques').textContent = item.Remarques_Pieges || 'Aucun piège spécifique signalé.';
+            document.getElementById('modalEmplacementFrappe').textContent = item.Description_IA || item.Emplacement_Court || 'Emplacement de frappe à froid à compléter.';
+            document.getElementById('modalMethode').textContent = item.Methode_Acces || item.Emplacement_Court || 'Accès standard visualisable.';
+            document.getElementById('modalOutillage').textContent = item.Outillage_Necessaire || 'Lampe torche LED en lumière rasante et brosse douce non abrasive.';
+            document.getElementById('modalRemarques').textContent = item.Remarques_Pieges || 'Vérifier la lisibilité des 17 caractères gravés dans le métal (ne jamais poncer la zone).';
             document.getElementById('modalDate').textContent = item.Derniere_Mise_A_Jour || '2026-11';
             document.getElementById('modalSource').textContent = 'Cedric CarSitter';
 
@@ -1773,11 +1805,21 @@ Cordialement,`;
         }
 
         function buildCsvLine(item) {
+            const descriptionComplete = [
+                item.Emplacement_Precise_Frappe,
+                item.Methode_Acces ? `Accès : ${item.Methode_Acces}.` : '',
+                item.Outillage_Necessaire ? `Outillage : ${item.Outillage_Necessaire}.` : '',
+                item.Remarques_Pieges ? `Remarque : ${item.Remarques_Pieges}.` : ''
+            ].filter(Boolean).join(' ');
+
             const fields = [
-                item.Marque || '', item.Modele || '', item.Annee_Debut || '', item.Annee_Fin || '',
-                item.Zone_Frappe || '', item.Emplacement_Precise_Frappe || '',
-                item.Methode_Acces || '', item.Outillage_Necessaire || '',
-                item.Remarques_Pieges || '', item.Derniere_Mise_A_Jour || '', 'Cedric CarSitter'
+                item.Marque || '',
+                item.Modele || '',
+                item.Annee_Debut || '',
+                item.Annee_Fin || '',
+                descriptionComplete,
+                item.Emplacement_Precise_Frappe || '',
+                item.Zone_Frappe || ''
             ];
             return fields.map(f => `"${String(f).replace(/"/g, '""')}"`).join(',');
         }
